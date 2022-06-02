@@ -1,0 +1,18 @@
+// TODO
+
+// Frontend
+Landing page
+Login form
+Register form
+Dynamic form of adding users to the group
+Events page
+
+// Backend
+Login/register handler
+User handler
+Heroku/node.js
+
+https://www.mongodb.com/developer/products/atlas/use-atlas-on-heroku/
+
+
+Programowanie terminali mobilnych
