@@ -1,5 +1,9 @@
 // TODO
 
+// Infrastructure
+GIT - https://github.com/mvjkel1/inzynierka
+JIRA - In progress
+
 // Frontend
 Landing page
 Login form
