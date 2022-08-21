@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#side {
+  padding: 0;
+  overflow: hidden;
+}
+
+#sidetitle {
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: auto;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+#sidetext {
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 5px;
+  margin-right: auto;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+.react-tag-input {
+  min-height: 55px !important;
+  border-width: 2px !important;
+  border-radius: 5px !important;
+}
+
+input {
+  border-radius: 20px;
+  padding: 15px;
+  border-color: white !important;
+  border: solid;
+  background-color: #2f2f2f;
+  margin: 5px;
+
+  border-width: 2px;
+}
