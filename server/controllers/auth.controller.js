@@ -29,7 +29,7 @@ exports.signin = async (req, res) => {
   let db_connect = db.getDb();
   let myquery = { username: req.body.username };
 
-  let user = {};
+  let user = {}; // Unused
 
   db_connect.collection("users").findOne(myquery, function (err, user) {
     if (err) return res.status(500).send({ message: err });
