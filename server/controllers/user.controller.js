@@ -1,66 +1,41 @@
-const dbo = require("../db/conn");
-const ObjectId = require("mongodb").ObjectId;
-const moment = require("moment");
+const User = require("../models/user.model");
+const asyncHandler = require("express-async-handler");
 
-exports.blockUser = (req, res) => {
-  let targets = [];
-  req.query.id.forEach((target) => targets.push(new ObjectId(target)));
-  let myquery = { _id: { $in: targets } };
-  let db_connect = dbo.getDb();
-  db_connect
-    .collection("users")
-    .update(myquery, { $set: { enabled: false } })
-    .then(() => {
-      res.status(200).send({ message: "success" });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "something blew up" });
-      throw err;
-    });
+exports.getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    data: {
+      users: users,
+    },
+  });
+});
+
+exports.getUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined!",
+  });
 };
 
-exports.changeUserStatus = (req, res) => {
-  let targets = [];
-  Array.isArray(req.query.id)
-    ? req.query.id.forEach((t) => targets.push(new ObjectId(t)))
-    : targets.push(new ObjectId(req.query.id));
-  dbo
-    .getDb()
-    .collection("users")
-    .update(
-      { _id: { $in: targets } },
-      { $set: { enabled: req.query.active == "1" ? true : false } }
-    )
-    .then(() => res.status(200).send({ message: "success" }))
-    .catch((err) => {
-      res.status(500).send({ message: "something blew up" });
-      throw err;
-    });
+exports.createUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined!",
+  });
 };
 
-exports.deleteUser = (req, res) => {
-  let targets = [];
-  Array.isArray(req.query.id)
-    ? req.query.id.forEach((t) => targets.push(new ObjectId(t)))
-    : targets.push(new ObjectId(req.query.id));
-  dbo
-    .getDb()
-    .collection("users")
-    .deleteMany({ _id: { $in: targets } })
-    .then(() => res.status(200).send({ message: "success" }))
-    .catch((err) => {
-      res.status(500).send({ message: "something blew up" });
-      throw err;
-    });
+exports.updateUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined!",
+  });
 };
 
-exports.getUserList = (req, res) => {
-  let db_connect = dbo.getDb();
-  db_connect
-    .collection("users")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.status(200).send(result);
-    });
+exports.deleteMe = async (req, res, next) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined!",
+  });
 };

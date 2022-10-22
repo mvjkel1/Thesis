@@ -1,16 +1,26 @@
 const { authJwt } = require("../middlewares");
-const controller = require("../controllers/user.controller");
-module.exports = function (app) {
-  app.use(function (req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+const userController = require("../controllers/user.controller");
+const authController = require("../controllers/auth.controller");
+const express = require("express");
 
-  app.get("/api/get/userList", [authJwt.verifyToken], controller.getUserList);
-  app.get("/api/get/changeUserStatus", [authJwt.verifyToken], controller.changeUserStatus);
-  app.get("/api/get/deleteUser", [authJwt.verifyToken], controller.deleteUser);
+const router = express.Router();
 
-};
+// Actual user routes
+router
+  .post("/login", authController.login)
+  .post("/signup", authController.signup)
+  .get("/logout", authController.logout);
+
+router.delete("/deleteMe", userController.deleteMe);
+
+// System administrator routes
+router.route("/").get(userController.getAllUsers);
+//   .post(userController.createUser);
+
+// router
+//   .route("/:id")
+//   .get(userController.getUser)
+//   .get(userController.updateUser)
+//   .delete(userController.deleteUser);
+
+module.exports = router;
