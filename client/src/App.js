@@ -1,48 +1,39 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { Main } from "./components/Main/Main";
-import { LoginPrompt } from "./components/LoginPrompt/LoginPrompt";
-import { RegisterPrompt } from "./components/RegisterPrompt/RegisterPrompt";
-import { SideMenu } from "./components/SideMenu/SideMenu";
-import { Panel } from "./components/Panel/Panel";
-import AppBar from "./components/Appbar";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import styled from "@emotion/styled";
 import "./App.css";
+import {Box, Button, Container, Grid, Stack, Toolbar} from "@mui/material"
+import ResponsiveAppBar from "./components/UserView/Appbar";
+import Sidebar from "./components/UserView/Sidebar";
+import Main from "./components/UserView/Main";
+import { Rightbar } from "./components/UserView/Rightbar";
+import { theme } from "./theme";
+import UserView from "./components/UserView/UserView";
+import SignIn from "./components/SplashView/SplashView";
+import Chat from "./components/UserView/Chat";
+import MyCalendar from "./components/UserView/Calendar";
+import { useSelector } from "react-redux";
+
+const BlueButton = styled(Button)(({theme}) => ({
+  backgroundColor: theme.palette.primary.main
+}))
+
+function RequireAuth({ children, redirectTo }) {
+  const user = useSelector(state => state.auth.currentUser);
+  return user ? children : <Navigate to={redirectTo} />;
+}
 
 function App() {
+
   return (
     <BrowserRouter>
-      <div className="App">
-        <Box sx={{ marginTop: 1, paddingLeft: 2, paddingRight: 2 }}>
-          <Grid container direction="row" spacing={2}>
-            <Grid item xs={12} align="center">
-              <AppBar />
-            </Grid>
-          </Grid>
-        </Box>
-        <Box mt={2} sx={{ paddingLeft: 2, paddingRight: 2 }}>
-          <Grid container direction="row" spacing={2}>
-            <Grid item xs={12} sm={12} md={10} lg={10}>
-              <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/panel" element={<Panel />} />
-              </Routes>
-            </Grid>
-            <Grid item xs={0} sm={0} md={2} lg={2}>
-              <Box sx={{ height: "100%", display: "flex" }}>
-                <SideMenu />
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} align="center">
-            <Footer />
-          </Grid>
-        </Box>
-        <LoginPrompt />
-        <RegisterPrompt />
-      </div>
+      <Routes>
+        <Route path="/" element={<RequireAuth redirectTo="/login"><UserView/></RequireAuth>}>
+          <Route path="/" element={<MyCalendar/>}/>
+          <Route path="chat" element={<Chat/>}/>
+        </Route>
+        <Route path="/login" element={<SignIn/>} />
+      </Routes>
     </BrowserRouter>
   );
 }

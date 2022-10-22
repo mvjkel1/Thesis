@@ -16,10 +16,6 @@ export const register = (username, email, password) => (dispatch) => {
       dispatch({
         type: REGISTER_SUCCESS,
       });
-      dispatch({
-        type: SET_REGISTER_MESSAGE,
-        payload: response.data.message,
-      });
       return Promise.resolve();
     },
     (error) => {
@@ -31,10 +27,7 @@ export const register = (username, email, password) => (dispatch) => {
         error.toString();
       dispatch({
         type: REGISTER_FAIL,
-      });
-      dispatch({
-        type: SET_REGISTER_MESSAGE,
-        payload: message,
+        payload: message
       });
       return Promise.reject();
     }
@@ -60,10 +53,7 @@ export const login = (username, password) => (dispatch) => {
         error.toString();
       dispatch({
         type: LOGIN_FAIL,
-      });
-      dispatch({
-        type: SET_LOGIN_MESSAGE,
-        payload: message,
+        payload: message
       });
       return Promise.reject();
     }
