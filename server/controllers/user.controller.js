@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
-const asyncHandler = require("express-async-handler");
+const catchAsync = require("./../utils/catch.async");
 
-exports.getAllUsers = asyncHandler(async (req, res, next) => {
+exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
     status: "success",

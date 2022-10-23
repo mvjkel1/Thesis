@@ -1,7 +1,8 @@
 const { promisify } = require("util");
 const User = require("./../models/user.model");
 const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
+const catchAsync = require("./../utils/catch.async");
+const AppError = require("./../utils/app.error");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -39,7 +40,7 @@ const createSendToken = (user, statusCode, res) => {
   }
 };
 
-exports.signup = asyncHandler(async (req, res, next) => {
+exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -50,21 +51,21 @@ exports.signup = asyncHandler(async (req, res, next) => {
   createSendToken(newUser, 201, res);
 });
 
-exports.login = asyncHandler(async (req, res, next) => {
+exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   console.log(req.body);
   if (!email || !password) {
-    return next(new Error("Please provide email and password!", 400));
+    return next(new AppError("Please provide email and password!", 400));
   } else {
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await user.correctPasswords(password, user.password))) {
-      return next(new Error("Incorrect email or password!", 401)).json();
+      return next(new AppError("Incorrect email or password!", 401));
     }
     createSendToken(user, 200, res);
   }
 });
 
-exports.logout = asyncHandler(async (req, res, next) => {
+exports.logout = catchAsync(async (req, res, next) => {
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
@@ -74,7 +75,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 });
 
 //.Protect getAllClasses route
-exports.protect = asyncHandler(async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
   // 1. Getting token and check if it exists
   let token;
   if (
@@ -86,7 +87,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
   if (!token) {
     return next(
-      new Error("You are not logged in - not authorized to get there.", 401)
+      new AppError("You are not logged in - not authorized to get there.", 401)
     );
   }
   console.log(token);

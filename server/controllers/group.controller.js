@@ -1,7 +1,7 @@
 const Group = require("./../models/group.model");
-const asyncHandler = require("express-async-handler");
+const catchAsync = require("./../utils/catch.async");
 
-exports.createGroup = asyncHandler(async (req, res, next) => {
+exports.createGroup = catchAsync(async (req, res, next) => {
   const newGroup = await Group.create(req.body);
   res.status(201).json({
     status: "success",
@@ -11,7 +11,7 @@ exports.createGroup = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.getAllGroups = asyncHandler(async (req, res, next) => {
+exports.getAllGroups = catchAsync(async (req, res, next) => {
   const groups = await Group.find();
   res.status(201).json({
     status: "success",

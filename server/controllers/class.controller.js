@@ -1,7 +1,7 @@
 const Class = require("./../models/class.model");
-const asyncHandler = require("express-async-handler");
+const catchAsync = require("./../utils/catch.async");
 
-exports.createClass = asyncHandler(async (req, res, next) => {
+exports.createClass = catchAsync(async (req, res, next) => {
   const newClass = await Class.create(req.body);
   res.status(201).json({
     status: "success",
@@ -11,7 +11,7 @@ exports.createClass = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.getAllClasses = asyncHandler(async (req, res, next) => {
+exports.getAllClasses = catchAsync(async (req, res, next) => {
   const classes = await Class.find();
   res.status(201).json({
     status: "success",
