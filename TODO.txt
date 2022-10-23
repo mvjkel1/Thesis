@@ -1,35 +1,77 @@
 // TODO
+-
+-// Infrastructure
+-GIT - https://github.com/mvjkel1/inzynierka
+-JIRA - In progress
+-
+-// Frontend
+-TECH STACK:
+-JS, React, Redux, Material UI, (...)
+-
+-VIEWS:
+-* Landing page
+-	- get started call-to-action
+-* Login form
+-* Register form
+-* Creating entity (group? classroom?)
+-	CONTENT
+-	- dynamic dropdown selection of users
+-	- other form inputs (name, description etc.)
+-	SIDEBAR
+-	(...)
+-* Main
+-	CONTENT
+-	- interactive calendar with upcoming events
+-	- related files and comments(?) shown on day selected
+-	SIDEBAR
+-	- "file tree"-styled view of courses broken down into specific assigments (LAB1, LAB2 etc)
+-
+-After signing up, the user creates a "room" which actually corresponds to a specific course and semester.
+-Therefore, an invitation link is generated and can be shared with other (future) participants.
+-All participants can add their own files related to any study subject. 
+-
+-After the semester ends, resources can be shared with other students belonging to previous groups (how?).
+-
+-
+-// Backend
+-MODULES
+-* Login/register handler
+-* User handler
+-* Content handler (uploading, deleting, inserting entries, data format check)
+-
+-TECH STACK
+-Node.js, Heroku, MongoDB, Atlas
+-
+-https://www.mongodb.com/developer/products/atlas/use-atlas-on-heroku/
+-
+-1. Admin Panel
+-
+-2. File Tree
+-Programowanie terminali mobilnych
+-  LAB01
+-    instrukcja
+-    gotowe rozwiazanie
+-  LAB02
+-  .
+-  .
+-  .
+-  Zaliczenie
+-    Materialy
+-      Post1
+-      Post2
+-      Post3
+-// Frontend
+-Landing page
+-Login form
+-Register form
+-Dynamic form of adding users to the group
+-Events page
+-
+-// Backend
+-Login/register handler
+-User handler
+-Heroku/node.js
+-
+-https://www.mongodb.com/developer/products/atlas/use-atlas-on-heroku/
+-
 
-// Frontend
-Landing page
-Login form
-Register form
-Dynamic form of adding users to the group
-Events page
-Default page after logging in
-
-// Backend
-Login/register handler
-User handler
-Heroku/node.js
-MongoDB
-Atlas
-
-https://www.mongodb.com/developer/products/atlas/use-atlas-on-heroku/
-
-1. Admin Panel
-
-2. File Tree
-Programowanie terminali mobilnych
-  LAB01
-    instrukcja
-    gotowe rozwiazanie
-  LAB02
-  .
-  .
-  .
-  Zaliczenie
-    Materialy
-      Post1
-      Post2
-      Post3

@@ -6,6 +6,10 @@ const cors = require("cors");
 // const authRouter = require("./routes/auth.routes");
 const userRouter = require("./routes/user.routes");
 const groupRouter = require("./routes/group.routes");
+const classRouter = require("./routes/class.routes");
+const globalErrorHandler = require("./controllers/error.controller");
+const AppError = require("./utils/app.error");
+
 const corsOptions = {
   origin: "127.0.0.1:" + PORT.toString(),
 };
@@ -22,13 +26,12 @@ app.use((req, res, next) => {
 });
 
 // ROUTES
-// app.use("/api/v1/users", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/groups", groupRouter);
+app.use("/api/v1/classes", classRouter);
 app.all("*", (req, res, next) => {
-  res.status(404).json({
-    status: "fail",
-    message: `Can't find ${req.originalUrl} on this server.`,
-  });
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 module.exports = app;

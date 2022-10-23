@@ -3,15 +3,11 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const groupSchema = new mongoose.Schema({
+const classSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "A group must have a name"],
     unique: true,
-  },
-  founder: {
-    type: String,
-    required: [true, "A group must have a founder"],
+    required: [true, "A class must have a name"],
   },
   createdAt: {
     type: Date,
@@ -19,6 +15,6 @@ const groupSchema = new mongoose.Schema({
   },
 });
 
-const Group = mongoose.model("Group", groupSchema);
+const Class = mongoose.model("Class", classSchema);
 
-module.exports = Group;
+module.exports = Class;
