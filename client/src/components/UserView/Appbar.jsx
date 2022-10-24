@@ -42,8 +42,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout())
-      .then(() => navigate('/'));
+    dispatch(logout());
   }
 
   return (

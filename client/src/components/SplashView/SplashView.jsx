@@ -1,10 +1,10 @@
-import Login from "./Login"
+import Auth from "./Auth"
 
 
 const SplashView = () => {
 
     return (
-        <Login/>
+        <Auth/>
     )
 }
 

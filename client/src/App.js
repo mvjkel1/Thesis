@@ -19,7 +19,7 @@ const BlueButton = styled(Button)(({theme}) => ({
 }))
 
 function RequireAuth({ children, redirectTo }) {
-  const user = useSelector(state => state.auth.currentUser);
+  const user = useSelector(state => state.auth.user);
   return user ? children : <Navigate to={redirectTo} />;
 }
 
