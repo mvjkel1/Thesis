@@ -38,6 +38,13 @@ const createSendToken = (user, statusCode, res) => {
   }
 };
 
+const createSendError = (error, code, res) => {
+  res.status(code).json({
+    status: "fail",
+    message: error
+  });
+}
+
 exports.signup = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -57,7 +64,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   } else {
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await user.correctPasswords(password, user.password))) {
-      return next(new Error("Incorrect email or password!", 401));
+      return createSendError("Wrong credentials", 401, res);
     }
     createSendToken(user, 200, res);
   }

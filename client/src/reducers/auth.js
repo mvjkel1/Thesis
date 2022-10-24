@@ -7,7 +7,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  currentUser: null || JSON.parse(localStorage.getItem("user")),
+  user: null || JSON.parse(localStorage.getItem("user")),
   error: null,
 }
 
@@ -17,6 +17,7 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        user: payload,
         error: null,
       };
     case REGISTER_FAIL:
@@ -28,18 +29,18 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: null,
-        currentUser: payload.user,
+        user: payload,
       };
     case LOGIN_FAIL:
       return {
         ...state,
         error: payload,
-        currentUser: null,
+        user: null,
       };
     case LOGOUT:
       return {
         ...state,
-        currentUser: null,
+        user: null,
       };
     default:
       return state;

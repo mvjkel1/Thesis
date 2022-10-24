@@ -18,7 +18,7 @@ import { logout } from "../actions/auth";
 const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { currentUser } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleOpenUserMenu = (event) => {
@@ -64,8 +64,8 @@ const ResponsiveAppBar = (props) => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }} />
           <Box>
             <Typography>
-              {currentUser
-                ? "Logged as: " + currentUser.username
+              {user
+                ? "Logged as: " + user.username
                 : "Not logged in."}
             </Typography>
           </Box>
@@ -74,7 +74,7 @@ const ResponsiveAppBar = (props) => {
               onClick={() => {
                 dispatch(toggleLoginPrompt(true));
               }}
-              sx={{ display: currentUser ? "none" : "inline" }}
+              sx={{ display: user ? "none" : "inline" }}
               hidden
             >
               {" "}
@@ -105,7 +105,7 @@ const ResponsiveAppBar = (props) => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem
-                disabled={!currentUser}
+                disabled={!user}
                 key="logout"
                 onClick={handleLogout}
               >

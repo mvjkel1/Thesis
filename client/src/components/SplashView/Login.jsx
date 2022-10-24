@@ -14,28 +14,54 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/auth";
+import { registerAction } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
-import { LinearProgress } from "@mui/material";
+import { Collapse, LinearProgress } from "@mui/material";
 import { useState } from "react";
+import { useCallback } from "react";
+import { useForm } from "react-hook-form";
+
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [signUpMode, setSignUpMode] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const error = useSelector((state) => state.auth.error);
-  const [isLoading, setIsLoading] = useState(false);
+  const {register, handleSubmit, formState: { errors }} = useForm();
+  const { ref: nameRef, ...nameProps} = register(
+    "name");
+  const { ref: emailRef, ...emailProps} = register(
+    "email", {
+    required: "E-mail is required.",
+    pattern: {
+      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+      message: "Invalid email address."
+    }
+  });
+  const { ref: passwordRef, ...passwordProps } = register(
+    "password", {
+    required: "Password is required."
+  });
+  const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
+    "passwordConfirm");
 
-  const handleSubmit = (event) => {
+  const signIn = (data) => {
+    return dispatch(login(data.email, data.password))
+  }
+
+  const signUp = (data) => {
+    return dispatch(registerAction(data.name, data.email, data.password, data.passwordConfirm))
+  }
+
+  const onSubmit = (data) => {
     setIsLoading(true);
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    dispatch(login(data.get("email"), data.get("password")))
-      .then(() => {
-        navigate("/");
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    var action = {};
+    if(signUpMode) action = signUp;
+    else action = signIn;
+    action(data)
+      .then(() => {navigate('/');})
+      .finally(() => setIsLoading(false))
   };
 
   return (
@@ -72,15 +98,30 @@ export default function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              {signUpMode ? "Sign Up" : "Sign In"}
             </Typography>
             <Typography>{error}</Typography>
             <Box
               component="form"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               noValidate
               sx={{ mt: 1 }}
             >
+
+            <Collapse in={signUpMode}>
+              <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="name"
+              label="Name"
+              id="name"
+              autoComplete="name"
+              inputRef={nameRef} {...nameProps}
+              error={!!errors.name}
+              helperText={errors?.name?.message}
+              />
+            </Collapse>
               <TextField
                 margin="normal"
                 required
@@ -90,6 +131,9 @@ export default function Login() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                inputRef={emailRef} {...emailProps}
+                error={!!errors.email}
+                helperText={errors?.email?.message}
               />
               <TextField
                 margin="normal"
@@ -100,7 +144,23 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={passwordRef} {...passwordProps}
+                error={!!errors.password}
+                helperText={errors?.password?.message}
               />
+              {signUpMode && <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="passwordConfirm"
+              label="Confirm password"
+              type="password"
+              id="passwordConfirm"
+              autoComplete="current-password"
+              inputRef={passwordConfirmRef} {...passwordConfirmProps}
+              error={!!errors.passwordConfirm}
+              helperText={errors?.passwordConfirm?.message}
+            />}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -111,7 +171,7 @@ export default function Login() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                {signUpMode ? "Sign Up" : "Sign In"}
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -120,7 +180,7 @@ export default function Login() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link variant="body2" onClick={() => setSignUpMode(true)}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
