@@ -15,6 +15,7 @@ router.delete("/deleteMe", userController.deleteMe);
 
 // System administrator routes
 router.route("/").get(userController.getAllUsers);
+router.route("/:id").get(userController.getUser);
 //   .post(userController.createUser);
 
 // router
