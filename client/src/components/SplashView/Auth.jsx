@@ -79,7 +79,7 @@ export default function Auth() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: "#C5F5FF",
+            backgroundColor: "#ffffff",
             border: "solid",
             borderColor: "#C5F5FF",
             borderRadius: 8,
@@ -112,7 +112,6 @@ export default function Auth() {
               noValidate
               sx={{ mt: 1 }}
             >
-
             <Collapse in={signUpMode}>
               <TextField
               margin="normal"
@@ -132,7 +131,7 @@ export default function Auth() {
                 required
                 fullWidth
                 id="email"
-                label="Email address"
+                label="Email Address"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -141,6 +140,7 @@ export default function Auth() {
                 helperText={errors?.email?.message}
               />
               <TextField
+                color="warning"
                 margin="normal"
                 required
                 fullWidth
@@ -153,30 +153,42 @@ export default function Auth() {
                 error={!!errors.password}
                 helperText={errors?.password?.message}
               />
-              {signUpMode && <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="passwordConfirm"
-              label="Confirm password"
-              type="password"
-              id="passwordConfirm"
-              autoComplete="current-password"
-              inputRef={passwordConfirmRef} {...passwordConfirmProps}
-              error={!!errors.passwordConfirm}
-              helperText={errors?.passwordConfirm?.message}
-            />}
+              <Collapse in={signUpMode}>
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="passwordConfirm"
+                label="Confirm password"
+                type="password"
+                id="passwordConfirm"
+                autoComplete="current-password"
+                inputRef={passwordConfirmRef} {...passwordConfirmProps}
+                error={!!errors.passwordConfirm}
+                helperText={errors?.passwordConfirm?.message}
+              />
+            </Collapse>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
               <Button
                 type="submit"
+                color="primaryCtaButton"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2, mb: 2, pt: 1.5, pb: 1.5 }}
               >
                 {signUpMode ? "Sign Up" : "Sign In"}
+              </Button>
+              <Button
+                color="secondaryCtaButton"
+                fullWidth
+                variant="outlined"
+                sx={{ mt: -0.2, mb: 2, pt: 1.5, pb: 1.5 }}
+                onClick={() => setSignUpMode(!signUpMode)}
+              >
+                {signUpMode ? "Back to login" : "New user? Sign Up!"}
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -186,7 +198,7 @@ export default function Auth() {
                 </Grid>
                 <Grid item>
                   <Link variant="body2" onClick={() => setSignUpMode(true)}>
-                    {"Don't have an account? Sign Up"}
+                    {"Our terms of service (TOS)"}
                   </Link>
                 </Grid>
               </Grid>

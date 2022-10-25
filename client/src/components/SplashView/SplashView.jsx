@@ -1,10 +1,18 @@
+import { Box } from "@mui/material";
 import Auth from "./Auth"
 
 
 const SplashView = () => {
 
     return (
-        <Auth/>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "#eaecf9",
+            minHeight: "100%"
+        }}>
+            <Auth/>
+        </Box>
     )
 }
 

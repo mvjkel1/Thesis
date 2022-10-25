@@ -9,7 +9,7 @@ import Main from "./components/UserView/Main";
 import { Rightbar } from "./components/UserView/Rightbar";
 import { theme } from "./theme";
 import UserView from "./components/UserView/UserView";
-import SignIn from "./components/SplashView/SplashView";
+import SplashView from "./components/SplashView/SplashView";
 import Chat from "./components/UserView/Chat";
 import MyCalendar from "./components/UserView/Calendar";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ function App() {
           <Route path="/" element={<MyCalendar/>}/>
           <Route path="chat" element={<Chat/>}/>
         </Route>
-        <Route path="/login" element={<SignIn/>} />
+        <Route path="/login" element={<SplashView/>} />
       </Routes>
     </BrowserRouter>
   );

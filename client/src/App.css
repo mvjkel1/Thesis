@@ -43,3 +43,12 @@ input {
 
   border-width: 2px;
 }
+
+
+body{
+  height: 100vh;
+}
+
+#root{
+  height: 100%;
+}
