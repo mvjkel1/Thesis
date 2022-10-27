@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import Auth from "./Auth"
+import Auth from "./Form"
+import Auth2 from "./AuthContainer";
 
 
 const SplashView = () => {
@@ -8,10 +9,12 @@ const SplashView = () => {
         <Box sx={{
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "#eaecf9",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#6d6f6e",
             minHeight: "100%"
         }}>
-            <Auth/>
+            <Auth2/>
         </Box>
     )
 }
