@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import "./App.css";
+import "./styling/App.css";
 import {Box, Button, Container, Grid, Stack, Toolbar} from "@mui/material"
-import ResponsiveAppBar from "./components/UserView/Appbar";
-import Sidebar from "./components/UserView/Sidebar";
-import Main from "./components/UserView/Main";
-import { Rightbar } from "./components/UserView/Rightbar";
-import { theme } from "./theme";
-import UserView from "./components/UserView/UserView";
-import SplashView from "./components/SplashView/SplashView";
-import Chat from "./components/UserView/Chat";
-import MyCalendar from "./components/UserView/Calendar";
+import ResponsiveAppBar from "./views/UserView/Appbar";
+import Sidebar from "./views/UserView/Sidebar";
+import Main from "./views/UserView/Main";
+import { Rightbar } from "./views/UserView/Rightbar";
+import { theme } from "./styling/theme";
+import UserView from "./views/UserView/UserView";
+import SplashView from "./views/SplashView/SplashView";
+import Chat from "./views/UserView/Chat";
+import MyCalendar from "./views/UserView/Calendar";
 import { useSelector } from "react-redux";
 
 const BlueButton = styled(Button)(({theme}) => ({

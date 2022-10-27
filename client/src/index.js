@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./styling/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./components/App/store.js";
+import store from "./redux/store";
 import { ThemeProvider } from "@mui/material";
-import {theme} from './theme'
+import {theme} from './styling/theme'
 
 ReactDOM.render(
   <React.StrictMode>

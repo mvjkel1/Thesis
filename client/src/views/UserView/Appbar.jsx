@@ -14,7 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { CssBaseline } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../actions/auth';
+
+import { logout } from '../../redux/actions/auth';
 import { useNavigate } from 'react-router-dom';
 
 const pages = ['test', 'test2', 'test3'];

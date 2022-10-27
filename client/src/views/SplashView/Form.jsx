@@ -13,8 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/auth";
-import { registerAction } from "../../actions/auth";
+import { login } from "../../redux/actions/auth";
+import { registerAction } from "../../redux/actions/auth";
 import { useNavigate } from "react-router-dom";
 import { Collapse, LinearProgress } from "@mui/material";
 import { useState } from "react";
@@ -71,23 +71,18 @@ export default function Auth() {
 
   return (
     <React.Fragment>
-      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             backgroundColor: "#ffffff",
-            border: "solid",
-            borderColor: "#C5F5FF",
-            borderRadius: 8,
             overflow: "hidden",
           }}
         >
           {isLoading && (
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "200%" }}>
               <LinearProgress />
             </Box>
           )}
@@ -205,7 +200,6 @@ export default function Auth() {
             </Box>
           </Box>
         </Box>
-      </Container>
     </React.Fragment>
   );
 }
