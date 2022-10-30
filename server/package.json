@@ -17,8 +17,12 @@
     "experss": "^0.0.1-security",
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.6.0",
+    "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.3",
+    "mongo-sanitize": "^1.1.0",
     "mongodb": "^4.4.1",
     "mongoose": "^6.5.3",
     "morgan": "^1.10.0",
@@ -28,7 +32,8 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "validator": "^13.7.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xss-clean": "^0.1.1"
   },
   "scripts": {
     "start": "nodemon server.js",
