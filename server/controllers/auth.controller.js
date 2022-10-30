@@ -195,7 +195,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
   await user.save();
-  // Update changePasswordAt property for the user
+  // Update changedPasswordAt property for the user
   // Log the user in, send JWT
   createSendToken(user, 200, res);
 });
