@@ -67,6 +67,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
 userSchema.methods.correctPasswords = async function (
   candidatePassword,
   userPassword
@@ -80,11 +86,19 @@ userSchema.methods.changedPasswordAfter = function (JWT_TIMESTAMP) {
       this.passwordChangedAt.getTime() / 1000,
       10
     );
-    console.log(JWT_TIMESTAMP, changedTimestamp);
     return JWT_TIMESTAMP < changedTimestamp;
   }
-
   return false;
+};
+
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
 };
 
 const User = mongoose.model("User", userSchema);

@@ -9,7 +9,9 @@ const router = express.Router();
 router
   .post("/login", authController.login)
   .post("/signup", authController.signup)
-  .get("/logout", authController.logout);
+  .get("/logout", authController.logout)
+  .post("/forgotPassword", authController.forgotPassword)
+  .patch("/resetPassword/:token", authController.resetPassword);
 
 router.delete("/deleteMe", userController.deleteMe);
 
