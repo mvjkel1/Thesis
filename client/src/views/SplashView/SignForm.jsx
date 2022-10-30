@@ -138,7 +138,6 @@ export default function SignForm() {
                 helperText={errors?.email?.message}
               />
               <TextField
-                color="warning"
                 margin="normal"
                 required
                 fullWidth
