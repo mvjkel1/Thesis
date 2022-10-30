@@ -1,4 +1,3 @@
-const { authJwt } = require("../middlewares");
 const userController = require("../controllers/user.controller");
 const authController = require("../controllers/auth.controller");
 const express = require("express");
@@ -17,8 +16,8 @@ router
     authController.protect,
     authController.updatePassword
   )
-  .patch("/updateMe", authController.protect, userController.updateMe);
-router.delete("/deleteMe", userController.deleteMe);
+  .patch("/updateMe", authController.protect, userController.updateMe)
+  .delete("/deleteMe", authController.protect, userController.deleteMe);
 
 // System administrator routes
 router.route("/").get(userController.getAllUsers);

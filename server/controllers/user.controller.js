@@ -1,17 +1,6 @@
 const User = require("../models/user.model");
 const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
-const { findByIdAndUpdate } = require("../models/user.model");
-
-const filterObj = (obj, ...allowedFields) => {
-  const object = {};
-  Object.keys(obj).forEach((el) => {
-    if (allowedFields.includes(el)) {
-      object[el] = obj[el];
-    }
-  });
-  return object;
-};
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -69,9 +58,10 @@ exports.updateUser = (req, res) => {
   });
 };
 
-exports.deleteMe = async (req, res, next) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+  res.status(204).json({
+    status: "success",
+    data: null,
   });
-};
+});
