@@ -24,16 +24,11 @@ import { useForm } from "react-hook-form";
 
 export default function RecoveryForm(){
     const [isLoading, setIsLoading] = useState(false);
-    const [signUpMode, setSignUpMode] = useState(false);
+    const [isSent, setIsSent] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const error = useSelector((state) => state.auth.error);
     const {register, handleSubmit, formState: { errors }} = useForm();
-    const { ref: nameRef, ...nameProps} = register(
-      "name", 
-      signUpMode && {
-        required: "Name is required!"
-      });
     const { ref: emailRef, ...emailProps} = register(
       "email", {
       required: "E-mail is required.",
@@ -42,33 +37,29 @@ export default function RecoveryForm(){
         message: "Invalid email address."
       }
     });
+
     const { ref: passwordRef, ...passwordProps } = register(
-      "password", {
-      required: "Password is required."
+    "password", false && {
+    required: "Password is required."
     });
     const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
-      "passwordConfirm", signUpMode && {
+    "passwordConfirm", false && {
         required: "Password is required."
-      });
-  
-    const signIn = (data) => {
-      return dispatch(login(data.email, data.password))
-    }
+    });
 
     const reset = (data) => {
-        //return dispatch(resetPassword...)
+        // return dispatch(resetPassword...)
     }
 
-    const request = (data) => {
-        //return dispatch(requestNewPassword...)
+    const request = () => {
+        return new Promise(res => setTimeout(res, 3000))
     }
 
     const onSubmit = (data) => {
         setIsLoading(true);
         const action = {};
-        action(data)
-          .then(() => {navigate('/');})
-          .catch(() => setIsLoading(false))
+        request()
+          .then(() => {setIsSent(true); setIsLoading(false)})
       };
 
     return (
@@ -103,7 +94,7 @@ export default function RecoveryForm(){
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  {signUpMode ? "Sign Up" : "Sign In"}
+                  "Password recovery"
                 </Typography>
                 <Typography>{error}</Typography>
                 <Box
@@ -112,21 +103,7 @@ export default function RecoveryForm(){
                   noValidate
                   sx={{ mt: 1 }}
                 >
-                <Collapse in={signUpMode}>
-                  <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="name"
-                  label="Name"
-                  id="name"
-                  autoComplete="name"
-                  inputRef={nameRef} {...nameProps}
-                  error={!!errors.name}
-                  helperText={errors?.name?.message}
-                  />
-                </Collapse>
-                  <TextField
+                 {!isSent && <TextField
                     margin="normal"
                     required
                     fullWidth
@@ -138,40 +115,10 @@ export default function RecoveryForm(){
                     inputRef={emailRef} {...emailProps}
                     error={!!errors.email}
                     helperText={errors?.email?.message}
-                  />
-                  <TextField
-                    color="warning"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    inputRef={passwordRef} {...passwordProps}
-                    error={!!errors.password}
-                    helperText={errors?.password?.message}
-                  />
-                  <Collapse in={signUpMode}>
-                    <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="passwordConfirm"
-                    label="Confirm password"
-                    type="password"
-                    id="passwordConfirm"
-                    autoComplete="current-password"
-                    inputRef={passwordConfirmRef} {...passwordConfirmProps}
-                    error={!!errors.passwordConfirm}
-                    helperText={errors?.passwordConfirm?.message}
-                  />
-                </Collapse>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                  />
+                  />}
+
+                  {isSent && <Box className="mailWrapper" sx={{display: "flex", justifyContent: "center"}}><img src="/assets/mail-gif.gif" height="200"/></Box>}
+                  
                   <Button
                     type="submit"
                     color="primaryCtaButton"
@@ -179,16 +126,16 @@ export default function RecoveryForm(){
                     variant="contained"
                     sx={{ mt: 2, mb: 2, pt: 1.5, pb: 1.5 }}
                   >
-                    {signUpMode ? "Sign Up" : "Sign In"}
+                    Request new password
                   </Button>
                   <Button
                     color="secondaryCtaButton"
                     fullWidth
                     variant="outlined"
                     sx={{ mt: -0.2, mb: 2, pt: 1.5, pb: 1.5 }}
-                    onClick={() => setSignUpMode(!signUpMode)}
+                    onClick={() => navigate('/auth')}
                   >
-                    {signUpMode ? "Back to login" : "New user? Sign Up!"}
+                    Go back to log-in.
                   </Button>
                   <Grid container>
                     <Grid item xs>
@@ -197,7 +144,7 @@ export default function RecoveryForm(){
                       </Link>
                     </Grid>
                     <Grid item>
-                      <Link variant="body2" onClick={() => setSignUpMode(true)}>
+                      <Link variant="body2" onClick={() => navigate('/')}>
                         {"Our terms of service (TOS)"}
                       </Link>
                     </Grid>
