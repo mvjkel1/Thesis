@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import Auth from "./Form"
+import Auth from "./SignForm"
 import Auth2 from "./AuthContainer";
 
 

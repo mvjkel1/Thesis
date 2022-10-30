@@ -13,6 +13,8 @@ import SplashView from "./views/SplashView/SplashView";
 import Chat from "./views/UserView/Chat";
 import MyCalendar from "./views/UserView/Calendar";
 import { useSelector } from "react-redux";
+import SignForm from "./views/SplashView/SignForm";
+import RecoveryForm from "./views/SplashView/RecoveryForm";
 
 const BlueButton = styled(Button)(({theme}) => ({
   backgroundColor: theme.palette.primary.main
@@ -28,11 +30,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<RequireAuth redirectTo="/login"><UserView/></RequireAuth>}>
+        <Route path="/" element={<RequireAuth redirectTo="/auth"><UserView/></RequireAuth>}>
           <Route path="/" element={<MyCalendar/>}/>
           <Route path="chat" element={<Chat/>}/>
         </Route>
-        <Route path="/login" element={<SplashView/>} />
+        <Route path="/auth" element={<SplashView/>}>
+          <Route path="/auth" element={<SignForm/>}/>
+          <Route path='/auth/recovery' element={<RecoveryForm/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

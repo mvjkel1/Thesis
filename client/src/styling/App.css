@@ -52,3 +52,14 @@ body{
 #root{
   height: 100%;
 }
+
+.carousel .thumb img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.carousel .slide img {
+  max-height: 60vh;
+  width: auto;
+  overflow:hidden;
+}

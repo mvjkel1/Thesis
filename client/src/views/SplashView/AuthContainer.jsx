@@ -20,13 +20,15 @@ import { Collapse, LinearProgress } from "@mui/material";
 import { useState } from "react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import Auth from "./Form";
+import Auth from "./SignForm";
+import Gallery from "./Gallery";
+import { Outlet } from "react-router-dom";
 
 const Auth2 = () => {
 
     return (
         <React.Fragment>
-            <Grid mt={8} mb={8} columns={10} container sx={{height: "100%", width: "75vw", boxShadow: "0px 0px 48px -36px rgba(66, 68, 90, 1);", WebkitBoxShadow: "0px 0px 48px -36px rgba(66, 68, 90, 1);"}}>
+            <Grid mt={8} mb={8} columns={10} container sx={{height: "100%", width: "75vw", boxShadow: "11px 11px 27px -16px rgba(66, 68, 90, 1)", WebkitBoxShadow: "11px 11px 27px -16px rgba(66, 68, 90, 1)"}}>
                 <Grid item xs={0} sm={0} md={5.25} lg={5.25} xl={5.25} display={{ xs: "none", sm: "none", md: "flex", lg: "flex", xl: "flex" }} sx={{
                     backgroundColor: "#a4c4b5",
                     flexDirection: "column",
@@ -38,6 +40,7 @@ const Auth2 = () => {
                     >
                         StudentShare
                     </Typography>
+                    <Gallery/>
                 </Grid>
 
                 <Grid item xs={10} sm={10} md={4.75} lg={4.75} xl={4.75} sx={{
@@ -46,7 +49,7 @@ const Auth2 = () => {
                     flexDirection: "column",
                     alignItems: "center"
                 }}>
-                    <Auth/>
+                    <Outlet/>
                 
                 </Grid>
 
