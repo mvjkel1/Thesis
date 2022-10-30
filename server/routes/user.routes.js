@@ -11,7 +11,12 @@ router
   .post("/signup", authController.signup)
   .get("/logout", authController.logout)
   .post("/forgotPassword", authController.forgotPassword)
-  .patch("/resetPassword/:token", authController.resetPassword);
+  .patch("/resetPassword/:token", authController.resetPassword)
+  .patch(
+    "/updatePassword",
+    authController.protect,
+    authController.updatePassword
+  );
 
 router.delete("/deleteMe", userController.deleteMe);
 
