@@ -1,9 +1,4 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const path = require("path");
 const dbo = require("./db/conn");
-const publicPath = path.join(__dirname, "..", "build");
-const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
