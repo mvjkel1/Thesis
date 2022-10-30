@@ -1,4 +1,3 @@
-const dbo = require("./db/conn");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
