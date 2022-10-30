@@ -190,7 +190,7 @@ export default function SignForm() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link variant="body2" onClick={() => navigate('/auth/recovery')}>
                     Forgot password?
                   </Link>
                 </Grid>
