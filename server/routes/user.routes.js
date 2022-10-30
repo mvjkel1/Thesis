@@ -16,8 +16,8 @@ router
     "/updatePassword",
     authController.protect,
     authController.updatePassword
-  );
-
+  )
+  .patch("/updateMe", authController.protect, userController.updateMe);
 router.delete("/deleteMe", userController.deleteMe);
 
 // System administrator routes
