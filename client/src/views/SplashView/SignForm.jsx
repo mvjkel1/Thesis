@@ -22,7 +22,7 @@ import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 
-export default function Auth() {
+export default function SignForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [signUpMode, setSignUpMode] = useState(false);
   const dispatch = useDispatch();
@@ -75,6 +75,7 @@ export default function Auth() {
         <Box
           sx={{
             display: "flex",
+            height: "100%",
             flexDirection: "column",
             alignItems: "center",
             backgroundColor: "#ffffff",
@@ -91,7 +92,9 @@ export default function Auth() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               padding: 4,
+              height: "100%"
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
