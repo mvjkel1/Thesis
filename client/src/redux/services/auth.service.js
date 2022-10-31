@@ -2,22 +2,23 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/api/v1/users/";
 export const register = (name, email, password, passwordConfirm) => {
   let responseData = {};
-  return axios.post(API_URL + "signup", {
-    name: name,
-    email: email,
-    password: password,
-    passwordConfirm: passwordConfirm,
-  })
-  .then((response) => {
-    if (response.data.token) {
-      responseData = {
-        ...response.data.data.user,
-        token: response.data.token
+  return axios
+    .post(API_URL + "signup", {
+      name: name,
+      email: email,
+      password: password,
+      passwordConfirm: passwordConfirm,
+    })
+    .then((response) => {
+      if (response.data.token) {
+        responseData = {
+          ...response.data.data.user,
+          token: response.data.token,
+        };
+        localStorage.setItem("user", JSON.stringify(responseData));
       }
-      localStorage.setItem("user", JSON.stringify(responseData));
-    }
-    return responseData;
-  });
+      return responseData;
+    });
 };
 
 const login = (email, password) => {
@@ -32,8 +33,8 @@ const login = (email, password) => {
       if (response.data.token) {
         responseData = {
           ...response.data.data.user,
-          token: response.data.token
-        }
+          token: response.data.token,
+        };
         localStorage.setItem("user", JSON.stringify(responseData));
       }
       return responseData;

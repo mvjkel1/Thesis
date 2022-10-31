@@ -10,30 +10,31 @@ import {
 
 import { AuthService } from "../services/auth.service";
 
-export const registerAction = (name, email, password, passwordConfirm) => (dispatch) => {
-  return AuthService.register(name, email, password, passwordConfirm).then(
-    (data) => {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: data,
-      });
-      return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: message
-      });
-      return Promise.reject();
-    }
-  );
-};
+export const registerAction =
+  (name, email, password, passwordConfirm) => (dispatch) => {
+    return AuthService.register(name, email, password, passwordConfirm).then(
+      (data) => {
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: data,
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch({
+          type: REGISTER_FAIL,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+    );
+  };
 
 export const login = (username, password) => (dispatch) => {
   return AuthService.login(username, password).then(
@@ -54,7 +55,7 @@ export const login = (username, password) => (dispatch) => {
         error.toString();
       dispatch({
         type: LOGIN_FAIL,
-        payload: message
+        payload: message,
       });
       return Promise.reject();
     }
