@@ -21,11 +21,17 @@ export const Panel = () => {
   const dispatch = useDispatch();
   const sendRequest = (action, targets, extraParams = {}) => {
     const params = new URLSearchParams(targets.map((s) => ["id", s]));
-    Object.entries(extraParams).forEach(([key, value]) => params.append(key, value));
-    return fetch(`http://localhost:3001/api/get/${action}?${params.toString()}`,{ headers })
-    .then((res) => {
+    Object.entries(extraParams).forEach(([key, value]) =>
+      params.append(key, value)
+    );
+    return fetch(
+      `http://localhost:3001/api/get/${action}?${params.toString()}`,
+      { headers }
+    ).then((res) => {
       if (!res.ok)
-        return res.json().then((text) => {throw new Error(text.message);});
+        return res.json().then((text) => {
+          throw new Error(text.message);
+        });
       return res.json();
     });
   };
@@ -36,7 +42,10 @@ export const Panel = () => {
       .catch((error) => {
         setError(error.message);
         setFetchedUsers([]);
-        setTimeout(() => { navigate("/"); dispatch(logout());}, 1500);
+        setTimeout(() => {
+          navigate("/");
+          dispatch(logout());
+        }, 1500);
       })
       .finally(() => setIsLoading(false));
   };

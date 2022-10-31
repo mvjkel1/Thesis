@@ -44,12 +44,11 @@ input {
   border-width: 2px;
 }
 
-
-body{
+body {
   height: 100vh;
 }
 
-#root{
+#root {
   height: 100%;
 }
 
@@ -61,70 +60,80 @@ body{
 .carousel .slide img {
   max-height: 60vh;
   width: auto;
-  overflow:hidden;
+  overflow: hidden;
 }
 
-
-.planet { 
-  position: absolute; 
+.planet {
+  position: absolute;
   bottom: 30px;
   right: 20px;
-  width: 60px; 
-  height: 60px; 
-  background-color: transparent; 
-  transition: border-color .4s ease; 
-  -webkit-transition: border-color .4s ease; 
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  transition: border-color 0.4s ease;
+  -webkit-transition: border-color 0.4s ease;
 }
-
 
 .float {
   -webkit-animation-name: Floating;
   animation-name: Floating;
-    -webkit-animation-duration: 6s;
-    animation-duration: 6s;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
+  -webkit-animation-duration: 6s;
+  animation-duration: 6s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
 }
 
-@-webkit-keyframes Floating{
-    from {-webkit-transform:translate(0, 0px);}
-    65% {-webkit-transform:translate(0, 50px);}
-    to {-webkit-transform: translate(0, -0px);    }    
+@-webkit-keyframes Floating {
+  from {
+    -webkit-transform: translate(0, 0px);
+  }
+  65% {
+    -webkit-transform: translate(0, 50px);
+  }
+  to {
+    -webkit-transform: translate(0, -0px);
+  }
 }
 
-@keyframes Floating{
-  from {-webkit-transform:translate(0, 0px);}
-  65% {-webkit-transform:translate(0, 50px);}
-  to {-webkit-transform: translate(0, -0px);    }   
+@keyframes Floating {
+  from {
+    -webkit-transform: translate(0, 0px);
+  }
+  65% {
+    -webkit-transform: translate(0, 50px);
+  }
+  to {
+    -webkit-transform: translate(0, -0px);
+  }
 }
 
 .spin {
   -webkit-animation-name: Spinning;
   animation-name: Spinning;
-    -webkit-animation-duration: 12s;
-    animation-duration: 12s;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    animation-timing-function: ease-in-out;
+  -webkit-animation-duration: 12s;
+  animation-duration: 12s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
 }
 
-@-webkit-keyframes Spinning{
+@-webkit-keyframes Spinning {
   0% {
     -webkit-transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(360deg);
-  } 
+  }
 }
 
-@keyframes Spinning{
+@keyframes Spinning {
   0% {
     -webkit-transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(360deg);
-  } 
+  }
 }

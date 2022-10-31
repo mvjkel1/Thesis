@@ -9,7 +9,7 @@ import {
 const initialState = {
   user: null || JSON.parse(localStorage.getItem("user")),
   error: null,
-}
+};
 
 export default function (state = initialState, action) {
   const { type, payload } = action;

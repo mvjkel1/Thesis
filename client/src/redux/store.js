@@ -6,7 +6,7 @@ import logger from "redux-logger";
 const middleware = [thunk];
 
 const reducer = {
-  auth
+  auth,
 };
 
 export default configureStore({

@@ -8,7 +8,7 @@ const columns = [
   { field: "username", headerName: "Name", width: 100, flex: 1 },
   { field: "email", headerName: "E-mail", width: 150, flex: 1 },
   { field: "joined", headerName: "Joined date", width: 120, flex: 1 },
-  { field: "last_active", headerName: "Last active", width: 120, flex: 1},
+  { field: "last_active", headerName: "Last active", width: 120, flex: 1 },
   {
     field: "enabled",
     headerName: "Status",
