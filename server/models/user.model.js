@@ -55,7 +55,6 @@ const userSchema = new mongoose.Schema({
   group: {
     type: mongoose.Schema.ObjectId,
     ref: "Group",
-    default: undefined,
   },
 });
 

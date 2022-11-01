@@ -13,6 +13,10 @@ const classSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  group: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Group",
+  },
 });
 
 const Class = mongoose.model("Class", classSchema);

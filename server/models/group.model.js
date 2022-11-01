@@ -1,28 +1,22 @@
 const mongoose = require("mongoose");
 const User = require("./user.model");
 
-const groupSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "A group must have a name"],
-      unique: true,
-    },
-    founder: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      required: [true, "A group must have a founder"],
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-    },
+const groupSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "A group must have a name"],
+    unique: true,
   },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
-);
+  founder: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "A group must have a founder"],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+});
 
 groupSchema.pre(/^find/, function (next) {
   this.populate({
