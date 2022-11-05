@@ -1,16 +1,19 @@
 const express = require("express");
 const classController = require("../controllers/class.controller");
-const router = express.Router();
 const authController = require("../controllers/auth.controller");
+const router = express.Router({ mergeParams: true });
 
-router.post("/create", classController.createClass);
-// If the user is not authenticated (logged in) - he cannot getAllClasses
-router.route("/").get(authController.protect, classController.getAllClasses);
+router
+  .route("/")
+  .get(authController.protect, classController.getAllClasses)
+  .post(authController.protect, classController.createClass);
+
 router
   .route("/:id")
+  .get(authController.protect, classController.getClass)
   .delete(
     authController.protect,
-    authController.restrictTo("admin, class-representative"),
+    // authController.restrictTo("admin, class-representative"),
     classController.deleteClass
   );
 

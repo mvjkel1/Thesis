@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+  group: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Group",
+  },
 });
 
 // Password encryption
@@ -75,6 +79,14 @@ userSchema.pre("save", async function (next) {
 
 userSchema.pre("/^find/", function (next) {
   this.find({ active: { $ne: false } });
+  next();
+});
+
+userSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "group",
+    select: "founder name",
+  });
   next();
 });
 

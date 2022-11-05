@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./user.model");
 
 const groupSchema = new mongoose.Schema({
   name: {
@@ -7,13 +8,22 @@ const groupSchema = new mongoose.Schema({
     unique: true,
   },
   founder: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
     required: [true, "A group must have a founder"],
   },
   createdAt: {
     type: Date,
     default: Date.now(),
   },
+});
+
+groupSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "founder",
+    select: "-__v -group",
+  });
+  next();
 });
 
 const Group = mongoose.model("Group", groupSchema);
