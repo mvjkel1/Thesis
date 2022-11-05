@@ -6,7 +6,11 @@ const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(authController.protect, classController.getAllClasses)
-  .post(authController.protect, classController.createClass);
+  .post(
+    authController.protect,
+    classController.setUserGroupId,
+    classController.createClass
+  );
 
 router
   .route("/:id")
