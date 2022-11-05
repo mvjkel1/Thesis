@@ -5,14 +5,15 @@ const router = express.Router({ mergeParams: true });
 
 router
   .route("/")
-  .post(authController.protect, classController.createClass)
-  .get(authController.protect, classController.getAllClasses);
+  .get(authController.protect, classController.getAllClasses)
+  .post(authController.protect, classController.createClass);
 
 router
   .route("/:id")
+  .get(authController.protect, classController.getClass)
   .delete(
     authController.protect,
-    authController.restrictTo("admin, class-representative"),
+    // authController.restrictTo("admin, class-representative"),
     classController.deleteClass
   );
 

@@ -2,6 +2,7 @@ const Group = require("./../models/group.model");
 const User = require("./../models/user.model");
 const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
+const factory = require("./handler.factory");
 
 exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
@@ -38,15 +39,4 @@ exports.getAllGroups = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteGroup = catchAsync(async (req, res, next) => {
-  const group = await Group.findByIdAndDelete(req.params.id);
-
-  if (!group) {
-    return next(new AppError("No group found with that ID", 404));
-  }
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+exports.deleteGroup = factory.deleteOne(Group);

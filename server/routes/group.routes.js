@@ -10,7 +10,12 @@ router.use("/:groupId/classes", classRouter);
 router
   .route("/")
   .get(groupController.getAllGroups)
+  .get(groupController.getGroup)
   .post(authController.protect, groupController.createGroup);
 
-router.route("/:id").get(groupController.getGroup);
+router
+  .route("/:id")
+  .get(groupController.getGroup)
+  .delete(groupController.deleteGroup);
+
 module.exports = router;
