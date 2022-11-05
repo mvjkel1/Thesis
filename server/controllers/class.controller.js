@@ -5,11 +5,6 @@ const User = require("./../models/user.model");
 const factory = require("./handler.factory");
 
 exports.createClass = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-  if (!user.group) {
-    return next(new AppError("You have to be member of a group.", 401));
-  }
-  if (!req.body.group) req.body.group = user.group.id;
   const newClass = await Class.create(req.body);
   res.status(201).json({
     status: "success",
@@ -44,5 +39,16 @@ exports.getClass = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.setUserGroupId = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  console.log(user);
+  if (!user.group) {
+    return next(new AppError("You have to be member of a group.", 401));
+  }
+  if (!req.body.group) req.body.group = user.group.id;
+  next();
+});
+
+exports.createClass = factory.createOne(Class);
 exports.updateClass = factory.updateOne(Class);
 exports.deleteClass = factory.deleteOne(Class);
