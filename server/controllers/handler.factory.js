@@ -44,3 +44,50 @@ exports.createOne = (Model) =>
       },
     });
   });
+
+exports.getOne = (Model, populateOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findById(req.params.id);
+    if (populateOptions) {
+      query = query.populate(populateOptions);
+    }
+
+    const doc = await query;
+    if (!doc) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: doc,
+      },
+    });
+  });
+
+exports.getAll = (Model, populateOptions) =>
+  catchAsync(async (req, res, next) => {
+    // To allow for neseted GET classes pn group
+    let filter = {};
+    if (req.params.groupId) {
+      filter = { groupId: req.params.groupId };
+    }
+
+    let query = Model.find(filter);
+    if (populateOptions) {
+      query = query.populate(populateOptions);
+    }
+
+    const doc = await query;
+    if (!doc) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+
+    res.status(201).json({
+      status: "success",
+      results: doc.length,
+      data: {
+        data: doc,
+      },
+    });
+  });

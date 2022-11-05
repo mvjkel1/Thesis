@@ -3,32 +3,6 @@ const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
 const factory = require("./handler.factory");
 
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-  res.status(200).json({
-    status: "success",
-    results: users.length,
-    data: {
-      users: users,
-    },
-  });
-});
-
-exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-
-  if (!user) {
-    return next(new AppError("No user found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      user,
-    },
-  });
-});
-
 exports.updateMe = catchAsync(async (req, res, next) => {
   const { name, email, photo } = req.body;
   const user = Object.assign(
@@ -55,9 +29,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: "error",
-    message: "This route is not yet defined!",
+    message: "This route is not defined!",
   });
 };
 
 exports.updateUser = factory.updateOne(User); // don't update user password
+exports.getUser = factory.getOne(User);
+exports.getAllUsers = factory.getAll(User);
 exports.deleteUser = factory.deleteOne(User);
