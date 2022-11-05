@@ -11,6 +11,7 @@ router
 router
   .route("/:id")
   .get(authController.protect, classController.getClass)
+  .patch(authController.protect, classController.updateClass)
   .delete(
     authController.protect,
     // authController.restrictTo("admin, class-representative"),

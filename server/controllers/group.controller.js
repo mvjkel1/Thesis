@@ -39,4 +39,5 @@ exports.getAllGroups = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateGroup = factory.updateOne(Group);
 exports.deleteGroup = factory.deleteOne(Group);

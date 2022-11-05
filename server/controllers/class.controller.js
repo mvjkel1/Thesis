@@ -44,4 +44,5 @@ exports.getClass = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateClass = factory.updateOne(Class);
 exports.deleteClass = factory.deleteOne(Class);
