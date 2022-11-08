@@ -4,6 +4,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  REQUEST_PASS_RECOVERY_SUCCESS,
+  REQUEST_PASS_RECOVERY_FAILED,
   SET_REGISTER_MESSAGE,
   SET_LOGIN_MESSAGE,
 } from "./types";
@@ -55,6 +57,31 @@ export const login = (username, password) => (dispatch) => {
         error.toString();
       dispatch({
         type: LOGIN_FAIL,
+        payload: message,
+      });
+      return Promise.reject();
+    }
+  );
+};
+
+export const requestPasswordRecovery = (email) => (dispatch) => {
+  return AuthService.requestPasswordRecovery(email).then(
+    (data) => {
+      dispatch({
+        type: REQUEST_PASS_RECOVERY_SUCCESS,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log("ERROR:::" + error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch({
+        type: REQUEST_PASS_RECOVERY_FAILED,
         payload: message,
       });
       return Promise.reject();

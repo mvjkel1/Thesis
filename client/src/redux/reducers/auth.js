@@ -3,6 +3,8 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  REQUEST_PASS_RECOVERY_SUCCESS,
+  REQUEST_PASS_RECOVERY_FAILED,
   LOGOUT,
 } from "../actions/types";
 
@@ -36,6 +38,15 @@ export default function (state = initialState, action) {
         ...state,
         error: payload,
         user: null,
+      };
+    case REQUEST_PASS_RECOVERY_SUCCESS:
+      return {
+        ...state,
+      };
+    case REQUEST_PASS_RECOVERY_FAILED:
+      return {
+        ...state,
+        error: payload,
       };
     case LOGOUT:
       return {

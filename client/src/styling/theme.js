@@ -2,6 +2,9 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
+    appbar: {
+      // AppBar background colors
+    },
     primary: {
       main: "#1760a6",
       light: "skyblue",

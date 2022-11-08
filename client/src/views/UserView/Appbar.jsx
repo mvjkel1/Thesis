@@ -48,27 +48,44 @@ const ResponsiveAppBar = () => {
 
   return (
     <React.Fragment>
-      <AppBar>
-        <Container maxWidth="xl">
+      <AppBar sx={{ backgroundColor: "#FFFFFE" }} elevation={0}>
+        <Container maxWidth="xl" sx={{ paddingLeft: "0 !important" }}>
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
+            <Box
+              display={{
+                xs: "none",
+                sm: "none",
+                md: "flex",
+                lg: "flex",
+                xl: "flex",
+              }}
               sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+                width: "calc(25vw - 13px)",
+                borderRight: "1px solid",
+                borderColor: "#c0c0c0",
+                height: 67,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              THESIS
-            </Typography>
+              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontWeight: 900,
+                  letterSpacing: ".1rem",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                StudentShare
+              </Typography>
+            </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton

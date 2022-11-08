@@ -10,16 +10,20 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/actions/auth";
-import { registerAction } from "../../redux/actions/auth";
+import { login } from "../../../../redux/actions/auth";
+import { registerAction } from "../../../../redux/actions/auth";
 import { useNavigate } from "react-router-dom";
 import { Collapse, LinearProgress } from "@mui/material";
 import { useState } from "react";
-import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import {
+  FormBox,
+  FormContainer,
+  FormInputContainer,
+  SecondaryButton,
+  SubmitButton,
+} from "./SignForm.styles";
 
 export default function SignForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,32 +123,13 @@ export default function SignForm() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: "#ffffff",
-          overflow: "hidden",
-          borderRadius: "0.5rem",
-        }}
-      >
+      <FormBox>
         {isLoading && (
           <Box sx={{ width: "200%" }}>
             <LinearProgress />
           </Box>
         )}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 4,
-            height: "100%",
-          }}
-        >
+        <FormContainer>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -152,7 +137,7 @@ export default function SignForm() {
             {signUpMode ? "Sign Up" : "Sign In"}
           </Typography>
           <Typography>{error}</Typography>
-          <Box
+          <FormInputContainer
             component="form"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
@@ -221,24 +206,22 @@ export default function SignForm() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            <SubmitButton
               type="submit"
               color="primaryCtaButton"
               fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 2, pt: 1.5, pb: 1.5 }}
             >
               {signUpMode ? "Sign Up" : "Sign In"}
-            </Button>
-            <Button
+            </SubmitButton>
+            <SecondaryButton
               color="secondaryCtaButton"
               fullWidth
               variant="outlined"
-              sx={{ mt: -0.2, mb: 2, pt: 1.5, pb: 1.5 }}
               onClick={() => setSignUpMode(!signUpMode)}
             >
               {signUpMode ? "Back to login" : "New user? Sign Up!"}
-            </Button>
+            </SecondaryButton>
             <Grid container>
               <Grid item xs>
                 <Link
@@ -254,9 +237,9 @@ export default function SignForm() {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
-      </Box>
+          </FormInputContainer>
+        </FormContainer>
+      </FormBox>
     </React.Fragment>
   );
 }

@@ -7,9 +7,6 @@ const Main = () => {
       <Box sx={{ width: "100%", height: "100%" }}>
         <Outlet />
       </Box>
-      <Box>
-        <Typography>Some message</Typography>
-      </Box>
     </Stack>
   );
 };
