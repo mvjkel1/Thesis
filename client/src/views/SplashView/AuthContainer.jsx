@@ -1,6 +1,6 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import Description from "./Description";
+import Description from "./components/Description/Description";
 import { Outlet } from "react-router-dom";
 
 const Auth2 = () => {
