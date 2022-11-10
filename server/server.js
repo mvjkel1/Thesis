@@ -18,8 +18,10 @@ const DB = process.env.MONGO_URI.replace(
 
 mongoose
   .connect(DB, {
+    dbName: `${process.env.MONGO_DBNAME}`,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    autoIndex: true,
   })
   .then(() => console.log("DB connection successful!"));
 

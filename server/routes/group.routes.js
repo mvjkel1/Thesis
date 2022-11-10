@@ -10,11 +10,7 @@ router.use("/:groupId/classes", classRouter);
 router
   .route("/")
   .get(groupController.getAllGroups)
-  .post(
-    authController.protect,
-    groupController.setGroupFounder,
-    groupController.createGroup
-  );
+  .post(authController.protect, groupController.createGroup);
 
 router
   .route("/:id")
