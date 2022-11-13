@@ -1,8 +1,6 @@
 const userController = require("../controllers/user.controller");
 const authController = require("../controllers/auth.controller");
-const groupController = require("../controllers/group.controller");
 const express = require("express");
-
 const router = express.Router();
 
 // Actual user routes
@@ -17,7 +15,12 @@ router
     authController.protect,
     authController.updatePassword
   )
-  .patch("/updateMe", authController.protect, userController.updateMe)
+  .patch(
+    "/updateMe",
+    authController.protect,
+    userController.uploadUserPhoto,
+    userController.updateMe
+  )
   .delete("/deleteMe", authController.protect, userController.deleteMe);
 
 router.get(
