@@ -15,7 +15,16 @@ router
 router
   .route("/:id")
   .get(authController.protect, groupController.getGroup)
-  .delete(authController.protect, groupController.deleteGroup)
-  .patch(authController.protect, groupController.updateGroup);
+  .delete(
+    authController.protect,
+    authController.restrictTo("group-representative", "admin"),
+    groupController.discardGroupFounder,
+    groupController.deleteGroup
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("group-representative", "admin"),
+    groupController.updateGroup
+  );
 
 module.exports = router;

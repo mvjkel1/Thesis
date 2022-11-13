@@ -1,7 +1,6 @@
 const Group = require("./../models/group.model");
 const User = require("./../models/user.model");
 const catchAsync = require("./../utils/catch.async");
-const AppError = require("./../utils/app.error");
 const factory = require("./handler.factory");
 
 exports.createGroup = catchAsync(async (req, res, next) => {
@@ -9,6 +8,7 @@ exports.createGroup = catchAsync(async (req, res, next) => {
   const newGroup = await Group.create(req.body);
   const founder = await User.findById(req.body.founder);
   founder.group = newGroup._id;
+  founder.role = "group-representative";
   founder.save({ validateBeforeSave: false });
   res.status(201).json({
     status: "success",
@@ -16,6 +16,15 @@ exports.createGroup = catchAsync(async (req, res, next) => {
       group: newGroup,
     },
   });
+});
+
+exports.discardGroupFounder = catchAsync(async (req, res, next) => {
+  const founder = await User.findById(req.user.id);
+  if (founder.role !== "admin") {
+    founder.role = "user";
+    founder.save({ validateBeforeSave: false });
+  }
+  next();
 });
 
 exports.updateGroup = factory.updateOne(Group);

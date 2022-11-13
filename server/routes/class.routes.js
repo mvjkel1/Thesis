@@ -18,7 +18,7 @@ router
   .patch(authController.protect, classController.updateClass)
   .delete(
     authController.protect,
-    // authController.restrictTo("admin, class-representative"),
+    authController.restrictTo("class-representative", "admin"),
     classController.deleteClass
   );
 
