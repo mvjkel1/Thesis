@@ -27,7 +27,7 @@
     "_id": "5c8a1dfq2f8fb814b56za321",
     "name": "Bogumil",
     "email": "bogumil@bogumil.com",
-    "role": "admin",
+    "role": "user",
     "active": true,
     "password": "bogumilbogumil"
   }
