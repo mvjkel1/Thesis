@@ -37,7 +37,9 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "import": "node ./dev-data/import.data.js --import",
+    "delete": "node ./dev-data/import.data.js --delete"
   },
   "eslintConfig": {
     "extends": [

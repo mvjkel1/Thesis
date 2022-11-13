@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "5c8a1d5b0190b214360dc057",
+    "name": "Administrator Michal",
+    "email": "admin@michal.com",
+    "role": "admin",
+    "active": true,
+    "password": "adminadmin"
+  },
+  {
+    "_id": "5c8a1dfa2f8fb814b56fa181",
+    "name": "Administrator Bogumil",
+    "email": "admin@bogumil.com",
+    "role": "admin",
+    "active": true,
+    "password": "adminadmin"
+  },
+  {
+    "_id": "5c8a1dfa2f8fb814b56za121",
+    "name": "Michal",
+    "email": "michal@michal.com",
+    "role": "user",
+    "active": true,
+    "password": "michalmichal"
+  },
+  {
+    "_id": "5c8a1dfq2f8fb814b56za321",
+    "name": "Bogumil",
+    "email": "bogumil@bogumil.com",
+    "role": "user",
+    "active": true,
+    "password": "bogumilbogumil"
+  }
+]
