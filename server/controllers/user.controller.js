@@ -33,6 +33,11 @@ exports.createUser = (req, res) => {
   });
 };
 
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
 exports.updateUser = factory.updateOne(User); // don't update user password
 exports.getUser = factory.getOne(User);
 exports.getAllUsers = factory.getAll(User);
