@@ -3,6 +3,7 @@ const User = require("./../models/user.model");
 const jwt = require("jsonwebtoken");
 const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
+const Email = require("./../utils/email");
 const sendEmail = require("./../utils/email");
 const crypto = require("crypto");
 
@@ -55,13 +56,22 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordChangedAt: req.body.passwordChangedAt,
     group: req.body.group,
   });
-
+  try {
+    await sendEmail({
+      email: req.body.email,
+      subject: "Witam",
+      message: "Witam",
+    });
+  } catch (err) {
+    return next(
+      new AppError("Something went wrong while sending an email.", 401)
+    );
+  }
   createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
   if (!email || !password) {
     return next(new AppError("Please provide email and password!", 400));
   } else {
@@ -174,7 +184,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
     return next(
-      new AppError("There wasa an error while sending the email.", 500)
+      new AppError("There was an error while sending the email.", 500)
     );
   }
 });
