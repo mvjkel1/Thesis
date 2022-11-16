@@ -73,6 +73,6 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateUser = factory.updateOne(User); // don't update user password
-exports.getUser = factory.getOne(User);
-exports.getAllUsers = factory.getAll(User);
+exports.getUser = factory.getOne(User, { path: "groups" });
+exports.getAllUsers = factory.getAll(User, { path: "groups" });
 exports.deleteUser = factory.deleteOne(User);

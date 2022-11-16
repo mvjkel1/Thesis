@@ -15,11 +15,12 @@ const groupSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  users: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
 });
 
 groupSchema.pre(/^find/, function (next) {
   this.populate({
-    path: "founder",
+    path: "founder users",
     select: "-__v -group",
   });
   next();

@@ -27,4 +27,6 @@ router
     groupController.updateGroup
   );
 
+router.get("/my-groups", authController.protect, groupController.getMyGroups);
+
 module.exports = router;

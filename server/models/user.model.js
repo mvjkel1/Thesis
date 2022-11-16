@@ -52,10 +52,12 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
-  group: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Group",
-  },
+  groups: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Group",
+    },
+  ],
 });
 
 // Password encryption
@@ -82,13 +84,13 @@ userSchema.pre("/^find/", function (next) {
   next();
 });
 
-userSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: "group",
-    select: "founder name",
-  });
-  next();
-});
+// userSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: "groups",
+//     select: "founder name",
+//   });
+//   next();
+// });
 
 userSchema.methods.correctPasswords = async function (
   candidatePassword,
