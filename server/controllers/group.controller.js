@@ -7,9 +7,11 @@ exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
   const newGroup = await Group.create(req.body);
   const founder = await User.findById(req.body.founder);
-  founder.group = newGroup._id;
+  founder.groups.push(newGroup._id);
   founder.role = "group-representative";
   founder.save({ validateBeforeSave: false });
+  newGroup.users.push(founder);
+  newGroup.save({ validateBeforeSave: false });
   res.status(201).json({
     status: "success",
     data: {
@@ -20,11 +22,23 @@ exports.createGroup = catchAsync(async (req, res, next) => {
 
 exports.discardGroupFounder = catchAsync(async (req, res, next) => {
   const founder = await User.findById(req.user.id);
-  if (founder.role !== "admin") {
+  founder.groups.pop(req.params.id);
+  founder.save({ validateBeforeSave: false });
+  if (founder.role !== "admin" && founder.groups.length === 1) {
     founder.role = "user";
     founder.save({ validateBeforeSave: false });
   }
   next();
+});
+
+exports.getMyGroups = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const groupsIds = user.groups;
+  const groups = await Group.find({ _id: { $in: groupsIds } });
+  res.status(200).json({
+    title: "My groups",
+    groups,
+  });
 });
 
 exports.updateGroup = factory.updateOne(Group);

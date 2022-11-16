@@ -15,6 +15,6 @@ exports.setUserGroupId = catchAsync(async (req, res, next) => {
 
 exports.createClass = factory.createOne(Class);
 exports.updateClass = factory.updateOne(Class);
-exports.getClass = factory.getOne(Class, { path: "group" });
-exports.getAllClasses = factory.getAll(Class, { path: "group" });
+exports.getClass = factory.getOne(Class, { path: "groups" });
+exports.getAllClasses = factory.getAll(Class, { path: "groups" });
 exports.deleteClass = factory.deleteOne(Class);

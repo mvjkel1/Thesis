@@ -19,6 +19,7 @@ router
     "/updateMe",
     authController.protect,
     userController.uploadUserPhoto,
+    userController.resizeUserPhoto,
     userController.updateMe
   )
   .delete("/deleteMe", authController.protect, userController.deleteMe);
