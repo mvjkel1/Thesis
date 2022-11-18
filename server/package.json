@@ -71,7 +71,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "jest": "^27.5.1",
-    "pre-push": "^0.1.4",
     "supertest": "^6.3.1"
   }
 }
