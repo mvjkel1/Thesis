@@ -14,7 +14,7 @@ const AppError = require("./utils/app.error");
 const PORT = process.env.PORT;
 
 const corsOptions = {
-  origin: "127.0.0.1:" + PORT.toString(),
+  origin: "127.0.0.1:" + PORT,
 };
 
 // HTTP security headers

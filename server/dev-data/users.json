@@ -30,5 +30,13 @@
     "role": "user",
     "active": true,
     "password": "bogumilbogumil"
+  },
+  {
+    "_id": "5c8a1dfq2f8fb814b56za321",
+    "name": "test",
+    "email": "test@test.com",
+    "role": "user",
+    "active": true,
+    "password": "testtest"
   }
 ]

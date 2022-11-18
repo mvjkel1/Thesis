@@ -21,6 +21,7 @@
     "express-rate-limit": "^6.6.0",
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^10.1.0",
     "moment": "^2.29.3",
     "mongo-sanitize": "^1.1.0",
     "mongodb": "^4.4.1",
@@ -41,7 +42,8 @@
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "import": "node ./dev-data/import.data.js --import",
-    "delete": "node ./dev-data/import.data.js --delete"
+    "delete": "node ./dev-data/import.data.js --delete",
+    "test": "jest --setupFiles ./.env_jest --watch --detectOpenHandles --runInBand"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +69,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/eslint-parser": "^7.19.1"
+    "@babel/eslint-parser": "^7.19.1",
+    "jest": "^27.5.1",
+    "supertest": "^6.3.1"
   }
 }
