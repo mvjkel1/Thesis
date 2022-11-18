@@ -13,6 +13,10 @@ router
   .post(authController.protect, groupController.createGroup);
 
 router
+  .route("/my-groups")
+  .get(authController.protect, groupController.getMyGroups);
+
+router
   .route("/:id")
   .get(authController.protect, groupController.getGroup)
   .delete(
@@ -26,7 +30,5 @@ router
     authController.restrictTo("group-representative", "admin"),
     groupController.updateGroup
   );
-
-router.get("/my-groups", authController.protect, groupController.getMyGroups);
 
 module.exports = router;

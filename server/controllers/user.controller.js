@@ -26,7 +26,6 @@ exports.resizeUserPhoto = (req, res, next) => {
   if (!req.file) return next();
   const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
   req.file.filename = `${req.file.fieldname}-${uniqueSuffix}.jpeg`;
-  console.log(req.file.filename);
   sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat("jpeg")
