@@ -7,7 +7,7 @@ const AppError = require("./../utils/app.error");
 
 const multerStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
+const multerFilter = (file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
@@ -22,7 +22,7 @@ const upload = multer({
 
 exports.uploadUserPhoto = upload.single("photo");
 
-exports.resizeUserPhoto = (req, res, next) => {
+exports.resizeUserPhoto = (req, next) => {
   if (!req.file) return next();
   const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
   req.file.filename = `${req.file.fieldname}-${uniqueSuffix}.jpeg`;
@@ -35,7 +35,7 @@ exports.resizeUserPhoto = (req, res, next) => {
   next();
 };
 
-exports.updateMe = catchAsync(async (req, res, next) => {
+exports.updateMe = catchAsync(async (req, res) => {
   let { name, email, photo } = req.body;
   const user = Object.assign(
     req.user,
@@ -51,7 +51,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteMe = catchAsync(async (req, res, next) => {
+exports.deleteMe = catchAsync(async (req, res) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
     status: "success",

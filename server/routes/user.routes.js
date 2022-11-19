@@ -8,21 +8,21 @@ router
   .get("/logout", authController.logout)
   .post("/login", authController.login)
   .post("/signup", authController.signup)
-  .post("/forgotPassword", authController.forgotPassword)
-  .patch("/resetPassword/:token", authController.resetPassword)
+  .post("/forgot-password", authController.forgotPassword)
+  .patch("/reset-password/:token", authController.resetPassword)
   .patch(
-    "/updatePassword",
+    "/update-password",
     authController.protect,
     authController.updatePassword
   )
   .patch(
-    "/updateMe",
+    "/update-me",
     authController.protect,
     userController.uploadUserPhoto,
     userController.resizeUserPhoto,
     userController.updateMe
   )
-  .delete("/deleteMe", authController.protect, userController.deleteMe);
+  .delete("/delete-me", authController.protect, userController.deleteMe);
 
 router.get(
   "/me",
