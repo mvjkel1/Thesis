@@ -84,14 +84,6 @@ userSchema.pre("/^find/", function (next) {
   next();
 });
 
-// userSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: "groups",
-//     select: "founder name",
-//   });
-//   next();
-// });
-
 userSchema.methods.correctPasswords = async function (
   candidatePassword,
   userPassword

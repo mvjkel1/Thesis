@@ -23,7 +23,11 @@ exports.createGroup = catchAsync(async (req, res, next) => {
 
 exports.discardGroupFounder = catchAsync(async (req, res, next) => {
   const founder = await User.findById(req.user.id);
-  founder.groups.pop(req.params.id);
+  const founderGroupIndexToRemove = founder.groups.map((obj) => obj.valueOf());
+  founder.groups.splice(
+    founderGroupIndexToRemove.findIndex((obj) => obj === req.params.id),
+    1
+  );
   if (founder.role !== "admin" && founder.groups.length === 1) {
     founder.role = "user";
   }
