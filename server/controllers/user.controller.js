@@ -22,7 +22,7 @@ const upload = multer({
 
 exports.uploadUserPhoto = upload.single("photo");
 
-exports.resizeUserPhoto = (req, next) => {
+exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
   const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
   req.file.filename = `${req.file.fieldname}-${uniqueSuffix}.jpeg`;
@@ -33,7 +33,7 @@ exports.resizeUserPhoto = (req, next) => {
     .toFile(`public/img/users/${req.file.filename}`);
 
   next();
-};
+});
 
 exports.updateMe = catchAsync(async (req, res) => {
   let { name, email, photo } = req.body;
