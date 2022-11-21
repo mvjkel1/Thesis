@@ -11,9 +11,7 @@ import { theme } from "./styling/theme";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

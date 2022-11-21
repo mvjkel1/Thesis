@@ -12,26 +12,35 @@ import {
   Typography,
   IconButton,
   Avatar,
-  Button
+  Button,
 } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import React from "react";
+import React, { useEffect } from "react";
 import { useMatch } from "react-router-dom";
 import { useState } from "react";
+import {
+  getWorkgroups,
+  switchWorkgroup,
+} from "../../../redux/actions/workgroups";
 import { Navigate, useNavigate } from "react-router-dom";
 import { usePageStatus } from "./pages";
 import { PAGES, PAGES_SECONDARY } from "./pages";
 import {
   CurrentUserContainer,
+  MaterialUISwitch,
   LogoWrapper,
+  NewBadge,
+  NewBadgeText,
   SideBarItem,
   SidebarSectionText,
   SideBarSubItem,
 } from "./sidebar.styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../redux/actions/auth";
+import { switchMode } from "../../../redux/actions/theme";
 
 const CollapsingList = ({ name, subpages }) => {
   const [open, setOpen] = useState(false);
@@ -44,15 +53,21 @@ const CollapsingList = ({ name, subpages }) => {
         <ListItemIcon>
           <SchoolIcon />
         </ListItemIcon>
-        <ListItemText primary={name} />
+        <ListItemText>
+          <Typography color="text.primary">{name}</Typography>{" "}
+        </ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </SideBarItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={{
-                  position: 'relative',
-                  overflow: 'auto',
-                  maxHeight: 300,
-        }}>
+        <List
+          component="div"
+          disablePadding
+          sx={{
+            position: "relative",
+            overflow: "auto",
+            maxHeight: 300,
+          }}
+        >
           {subpages.map((subpage) => (
             <SideBarSubItem key={subpage} button>
               <ListItemIcon>
@@ -69,68 +84,96 @@ const CollapsingList = ({ name, subpages }) => {
 
 const PageItem = ({ page, subpages }) => {
   const navigate = useNavigate();
-  const { label, route, icon } = usePageStatus(page);
+  const { label, route, icon, options } = usePageStatus(page);
   const isActive = useMatch(route);
   return (
     <SideBarItem selected={Boolean(isActive)} onClick={() => navigate(route)}>
       <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemText>{label}</ListItemText>
+      <ListItemText>
+        <Typography color="text.primary">{label}</Typography>
+      </ListItemText>
+      {options?.new && (
+        <NewBadge>
+          <NewBadgeText>New</NewBadgeText>
+        </NewBadge>
+      )}
     </SideBarItem>
   );
 };
 
-const GroupPicker = ({groups}) => {
-  const [age, setAge] = useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+const GroupPicker = ({
+  workgroups,
+  currentWorkgroup,
+  handleWorkgroupChange,
+}) => {
   return (
     <FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">PUT-TELEINF-2020</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={age}
-    label="Workgroup"
-    onChange={handleChange}
-    sx={{
-      borderRadius: 4,
-    }}
-  >
-    <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem>
-  </Select>
-</FormControl>
-  )
-}
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={currentWorkgroup?._id || ""}
+        InputLabelProps={{ shrink: false }}
+        onChange={(event) => handleWorkgroupChange(event.target.value)}
+        sx={{
+          borderRadius: 4,
+        }}
+      >
+        {workgroups?.map?.((workgroup) => (
+          <MenuItem key={workgroup._id} value={workgroup._id}>
+            {workgroup.name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+};
 
 export const Sidebar = () => {
-  const user = useSelector(state => state.auth.user);
+  const workgroups = useSelector((state) => state.workgroups.data);
+  const currentWorkgroup = useSelector(
+    (state) => state.workgroups.currentWorkgroup
+  );
+  const mode = useSelector((state) => state.theme.mode);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
+  const handleWorkgroupChange = (workgroupId) => {
+    dispatch(switchWorkgroup(workgroupId));
+  };
+
+  useEffect(() => {
+    dispatch(getWorkgroups(user.token));
+  }, [user]);
 
   return (
-    <Box sx={{ position: "fixed", width: "100%", maxWidth: "20vw", zIndex: "10"}}>
+    <Box
+      sx={{ position: "fixed", width: "100%", maxWidth: "20vw", zIndex: "10" }}
+    >
       <LogoWrapper>
         <Typography
           variant="h6"
           noWrap
           component="a"
           href="/"
+          color="text.primary"
           sx={{
             mr: 2,
             fontWeight: 900,
             letterSpacing: ".1rem",
-            color: "black",
             textDecoration: "none",
           }}
         >
           StudentShare
         </Typography>
+        <MaterialUISwitch
+          onClick={() =>
+            dispatch(mode == "dark" ? switchMode("light") : switchMode("dark"))
+          }
+        />
       </LogoWrapper>
       <Box>
-        <SidebarSectionText >
-          Main menu
-        </SidebarSectionText>
+        <SidebarSectionText>Main menu</SidebarSectionText>
       </Box>
       <Box>
         <List>
@@ -151,34 +194,43 @@ export const Sidebar = () => {
         </List>
       </Box>
       <Box mr={3} ml={3}>
-        <Divider/>
+        <Divider />
       </Box>
       <Box mt={2}>
-        <SidebarSectionText>
-          Current workgroup
-        </SidebarSectionText>
+        <SidebarSectionText>Current workgroup</SidebarSectionText>
       </Box>
       <Box ml={2} mr={2} mt={1}>
-        <GroupPicker/>
+        <GroupPicker
+          workgroups={workgroups}
+          currentWorkgroup={currentWorkgroup}
+          handleWorkgroupChange={handleWorkgroupChange}
+        />
       </Box>
       <Box>
-        {PAGES_SECONDARY.map(page => <PageItem page={page}/> )}
+        {PAGES_SECONDARY.map((page) => (
+          <PageItem page={page} />
+        ))}
       </Box>
       <Box mr={3} ml={3}>
-        <Divider/>
+        <Divider />
       </Box>
       <Box mt={2}>
-        <SidebarSectionText>
-          Current user
-        </SidebarSectionText>
+        <SidebarSectionText>Current user</SidebarSectionText>
       </Box>
       <Box ml={2} mr={2}>
         <CurrentUserContainer>
           <IconButton>
             <Avatar alt={user.name} src="/static/images/avatar/2.jpg" />
           </IconButton>
-          <Button>Settings</Button>
-          <Button>Sign-out</Button>
+          <Button onClick={() => navigate("/profile")}>Settings</Button>
+          <Button
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
+          >
+            Sign-out
+          </Button>
         </CurrentUserContainer>
       </Box>
     </Box>

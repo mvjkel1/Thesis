@@ -8,8 +8,8 @@ const SplashView = () => {
       sx={{
         width: "100%",
         alignItems: "center",
-        backgroundColor: "rgba(244,246,248,255)",
       }}
+      bgcolor="background.dark"
     >
       <Grid
         container

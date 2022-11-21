@@ -5,7 +5,7 @@ export const FormBox = styled(Box)(({ theme }) => ({
   height: "100%",
   flexDirection: "column",
   alignItems: "center",
-  backgroundColor: "#ffffff",
+  backgroundColor: theme.palette.background.main,
   overflow: "hidden",
 }));
 

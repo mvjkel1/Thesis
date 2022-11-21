@@ -8,6 +8,7 @@ import {
   REQUEST_PASS_RECOVERY_FAILED,
   SET_REGISTER_MESSAGE,
   SET_LOGIN_MESSAGE,
+  UPDATE_USER_DATA,
 } from "./types";
 
 import { AuthService } from "../services/auth.service";
@@ -94,4 +95,11 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+};
+
+export const updateUserData = (payload) => {
+  return {
+    type: UPDATE_USER_DATA,
+    payload,
+  };
 };

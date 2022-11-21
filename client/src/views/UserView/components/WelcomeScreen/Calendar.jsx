@@ -10,15 +10,14 @@ const localizer = momentLocalizer(moment);
 const MyCalendar = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
-
   return (
     <Box>
-        <Calendar
-          localizer={localizer}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-        />
+      <Calendar
+        localizer={localizer}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+      />
     </Box>
   );
 };

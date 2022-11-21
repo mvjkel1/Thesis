@@ -130,7 +130,7 @@ export default function SignForm() {
           </Box>
         )}
         <FormContainer>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1 }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -206,16 +206,11 @@ export default function SignForm() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <SubmitButton
-              type="submit"
-              color="primaryCtaButton"
-              fullWidth
-              variant="contained"
-            >
+            <SubmitButton type="submit" fullWidth variant="contained">
               {signUpMode ? "Sign Up" : "Sign In"}
             </SubmitButton>
             <SecondaryButton
-              color="secondaryCtaButton"
+              color="secondary"
               fullWidth
               variant="outlined"
               onClick={() => setSignUpMode(!signUpMode)}
