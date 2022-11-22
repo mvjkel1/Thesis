@@ -8,7 +8,16 @@ import {
 } from "react-router-dom";
 import styled from "@emotion/styled";
 import "./styling/App.css";
-import { Box, Button, Container, Grid, Stack, Toolbar } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  createTheme,
+  Grid,
+  Stack,
+  ThemeProvider,
+  Toolbar,
+} from "@mui/material";
 import UserView from "./views/UserView/UserView";
 import SplashView from "./views/SplashView/SplashView";
 import Chat from "./views/UserView/components/Chat/Chat";
@@ -16,11 +25,10 @@ import WelcomeScreen from "./views/UserView/components/WelcomeScreen/WelcomeScre
 import { useSelector } from "react-redux";
 import SignForm from "./views/SplashView/components/SignForm/SignForm";
 import RecoveryForm from "./views/SplashView/components/RecoveryForm/RecoveryForm";
-import GroupCreator from "./views/UserView/components/GroupCreator/GroupCreator";
-
-const BlueButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-}));
+import GroupManager from "./views/UserView/components/GroupManager/GroupManager";
+import { getDesignTokens } from "./styling/theme";
+import { GroupAdmin } from "./views/UserView/components/GroupAdmin/GroupAdmin";
+import { Profile } from "./views/UserView/components/Profile/Profile";
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
@@ -28,28 +36,36 @@ function RequireAuth({ children, redirectTo }) {
 }
 
 function App() {
+  const mode = useSelector((state) => state.theme.mode);
+  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth redirectTo="/auth">
-              <UserView />
-            </RequireAuth>
-          }
-        >
-          <Route path="/" element={<WelcomeScreen />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="new-group" element={<GroupCreator />} />
-        </Route>
-        <Route path="/auth" element={<SplashView />}>
-          <Route path="/auth" element={<SignForm />} />
-          <Route path="/auth/recovery/" element={<RecoveryForm />} />
-          <Route path="/auth/recovery/:token" element={<RecoveryForm />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RequireAuth redirectTo="/auth">
+                <UserView />
+              </RequireAuth>
+            }
+          >
+            <Route path="/" element={<WelcomeScreen />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="manage-groups" element={<GroupManager />} />
+            <Route path="group-admin/:id" element={<GroupAdmin />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="/auth" element={<SplashView />}>
+            <Route path="/auth" element={<SignForm />} />
+            <Route path="/auth/recovery/" element={<RecoveryForm />} />
+            <Route path="/auth/recovery/:token" element={<RecoveryForm />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 export default App;

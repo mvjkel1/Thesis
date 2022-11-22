@@ -6,6 +6,7 @@ import {
   REQUEST_PASS_RECOVERY_SUCCESS,
   REQUEST_PASS_RECOVERY_FAILED,
   LOGOUT,
+  UPDATE_USER_DATA,
 } from "../actions/types";
 
 const initialState = {
@@ -47,6 +48,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: payload,
+      };
+    case UPDATE_USER_DATA:
+      return {
+        ...state,
+        ["user"]: {
+          ...state.user,
+          name: payload.name,
+          email: payload.email,
+        },
       };
     case LOGOUT:
       return {

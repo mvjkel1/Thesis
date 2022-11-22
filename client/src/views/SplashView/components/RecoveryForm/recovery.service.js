@@ -2,7 +2,7 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/api/v1/users/";
 export const requestResetToken = (data) => {
   return axios
-    .post(API_URL + "forgotPassword", {
+    .post(API_URL + "forgot-password", {
       email: data.email,
     })
     .then((response) => {
@@ -23,7 +23,7 @@ export const requestResetToken = (data) => {
 
 export const resetPassword = (data, token) => {
   return axios
-    .patch(API_URL + "resetPassword/" + token, {
+    .patch(API_URL + "reset-password/" + token, {
       password: data.password,
       passwordConfirm: data.passwordConfirm,
     })

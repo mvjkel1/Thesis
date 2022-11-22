@@ -29,10 +29,10 @@ const Auth2 = () => {
             xl: "flex",
           }}
           sx={{
-            backgroundColor: "rgba(244,246,248,255)",
             flexDirection: "column",
             alignItems: "center",
           }}
+          bgcolor="background.dark"
         >
           <Description />
         </Grid>
@@ -45,12 +45,12 @@ const Auth2 = () => {
           lg={4}
           xl={4}
           sx={{
-            backgroundColor: "white",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             borderRadius: "0.5rem",
           }}
+          bgcolor="background.main"
         >
           <Outlet />
         </Grid>
