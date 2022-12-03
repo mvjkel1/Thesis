@@ -191,7 +191,7 @@ export const Sidebar = () => {
           <CollapsingList
             name="My classes"
             subpages={classes}
-            isAdmin={currentWorkgroup.founder._id == user._id}
+            isAdmin={currentWorkgroup?.founder?._id == user?._id}
           />
         </List>
       </Box>
