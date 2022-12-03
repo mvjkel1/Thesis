@@ -9,11 +9,9 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./styling/theme";
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById("root")
 );
 
