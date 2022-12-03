@@ -15,7 +15,13 @@ router
 router
   .route("/:id")
   .get(authController.protect, classController.getClass)
-  .patch(authController.protect, classController.updateClass)
+  .patch(
+    authController.protect,
+    classController.uploadClassFiles,
+    classController.resizeClassImageCover,
+    classController.updateClass
+  )
+  .patch(authController.protect)
   .delete(
     authController.protect,
     authController.restrictTo("class-representative", "admin"),

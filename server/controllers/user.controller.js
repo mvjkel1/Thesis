@@ -7,7 +7,7 @@ const AppError = require("./../utils/app.error");
 
 const multerStorage = multer.memoryStorage();
 
-const multerFilter = (file, cb) => {
+const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
@@ -26,7 +26,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
   const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
   req.file.filename = `${req.file.fieldname}-${uniqueSuffix}.jpeg`;
-  sharp(req.file.buffer)
+  await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat("jpeg")
     .jpeg({ quality: 95 })
