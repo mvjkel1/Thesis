@@ -3,7 +3,6 @@ import {
   Collapse,
   Divider,
   FormControl,
-  InputLabel,
   List,
   ListItemIcon,
   ListItemText,
@@ -17,6 +16,7 @@ import {
 import SchoolIcon from "@mui/icons-material/School";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import AddIcon from '@mui/icons-material/Add';
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import React, { useEffect } from "react";
 import { useMatch } from "react-router-dom";
@@ -42,8 +42,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/actions/auth";
 import { switchMode } from "../../../redux/actions/theme";
 
-const CollapsingList = ({ name, subpages }) => {
+const CollapsingList = ({ name, subpages, isAdmin }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -68,12 +69,18 @@ const CollapsingList = ({ name, subpages }) => {
             maxHeight: 300,
           }}
         >
-          {subpages.map((subpage) => (
+          {isAdmin && <SideBarSubItem onClick={()=>navigate('/chat')}>
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Add class"} />
+            </SideBarSubItem>}
+          {subpages?.map((subpage) => (
             <SideBarSubItem key={subpage} button>
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
-              <ListItemText primary={subpage} />
+              <ListItemText primary={subpage.name} />
             </SideBarSubItem>
           ))}
         </List>
@@ -130,6 +137,7 @@ const GroupPicker = ({
 
 export const Sidebar = () => {
   const workgroups = useSelector((state) => state.workgroups.data);
+  const classes = useSelector((state) => state.classes.data);
   const currentWorkgroup = useSelector(
     (state) => state.workgroups.currentWorkgroup
   );
@@ -182,14 +190,8 @@ export const Sidebar = () => {
           ))}
           <CollapsingList
             name="My classes"
-            subpages={[
-              "test",
-              "testfdsfsdf",
-              "xdxdxd",
-              "sfsdfd",
-              "gdgfdgad",
-              "fsdfs",
-            ]}
+            subpages={classes}
+            isAdmin={currentWorkgroup.founder._id == user._id}
           />
         </List>
       </Box>
