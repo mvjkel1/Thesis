@@ -17,6 +17,10 @@ const classSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Group",
   },
+  imageCover: {
+    type: String,
+  },
+  files: [String],
 });
 
 const Class = mongoose.model("Class", classSchema);

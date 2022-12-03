@@ -37,14 +37,14 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.discardGroupFounder = catchAsync(async (req, res, next) => {
-//   const founder = await User.findById(req.user.id);
-//   if (founder.role !== "admin" && founder.groups.length === 1) {
-//     founder.role = "user";
-//   }
-//   founder.save({ validateBeforeSave: false });
-//   next();
-// });
+exports.discardGroupFounder = catchAsync(async (req, res, next) => {
+  const founder = await User.findById(req.user.id);
+  if (founder.role !== "admin") {
+    founder.role = "user";
+  }
+  founder.save({ validateBeforeSave: false });
+  next();
+});
 
 exports.getMyGroup = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
