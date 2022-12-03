@@ -52,12 +52,10 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
-  groups: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Group",
-    },
-  ],
+  group: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Group",
+  },
 });
 
 // Password encryption

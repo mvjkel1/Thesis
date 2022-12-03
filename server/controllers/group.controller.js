@@ -8,7 +8,7 @@ exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
   const newGroup = await Group.create(req.body);
   const founder = await User.findById(req.body.founder);
-  founder.groups.push(newGroup._id);
+  founder.group = newGroup._id;
   founder.role = "group-representative";
   founder.save({ validateBeforeSave: false });
   newGroup.members.push(founder);
@@ -21,28 +21,39 @@ exports.createGroup = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.discardGroupFounder = catchAsync(async (req, res, next) => {
-  const founder = await User.findById(req.user.id);
-  const founderGroupIndexToRemove = founder.groups.map((obj) => obj.valueOf());
-  founder.groups.splice(
-    founderGroupIndexToRemove.findIndex((obj) => obj === req.params.id),
-    1
-  );
-  if (founder.role !== "admin" && founder.groups.length === 1) {
-    founder.role = "user";
-  }
-  founder.save({ validateBeforeSave: false });
-  next();
+exports.joinGroup = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const group = await Group.findById(req.params.id);
+  if (!group) return next(new AppError("Group not found", 404));
+  user.group = req.params.id;
+  group.members.push(user);
+  user.save({ validateBeforeSave: false });
+  group.save({ validateBeforeSave: false });
+  res.status(201).json({
+    status: "success",
+    data: {
+      group,
+    },
+  });
 });
 
-exports.getMyGroups = catchAsync(async (req, res, next) => {
+// exports.discardGroupFounder = catchAsync(async (req, res, next) => {
+//   const founder = await User.findById(req.user.id);
+//   if (founder.role !== "admin" && founder.groups.length === 1) {
+//     founder.role = "user";
+//   }
+//   founder.save({ validateBeforeSave: false });
+//   next();
+// });
+
+exports.getMyGroup = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  if (!user.groups) return next(new AppError("You have to belong to a group."));
-  const groupsIds = user.groups;
-  const groups = await Group.find({ _id: { $in: groupsIds } });
+  if (!user.group) return next(new AppError("You have to belong to a group."));
+  const groupId = user.group;
+  const group = await Group.find({ _id: { $in: groupId } });
   res.status(200).json({
-    title: "My groups",
-    groups,
+    title: "My group",
+    group,
   });
 });
 
