@@ -20,7 +20,7 @@ const classSchema = new mongoose.Schema({
   imageCover: {
     type: String,
   },
-  files: [String],
+  documents: [String],
 });
 
 const Class = mongoose.model("Class", classSchema);

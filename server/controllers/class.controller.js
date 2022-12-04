@@ -6,55 +6,57 @@ const factory = require("./handler.factory");
 const multer = require("multer");
 const sharp = require("sharp");
 
-const multerStorage = multer.memoryStorage();
+const imageCoverStorage = multer.memoryStorage();
 
-const multerFilter = (req, file, cb) => {
-  console.log(file.mimetype);
-  // if (file.mimetype.startsWith("image")) {
-  //   cb(null, true);
-  // } else {
-  //   cb(new AppError("Please upload only images.", 400), false);
-  // }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  // fileFilter: multerFilter,
+const classDocumentsStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/class/documents/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
 
-exports.uploadClassFiles = upload.fields([
-  {
-    name: "imageCover",
-    maxCount: 1,
-  },
-  { name: "files", maxCount: 20 },
-]);
+const imageCoverMulterFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new AppError("Not an image! Please upload only images.", 400), false);
+  }
+};
+
+const uploadImage = multer({
+  storage: imageCoverStorage,
+  fileFilter: imageCoverMulterFilter,
+});
+
+const uploadDocument = multer({
+  storage: classDocumentsStorage,
+});
+
+exports.uploadClassImageCover = uploadImage.single("imageCover");
+exports.uploadClassDocuments = uploadDocument.any("documents");
 
 exports.resizeClassImageCover = catchAsync(async (req, res, next) => {
-  // if (!req.files.imageCover || !req.files.files) return next();
-
-  // Cover image
-  if (req.files.imageCover) {
-    req.body.imageCover = `class-${req.params.id}-${Date.now()}-cover.jpeg`;
-    await sharp(req.files.imageCover[0].buffer)
-      .resize(1280, 720)
-      .toFormat("jpeg")
-      .jpeg({ quality: 95 })
-      .toFile(`public/img/classes/imageCover/${req.body.imageCover}`);
-  }
-  // else if (req.files.files) {
-  //   req.body.files = [];
-  //   // Other files
-  //   await Promise.all(
-  //     req.files.files.map(async (file, idx) => {
-  //       console.log(file);
-  //       const filename = `class-file-${req.params.id}-${Date.now()}-${idx + 1}`;
-  //       await sharp(file.buffer).toFile(`public/img/classes/files/${filename}`);
-  //       req.body.files.push(filename);
-  //     })
-  //   );
-  // }
+  if (!req.file) return next();
+  req.file.filename = `class-cover-${req.params.id}-${Date.now()}.jpeg`;
+  await sharp(req.file.buffer)
+    .resize(1152, 864)
+    .toFormat("jpeg")
+    .jpeg({ quality: 95 })
+    .toFile(`public/class/imageCover/${req.file.filename}`);
   next();
+});
+
+exports.postClassDocuments = catchAsync(async (req, res, next) => {
+  const class_ = await Class.findById(req.params.id);
+  const originalnames = req.files.map((file) => file.originalname);
+  class_.documents.push(originalnames.toString());
+  class_.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    message: "Uploaded " + req.files.length + " documents.",
+  });
 });
 
 exports.setUserGroupId = catchAsync(async (req, res, next) => {
