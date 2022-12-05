@@ -22,8 +22,9 @@ router
   .delete(
     authController.protect,
     authController.restrictTo("group-representative", "admin"),
-    groupController.discardGroupFounder,
-    groupController.deleteGroup
+    groupController.removeAllClassesBasedOnGroup,
+    groupController.deleteGroup,
+    groupController.discardGroupFounder
   )
   .patch(
     authController.protect,
