@@ -5,8 +5,9 @@ const User = require("./../models/user.model");
 const factory = require("./handler.factory");
 const multer = require("multer");
 const sharp = require("sharp");
-
-const imageCoverStorage = multer.memoryStorage();
+const { v4: uuidv4 } = require('uuid');
+const aws = require('aws-sdk');
+const s3 = new aws.S3();
 
 const classDocumentsStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -17,6 +18,13 @@ const classDocumentsStorage = multer.diskStorage({
   },
 });
 
+function resizeImage(imageBuffer){
+  return sharp(imageBuffer)
+  .resize(400)
+  .jpeg({quality: 50})
+  .toBuffer()
+}
+
 const imageCoverMulterFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
@@ -25,17 +33,47 @@ const imageCoverMulterFilter = (req, file, cb) => {
   }
 };
 
-const uploadImage = multer({
-  storage: imageCoverStorage,
-  fileFilter: imageCoverMulterFilter,
-});
+const pushToS3 = (data, key) => {
+  return new Promise((resolve, reject) => 
+  s3.upload({
+    Bucket: "studentshare",
+    Key: key,
+    ACL: 'public-read',
+    Body: data
+  }, (err, data) => {
+    if(err) reject(err);
+    else resolve(data);
+  }))
+}
 
-const uploadDocument = multer({
-  storage: classDocumentsStorage,
-});
+const uploadItem = (req, res, next) => {
+  const imageFormats = /jpeg|jpg|png|gif/;
+  const documentFormats = /pdf|docx/;
+  // Step 1: sprawdz czy jest w ogole plik (prymitywne)
+  if(!req.files[0]) { return next()}
+  console.log("RECEIVED FILE");
+  // Step 2: wygeneruj dla niego unikalna nazwe do s3 i daj do req
+  req.key = uuidv4();
+  // Step 3: daj wszystkie inne wazne dane do req
+  req.filename = req.files[0].originalname;
+  req.mimetype = req.files[0].mimetype;
+  console.log("OF NAME " + req.files[0].originalname);
+  // Step 3: sprwadz format czy dozwolony, jesli obraz, zrob resize, jesli nie, zostaw
+  console.log("AND OF TYPE: " + req.files[0].mimetype);
+  let file;
+  if(imageFormats.test(req.files[0].mimetype)) file = resizeImage(req.files[0].buffer)
+  else if(documentFormats.test(req.files[0].mimetype)) file = new Promise(res => res(req.files[0].buffer))
+  file
+  .then((data) => {
+    pushToS3(data, req.key);
+  })
+  .then(() => next())
+  .catch(error => res.status(400).json({message: error}))
+}
 
-exports.uploadClassImageCover = uploadImage.single("imageCover");
-exports.uploadClassDocuments = uploadDocument.any("documents");
+// Tu nie wiedzialem o co chodzilo z tym rozróznieniem, idk 
+exports.uploadClassImageCover = uploadItem; //?
+exports.uploadClassItem = uploadItem;
 
 exports.resizeClassImageCover = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
@@ -48,15 +86,30 @@ exports.resizeClassImageCover = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.postClassDocuments = catchAsync(async (req, res, next) => {
+exports.postClassItem = catchAsync(async (req, res, next) => {
+  console.log("UPLOAD OK, NOW, ADDING DB ENTRY");
+  const dbObject = {
+    file_key: req.key, // Aws long name
+    file_name: req.filename, // Original name, with extension
+    mimetype: req.mimetype,
+    userId: req.user._id,
+    timestamp: Date.now()
+  }
+  console.log(dbObject);
+
+  // To z jakiegoś powodu nie działa, nwm, nie znam się, coś z mongo, licze ze ogarniesz :)
+
+  /*
   const class_ = await Class.findById(req.params.id);
-  const originalnames = req.files.map((file) => file.originalname);
-  class_.documents.push(originalnames.toString());
+  class_.documents.push(dbObject);
   class_.save({ validateBeforeSave: false });
+  */
+  
   res.status(200).json({
     status: "success",
     message: "Uploaded " + req.files.length + " documents.",
   });
+
 });
 
 exports.setUserGroupId = catchAsync(async (req, res, next) => {

@@ -76,7 +76,7 @@ const CollapsingList = ({ name, subpages, isAdmin }) => {
               <ListItemText primary={"Add class"} />
             </SideBarSubItem>}
           {subpages?.map((subpage) => (
-            <SideBarSubItem key={subpage} button>
+            <SideBarSubItem key={subpage} onClick={()=>navigate(`/class/${subpage._id}`)} button>
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
