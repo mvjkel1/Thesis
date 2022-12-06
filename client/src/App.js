@@ -29,6 +29,7 @@ import GroupManager from "./views/UserView/components/GroupManager/GroupManager"
 import { getDesignTokens } from "./styling/theme";
 import { GroupAdmin } from "./views/UserView/components/GroupAdmin/GroupAdmin";
 import { Profile } from "./views/UserView/components/Profile/Profile";
+import { ClassDetails } from "./views/UserView/components/ClassDetails/ClassDetails";
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
@@ -55,6 +56,7 @@ function App() {
             <Route path="chat" element={<Chat />} />
             <Route path="manage-groups" element={<GroupManager />} />
             <Route path="group-admin/:id" element={<GroupAdmin />} />
+            <Route path="/class/:id" element={<ClassDetails/>} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

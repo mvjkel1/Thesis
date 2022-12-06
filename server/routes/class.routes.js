@@ -1,6 +1,7 @@
 const express = require("express");
 const classController = require("../controllers/class.controller");
 const authController = require("../controllers/auth.controller");
+const multer = require("multer");
 const router = express.Router({ mergeParams: true });
 
 router
@@ -17,10 +18,11 @@ router
   .get(authController.protect, classController.getClass)
   .post(
     authController.protect,
-    classController.uploadClassDocuments,
-    classController.postClassDocuments
+    multer({limits: { fileSize: 1*1000*1000 }}).any(),
+    classController.uploadClassItem,
+    classController.postClassItem
   )
-  .patch(
+  .patch( 
     authController.protect,
     classController.uploadClassImageCover,
     classController.resizeClassImageCover,
