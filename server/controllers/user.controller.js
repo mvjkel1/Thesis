@@ -4,14 +4,17 @@ const factory = require("./handler.factory");
 const multer = require("multer");
 const sharp = require("sharp");
 const AppError = require("./../utils/app.error");
-
+const { StatusCodes } = require("http-status-codes");
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
-    cb(new AppError("Please upload only images.", 400), false);
+    cb(
+      new AppError("Please upload only images.", StatusCodes.BAD_REQUEST),
+      false
+    );
   }
 };
 

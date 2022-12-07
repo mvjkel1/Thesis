@@ -5,6 +5,7 @@ const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
 const sendEmail = require("./../utils/email");
 const crypto = require("crypto");
+const { StatusCodes } = require("http-status-codes");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -63,7 +64,10 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
   } catch (err) {
     return next(
-      new AppError("Something went wrong while sending an email.", 401)
+      new AppError(
+        "Something went wrong while sending an email.",
+        StatusCodes.UNAUTHORIZED
+      )
     );
   }
   createSendToken(newUser, 201, res);
@@ -72,11 +76,18 @@ exports.signup = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return next(new AppError("Please provide email and password!", 400));
+    return next(
+      new AppError(
+        "Please provide email and password!",
+        StatusCodes.BAD_REQUEST
+      )
+    );
   } else {
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await user.correctPasswords(password, user.password))) {
-      return next(new AppError("Incorrect email or password!", 401));
+      return next(
+        new AppError("Incorrect email or password!", StatusCodes.UNAUTHORIZED)
+      );
     }
     createSendToken(user, 200, res);
   }
@@ -104,7 +115,10 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   if (!token) {
     return next(
-      new AppError("You are not logged in - not authorized to get there.", 401)
+      new AppError(
+        "You are not logged in - not authorized to get there.",
+        StatusCodes.UNAUTHORIZED
+      )
     );
   }
 
@@ -125,7 +139,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   // 4. Check if user changed password after the token was issued
   if (user.changedPasswordAfter(decoded.iat)) {
     return next(
-      new AppError("User recently changed password! Please log in again.", 401)
+      new AppError(
+        "User recently changed password! Please log in again.",
+        StatusCodes.UNAUTHORIZED
+      )
     );
   }
 
@@ -139,7 +156,10 @@ exports.restrictTo = (...roles) => {
     // roles ['admin', 'class-representative']. role='user'
     if (!roles.includes(req.user.role)) {
       return next(
-        new AppError("You do not have permission to perform this action", 403)
+        new AppError(
+          "You do not have permission to perform this action",
+          StatusCodes.FORBIDDEN
+        )
       );
     }
     next();
@@ -183,7 +203,10 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
     return next(
-      new AppError("There was an error while sending the email.", 500)
+      new AppError(
+        "There was an error while sending the email.",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      )
     );
   }
 });
@@ -202,7 +225,10 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   // If token has no expired, and there is user, set the new password
   if (!user) {
-    return next(new AppError("Token is invalid or has expired."), 400);
+    return next(
+      new AppError("Token is invalid or has expired."),
+      StatusCodes.BAD_REQUEST
+    );
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
@@ -219,7 +245,9 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
   // Check if POSTed password is valid
   if (!(await user.correctPasswords(req.body.passwordCurrent, user.password))) {
-    return next(new AppError("Your current password is wrong.", 401));
+    return next(
+      new AppError("Your current password is wrong.", StatusCodes.UNAUTHORIZED)
+    );
   }
   // Update the password
   user.password = req.body.password;

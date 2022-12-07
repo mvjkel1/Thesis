@@ -12,6 +12,7 @@ const classRouter = require("./routes/class.routes");
 const globalErrorHandler = require("./controllers/error.controller");
 const AppError = require("./utils/app.error");
 const PORT = process.env.PORT;
+const { StatusCodes } = require("http-status-codes");
 
 const corsOptions = {
   origin: "127.0.0.1:" + PORT,
@@ -49,7 +50,12 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/groups", groupRouter);
 app.use("/api/v1/classes", classRouter);
 app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server.`, 404));
+  next(
+    new AppError(
+      `Can't find ${req.originalUrl} on this server.`,
+      StatusCodes.NOT_FOUND
+    )
+  );
 });
 
 app.use(globalErrorHandler);

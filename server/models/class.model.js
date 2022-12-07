@@ -21,7 +21,15 @@ const classSchema = new mongoose.Schema(
     imageCover: {
       type: String,
     },
-    documents: [String],
+    documents: [
+      {
+        file_key: String,
+        file_name: String,
+        mimetype: String,
+        userId: mongoose.Schema.ObjectId,
+        timestamp: Number,
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

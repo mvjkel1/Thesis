@@ -1,12 +1,15 @@
 const catchAsync = require("./../utils/catch.async");
 const AppError = require("./../utils/app.error");
+const { StatusCodes } = require("http-status-codes");
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(
+        new AppError("No document found with that ID", StatusCodes.NOT_FOUND)
+      );
     }
 
     res.status(204).json({
@@ -23,7 +26,9 @@ exports.updateOne = (Model) =>
     });
 
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(
+        new AppError("No document found with that ID", StatusCodes.NOT_FOUND)
+      );
     }
 
     res.status(200).json({
@@ -54,7 +59,9 @@ exports.getOne = (Model, populateOptions) =>
 
     const doc = await query;
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(
+        new AppError("No document found with that ID", StatusCodes.NOT_FOUND)
+      );
     }
 
     res.status(200).json({
@@ -80,7 +87,9 @@ exports.getAll = (Model, populateOptions) =>
 
     const doc = await query;
     if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
+      return next(
+        new AppError("No document found with that ID", StatusCodes.NOT_FOUND)
+      );
     }
 
     res.status(201).json({

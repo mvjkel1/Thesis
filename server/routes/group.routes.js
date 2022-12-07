@@ -30,7 +30,12 @@ router
     authController.protect,
     authController.restrictTo("group-representative", "admin"),
     groupController.updateGroup
-  )
-  .post(authController.protect, groupController.joinGroup);
+  );
+
+router.route("/:token").post(groupController.joinGroup);
+
+router
+  .route("/invite/:id")
+  .post(authController.protect, groupController.inviteToGroup);
 
 module.exports = router;

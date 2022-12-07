@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 
 const groupSchema = new mongoose.Schema(
   {
@@ -17,6 +18,7 @@ const groupSchema = new mongoose.Schema(
       default: Date.now(),
     },
     members: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
+    inviteToken: String,
   },
   {
     toJSON: { virtuals: true },
@@ -37,6 +39,13 @@ groupSchema.pre(/^find/, function (next) {
   });
   next();
 });
+
+groupSchema.methods.createInviteToken = function () {
+  const token = crypto.randomBytes(32).toString("hex");
+  this.inviteToken = crypto.createHash("sha256").update(token).digest("hex");
+  console.log(token);
+  return token;
+};
 
 const Group = mongoose.model("Group", groupSchema);
 
