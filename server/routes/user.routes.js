@@ -2,7 +2,7 @@ const userController = require("../controllers/user.controller");
 const authController = require("../controllers/auth.controller");
 const express = require("express");
 const router = express.Router();
-
+const multer = require("multer");
 // Actual user routes
 router
   .get("/logout", authController.logout)
@@ -18,8 +18,9 @@ router
   .patch(
     "/update-me",
     authController.protect,
+    multer({ limits: { fileSize: 1 * 1000 * 1000 } }).any(),
     userController.uploadUserPhoto,
-    userController.resizeUserPhoto,
+    userController.postUserPhoto,
     userController.updateMe
   )
   .delete("/delete-me", authController.protect, userController.deleteMe);

@@ -6,6 +6,7 @@ const sharp = require("sharp");
 const AppError = require("./../utils/app.error");
 const { StatusCodes } = require("http-status-codes");
 const multerStorage = multer.memoryStorage();
+const uploadFile = require("../utils/upload.file");
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
@@ -23,23 +24,27 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadUserPhoto = upload.single("photo");
+exports.uploadUserPhoto = uploadFile;
 
-exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
-  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-  req.file.filename = `${req.file.fieldname}-${uniqueSuffix}.jpeg`;
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 95 })
-    .toFile(`public/img/users/${req.file.filename}`);
+exports.postUserPhoto = catchAsync(async (req, res, next) => {
+  const dbObject = {
+    file_key: req.key, // Aws long name
+    file_name: req.filename, // Original name, with extension
+    mimetype: req.mimetype,
+    userId: req.user._id,
+    timestamp: Date.now(),
+  };
 
+  const user = await User.findById(req.user.id);
+  if (!user)
+    return next(new AppError("User not found.", StatusCodes.BAD_REQUEST));
+  req.body.photo = dbObject;
   next();
 });
 
 exports.updateMe = catchAsync(async (req, res) => {
   let { name, email, photo } = req.body;
+  console.log(req.body);
   const user = Object.assign(
     req.user,
     JSON.parse(JSON.stringify({ name, email, photo }))

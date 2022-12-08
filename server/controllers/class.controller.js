@@ -6,6 +6,7 @@ const factory = require("./handler.factory");
 const uploadClassItem = require("./../utils/upload.file");
 
 exports.uploadClassItem = uploadClassItem;
+
 exports.postClassItem = catchAsync(async (req, res, next) => {
   const dbObject = {
     file_key: req.key, // Aws long name
