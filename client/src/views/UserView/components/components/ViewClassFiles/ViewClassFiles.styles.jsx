@@ -1,0 +1,46 @@
+import {
+    Box,
+    Button,
+    OutlinedInput,
+    styled,
+    TextField,
+    Typography,
+  } from "@mui/material";
+
+  export const HeaderWrapper = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+  }));
+  
+  export const HeaderText = styled(Typography)({
+    fontSize: 25,
+    fontWeight: 500,
+  });
+  
+  export const FeatureContainer = styled(Box)(({ theme }) => ({
+    display: "flex",
+    flex: "1",
+    flexDirection: "column",
+    backgroundColor: theme.palette.neutral.main,
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  }));
+  
+  export const FormContainer = styled(Box)(({ theme }) => ({
+    marginTop: theme.spacing(1),
+    display: "flex",
+  }));
+  
+  export const GroupNameInput = styled(OutlinedInput)(({ theme }) => ({
+    borderRadius: theme.spacing(2),
+    width: "70%",
+  }));
+  
+  export const SubmitButton = styled(Button)(({ theme }) => ({
+    borderRadius: theme.spacing(4),
+    backgroundColor: "#8361e8",
+    marginLeft: theme.spacing(2),
+    width: "30%",
+  }));
+  
