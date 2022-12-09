@@ -4,6 +4,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { useState } from "react";
 import { Box, Typography } from "@mui/material";
+import { StyledCalendar } from "./WelcomeScreen.styles";
 
 const localizer = momentLocalizer(moment);
 
@@ -12,7 +13,7 @@ const MyCalendar = (props) => {
 
   return (
     <Box>
-      <Calendar
+      <StyledCalendar
         localizer={localizer}
         startAccessor="start"
         endAccessor="end"

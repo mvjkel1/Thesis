@@ -37,12 +37,13 @@ import {
   SideBarItem,
   SidebarSectionText,
   SideBarSubItem,
+  GroupSelect,
 } from "./sidebar.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/actions/auth";
 import { switchMode } from "../../../redux/actions/theme";
 
-const CollapsingList = ({ name, subpages, isAdmin }) => {
+const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => {
@@ -52,12 +53,12 @@ const CollapsingList = ({ name, subpages, isAdmin }) => {
     <>
       <SideBarItem onClick={handleOpen}>
         <ListItemIcon>
-          <SchoolIcon />
+          <SchoolIcon color="icon" />
         </ListItemIcon>
         <ListItemText>
           <Typography color="text.primary">{name}</Typography>{" "}
         </ListItemText>
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {open ? <ExpandLess color="icon" /> : <ExpandMore color="icon" />}
       </SideBarItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List
@@ -69,18 +70,18 @@ const CollapsingList = ({ name, subpages, isAdmin }) => {
             maxHeight: 300,
           }}
         >
-          {isAdmin && <SideBarSubItem onClick={()=>navigate('/chat')}>
+          {isAdmin && <SideBarSubItem onClick={()=>navigate(`/group-admin/${workgroup._id}`)}>
               <ListItemIcon>
-                <AddIcon />
+                <AddIcon color="icon" />
               </ListItemIcon>
-              <ListItemText primary={"Add class"} />
+              <ListItemText primary={<Typography color="text.primary">Add class</Typography>} />
             </SideBarSubItem>}
           {subpages?.map((subpage) => (
             <SideBarSubItem key={subpage} onClick={()=>navigate(`/class/${subpage._id}`)} button>
               <ListItemIcon>
-                <LibraryBooksIcon />
+                <LibraryBooksIcon color="icon" />
               </ListItemIcon>
-              <ListItemText primary={subpage.name} />
+              <ListItemText primary={<Typography color="text.primary">{subpage.name}</Typography>}/>
             </SideBarSubItem>
           ))}
         </List>
@@ -115,22 +116,19 @@ const GroupPicker = ({
 }) => {
   return (
     <FormControl fullWidth>
-      <Select
+      <GroupSelect
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={currentWorkgroup?._id || ""}
         InputLabelProps={{ shrink: false }}
         onChange={(event) => handleWorkgroupChange(event.target.value)}
-        sx={{
-          borderRadius: 4,
-        }}
       >
         {workgroups?.map?.((workgroup) => (
           <MenuItem key={workgroup._id} value={workgroup._id}>
             {workgroup.name}
           </MenuItem>
         ))}
-      </Select>
+      </GroupSelect>
     </FormControl>
   );
 };
@@ -192,6 +190,7 @@ export const Sidebar = () => {
             name="My classes"
             subpages={classes}
             isAdmin={currentWorkgroup?.founder?._id == user?._id}
+            workgroup={currentWorkgroup}
           />
         </List>
       </Box>
