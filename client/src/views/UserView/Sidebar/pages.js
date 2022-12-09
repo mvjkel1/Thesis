@@ -19,10 +19,10 @@ export const PAGE_ROUTES = {
 };
 
 export const PAGE_ICONS = {
-  [HOME]: <HomeIcon fontSize="small" />,
-  [CHAT]: <ChatIcon fontSize="small" />,
-  [CLASSES]: <LibraryBooksIcon fontSize="small" />,
-  [MANAGE_GROUPS]: <GroupsIcon fontSize="small" />,
+  [HOME]: <HomeIcon color="icon" fontSize="small" />,
+  [CHAT]: <ChatIcon color="icon" fontSize="small" />,
+  [CLASSES]: <LibraryBooksIcon color="icon" fontSize="small" />,
+  [MANAGE_GROUPS]: <GroupsIcon color="icon" fontSize="small" />,
 };
 
 export const PAGE_OPTIONS = {

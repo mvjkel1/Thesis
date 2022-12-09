@@ -1,4 +1,6 @@
 import { Box, Card, styled, Typography } from "@mui/material";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -21,7 +23,7 @@ export const RecentFilesContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(1),
   border: "solid",
   borderRadius: theme.spacing(2),
-  borderColor: "#e0e0e0",
+  borderColor: theme.palette.border.main,
   padding: theme.spacing(2),
 }));
 
@@ -47,4 +49,16 @@ export const ChatCard = styled(Card)(({ theme }) => ({
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
   padding: theme.spacing(1),
+}));
+
+export const StyledCalendar = styled(Calendar)(({ theme }) => ({
+  '.rbc-off-range-bg':{
+    backgroundColor: theme.palette.neutral.light
+  },
+  '.rbc-today':{
+    backgroundColor: theme.palette.neutral.main
+  },
+  '.rbc-active':{
+    backgroundColor: theme.palette.neutral.light
+  }
 }));

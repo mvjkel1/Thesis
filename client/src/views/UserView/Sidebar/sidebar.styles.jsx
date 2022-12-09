@@ -1,4 +1,4 @@
-import { Box, MenuItem, styled, Switch, Typography } from "@mui/material";
+import { Box, MenuItem, Select, styled, Switch, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 
 export const LogoWrapper = styled(Box)(({ theme }) => ({
@@ -64,6 +64,13 @@ export const NewBadge = styled(Box)(({ theme }) => ({
 export const NewBadgeText = styled(Typography)(({ theme }) => ({
   color: "white",
   fontSize: 14,
+}));
+
+export const GroupSelect = styled(Select)(({ theme }) => ({
+  borderRadius: theme.spacing(2),
+  '.MuiOutlinedInput-notchedOutline': {
+    borderColor: theme.palette.border.main
+  },
 }));
 
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({

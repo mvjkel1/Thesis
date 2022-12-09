@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar/Sidebar";
 const UserView = () => {
   const theme = useTheme();
   return (
-    <Box bgcolor="background.main">
+    <Box bgcolor="background.main" sx={{minHeight: "100vh"}}>
       <Grid container spacing={0}>
         <Grid
           item
@@ -44,7 +44,7 @@ const UserView = () => {
           }}
           sx={{
             borderRight: "1px solid",
-            borderColor: "#c0c0c0",
+            borderColor: theme.palette.border.main
           }}
           bgcolor="background.light"
         >
@@ -59,7 +59,7 @@ const UserView = () => {
           xl={6.25}
           sx={{
             minHeight: "calc(100vh - 64px)",
-            borderColor: "#c0c0c0",
+            borderColor: theme.palette.border.main,
             paddingLeft: 2,
             paddingRight: 2,
           }}
@@ -84,7 +84,7 @@ const UserView = () => {
           }}
           sx={{
             borderLeft: "1px solid",
-            borderColor: "#c0c0c0",
+            borderColor: theme.palette.border.main,
             paddingLeft: 2,
           }}
           bgcolor="background.light"

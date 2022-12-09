@@ -1,3 +1,7 @@
+body{
+  overscroll-behavior-y: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -136,4 +140,8 @@ body {
   100% {
     -webkit-transform: rotate(360deg);
   }
+}
+
+.dzu-dropzone{
+  border-radius: 10px !important;
 }
