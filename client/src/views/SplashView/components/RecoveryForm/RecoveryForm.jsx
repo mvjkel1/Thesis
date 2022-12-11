@@ -1,17 +1,17 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { useNavigate, useParams } from "react-router-dom";
-import { Collapse, LinearProgress } from "@mui/material";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { requestResetToken, resetPassword } from "./recovery.service";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Collapse, LinearProgress } from '@mui/material';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { requestResetToken, resetPassword } from './recovery.service';
 import {
   FormBox,
   FormContainer,
@@ -19,49 +19,49 @@ import {
   FormWrapper,
   MailAnimationWrapper,
   SecondaryButton,
-  SubmitButton,
-} from "./RecoveryForm.styles";
+  SubmitButton
+} from './RecoveryForm.styles';
 
 export default function RecoveryForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isTokenSent, setIsTokenSent] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { token } = useParams();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
   const { ref: emailRef, ...emailProps } = register(
-    "email",
+    'email',
     !token && {
-      required: "E-mail is required",
+      required: 'E-mail is required',
       minLength: {
         value: 8,
-        message: "Email is too short",
+        message: 'Email is too short'
       },
       maxLength: {
         value: 64,
-        message: "Email is too long",
+        message: 'Email is too long'
       },
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "Invalid email address.",
-      },
+        message: 'Invalid email address.'
+      }
     }
   );
 
   const { ref: passwordRef, ...passwordProps } = register(
-    "password",
+    'password',
     token && {
-      required: "Password is required.",
+      required: 'Password is required.'
     }
   );
   const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
-    "passwordConfirm",
+    'passwordConfirm',
     token && {
-      required: "Password is required.",
+      required: 'Password is required.'
     }
   );
 
@@ -82,7 +82,7 @@ export default function RecoveryForm() {
     setIsLoading(true);
     return resetPassword(data, token)
       .then(() => {
-        setMessage("Success. You can log in now.");
+        setMessage('Success. You can log in now.');
       })
       .catch((error) => {
         setMessage(error);
@@ -102,12 +102,12 @@ export default function RecoveryForm() {
       <CssBaseline />
       <FormBox>
         {isLoading && (
-          <Box sx={{ width: "200%" }}>
+          <Box sx={{ width: '200%' }}>
             <LinearProgress />
           </Box>
         )}
         <FormContainer>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -115,11 +115,7 @@ export default function RecoveryForm() {
           </Typography>
           <Typography>token: {token}</Typography>
           <Typography>{message}</Typography>
-          <FormInputContainer
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-          >
+          <FormInputContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             {!isTokenSent && !token && (
               <TextField
                 margin="normal"
@@ -177,12 +173,7 @@ export default function RecoveryForm() {
             )}
 
             {!isTokenSent && (
-              <SubmitButton
-                type="submit"
-                color="primaryCtaButton"
-                fullWidth
-                variant="contained"
-              >
+              <SubmitButton type="submit" color="primaryCtaButton" fullWidth variant="contained">
                 Submit
               </SubmitButton>
             )}
@@ -190,7 +181,7 @@ export default function RecoveryForm() {
               color="secondaryCtaButton"
               fullWidth
               variant="outlined"
-              onClick={() => navigate("/auth")}
+              onClick={() => navigate('/auth')}
             >
               Go back to log-in.
             </SecondaryButton>
@@ -201,8 +192,8 @@ export default function RecoveryForm() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" onClick={() => navigate("/")}>
-                  {"Our terms of service (TOS)"}
+                <Link variant="body2" onClick={() => navigate('/')}>
+                  {'Our terms of service (TOS)'}
                 </Link>
               </Grid>
             </Grid>

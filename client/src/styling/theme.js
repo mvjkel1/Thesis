@@ -1,80 +1,81 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material';
 
-const vividBlue = "#8361e8";
-const lightGray = "#c9c9c9";
-const white = "#ffffff";
-const black = "#000000";
-
+const vividBlue = '#8361e8';
+const lightGray = '#c9c9c9';
+const white = '#ffffff';
+const black = '#000000';
 
 const lightPalette = {
-  mode: "light",
+  mode: 'light',
   palette: {
     primary: {
-      main: "#8361e8",
-      dark: "rgba(91,67,162,0.82)",
+      main: '#8361e8',
+      dark: 'rgba(91,67,162,0.82)'
     },
     secondary: {
-      main: "#000000",
-      contrastText: "rgba(249,249,249,0.87)",
+      main: '#000000',
+      contrastText: 'rgba(249,249,249,0.87)'
     },
     neutral: {
-      light: "white", // white menu items etc (in white mode udistinguishable)
-      main: "#f6f6f6", // slightly gray menu items etc
-      dark: "rgba(234,234,234,255)", // menuitems doublehover
+      light: 'white', // white menu items etc (in white mode udistinguishable)
+      main: '#f6f6f6', // slightly gray menu items etc
+      dark: 'rgba(234,234,234,255)' // menuitems doublehover
     },
     background: {
-      light: "white",
-      main: "white", // white bg
-      dark: "rgba(244,246,248,255)", //neutral off-white bg
+      light: 'white',
+      main: 'white', // white bg
+      dark: 'rgba(244,246,248,255)' //neutral off-white bg
     },
     text: {
-      secondary: "#516272",
-      primary: "#000000",
+      secondary: '#516272',
+      primary: '#000000'
     },
     border: {
-      main: "#c0c0c0",
+      light: 'rgba(224, 224, 224, 1)',
+      main: '#c0c0c0'
     },
     icon: {
-      main: "#516272"
+      main: '#516272'
     }
-  },
+  }
 };
 
 const darkPalette = {
-  mode: "dark",
+  mode: 'dark',
   palette: {
     primary: {
-      main: "#8361e8",
-      dark: "rgba(91,67,162,0.82)",
+      main: '#8361e8',
+      dark: 'rgba(91,67,162,0.82)'
     },
     secondary: {
-      main: "#000000",
-      contrastText: "rgba(249,249,249,0.87)",
+      main: '#000000',
+      contrastText: 'rgba(249,249,249,0.87)'
     },
     neutral: {
-      light: "#222222", // white menu items etc
-      main: "#323232", // slightly gray menu items etc
-      dark: "rgba(234,234,234,255)", // menuitems doublehover
+      light: '#222222', // white menu items etc
+      main: '#323232', // slightly gray menu items etc
+      dark: 'rgba(234,234,234,255)' // menuitems doublehover
     },
     background: {
-      light: "#222222",
-      main: "black", // white bg
-      dark: "rgba(244,246,248,255)", //neutral off-white bg
+      light: '#222222',
+      main: 'black', // white bg
+      dark: 'rgba(244,246,248,255)' //neutral off-white bg
     },
     text: {
-      secondary: "#7d7d7d",
-      primary: "#ffffff",
+      secondary: '#7d7d7d',
+      primary: '#ffffff'
     },
     border: {
-      main: "#7d7d7d",
+      light: '#7d7d7d',
+      main: '#7d7d7d'
     },
-    icon:{
-      main: "#ffffff"
+    icon: {
+      main: '#ffffff'
     }
-  },
+  }
 };
 
 export const getDesignTokens = (mode) => {
-  if (mode == "light") return lightPalette;
+  if (mode == 'light') return lightPalette;
   return darkPalette;
 };

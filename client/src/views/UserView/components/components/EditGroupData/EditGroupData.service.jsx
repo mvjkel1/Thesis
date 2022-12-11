@@ -1,12 +1,12 @@
-import axios from "axios";
-const API_URL = "http://localhost:3001/api/v1/groups";
+import axios from 'axios';
+const API_URL = 'http://localhost:3001/api/v1/groups';
 
 export const updateGroupName = (groupId, name, token) => {
   return axios
     .patch(
       `${API_URL}/${groupId}`,
       {
-        name: name,
+        name: name
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -16,9 +16,7 @@ export const updateGroupName = (groupId, name, token) => {
       },
       (error) => {
         const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+          (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
         return Promise.reject(message);

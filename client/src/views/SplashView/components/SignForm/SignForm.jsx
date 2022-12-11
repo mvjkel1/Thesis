@@ -1,29 +1,29 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../../../redux/actions/auth";
-import { registerAction } from "../../../../redux/actions/auth";
-import { useNavigate } from "react-router-dom";
-import { Collapse, LinearProgress } from "@mui/material";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../../redux/actions/auth';
+import { registerAction } from '../../../../redux/actions/auth';
+import { useNavigate } from 'react-router-dom';
+import { Collapse, LinearProgress } from '@mui/material';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {
   FormBox,
   FormContainer,
   FormInputContainer,
   SecondaryButton,
-  SubmitButton,
-} from "./SignForm.styles";
+  SubmitButton
+} from './SignForm.styles';
 
 export default function SignForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,66 +35,66 @@ export default function SignForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    watch
   } = useForm();
   const { ref: nameRef, ...nameProps } = register(
-    "name",
+    'name',
     signUpMode && {
-      required: "Name is required!",
+      required: 'Name is required!',
       minLength: {
         value: 2,
-        message: "Name is too short",
+        message: 'Name is too short'
       },
       maxLength: {
         value: 64,
-        message: "Name is too long",
-      },
+        message: 'Name is too long'
+      }
     }
   );
-  const { ref: emailRef, ...emailProps } = register("email", {
-    required: "E-mail is required",
+  const { ref: emailRef, ...emailProps } = register('email', {
+    required: 'E-mail is required',
     minLength: {
       value: 8,
-      message: "Email is too short",
+      message: 'Email is too short'
     },
     maxLength: {
       value: 64,
-      message: "Email is too long",
+      message: 'Email is too long'
     },
     pattern: {
       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: "Invalid email address.",
-    },
+      message: 'Invalid email address.'
+    }
   });
-  const { ref: passwordRef, ...passwordProps } = register("password", {
+  const { ref: passwordRef, ...passwordProps } = register('password', {
     minLength: {
       value: 8,
-      message: "Password is too short",
+      message: 'Password is too short'
     },
     maxLength: {
       value: 64,
-      message: "Password is too long",
+      message: 'Password is too long'
     },
-    required: "Password is required.",
+    required: 'Password is required.'
   });
   const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
-    "passwordConfirm",
+    'passwordConfirm',
     signUpMode && {
       minLength: {
         value: 8,
-        message: "Password is too short",
+        message: 'Password is too short'
       },
       maxLength: {
         value: 64,
-        message: "Password is too long",
+        message: 'Password is too long'
       },
-      required: "Password is required.",
+      required: 'Password is required.',
 
       validate: (val) => {
-        if (watch("password") != val) {
-          return "Your passwords do not match";
+        if (watch('password') != val) {
+          return 'Your passwords do not match';
         }
-      },
+      }
     }
   );
 
@@ -103,9 +103,7 @@ export default function SignForm() {
   };
 
   const signUp = (data) => {
-    return dispatch(
-      registerAction(data.name, data.email, data.password, data.passwordConfirm)
-    );
+    return dispatch(registerAction(data.name, data.email, data.password, data.passwordConfirm));
   };
 
   const onSubmit = (data) => {
@@ -115,7 +113,7 @@ export default function SignForm() {
     else action = signIn;
     action(data)
       .then(() => {
-        navigate("/");
+        navigate('/');
       })
       .catch(() => setIsLoading(false));
   };
@@ -125,7 +123,7 @@ export default function SignForm() {
       <CssBaseline />
       <FormBox>
         {isLoading && (
-          <Box sx={{ width: "200%" }}>
+          <Box sx={{ width: '200%' }}>
             <LinearProgress />
           </Box>
         )}
@@ -134,7 +132,7 @@ export default function SignForm() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {signUpMode ? "Sign Up" : "Sign In"}
+            {signUpMode ? 'Sign Up' : 'Sign In'}
           </Typography>
           <Typography>{error}</Typography>
           <FormInputContainer
@@ -207,7 +205,7 @@ export default function SignForm() {
               label="Remember me"
             />
             <SubmitButton type="submit" fullWidth variant="contained">
-              {signUpMode ? "Sign Up" : "Sign In"}
+              {signUpMode ? 'Sign Up' : 'Sign In'}
             </SubmitButton>
             <SecondaryButton
               color="secondary"
@@ -215,20 +213,17 @@ export default function SignForm() {
               variant="outlined"
               onClick={() => setSignUpMode(!signUpMode)}
             >
-              {signUpMode ? "Back to login" : "New user? Sign Up!"}
+              {signUpMode ? 'Back to login' : 'New user? Sign Up!'}
             </SecondaryButton>
             <Grid container>
               <Grid item xs>
-                <Link
-                  variant="body2"
-                  onClick={() => navigate("/auth/recovery")}
-                >
+                <Link variant="body2" onClick={() => navigate('/auth/recovery')}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
                 <Link variant="body2" onClick={() => setSignUpMode(true)}>
-                  {"Our terms of service (TOS)"}
+                  {'Our terms of service (TOS)'}
                 </Link>
               </Grid>
             </Grid>

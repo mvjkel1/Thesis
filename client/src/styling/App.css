@@ -1,4 +1,4 @@
-body{
+body {
   overscroll-behavior-y: none;
 }
 
@@ -142,6 +142,10 @@ body {
   }
 }
 
-.dzu-dropzone{
+.dzu-dropzone {
   border-radius: 10px !important;
+}
+
+.MuiTable-root.Table-table {
+  min-width: 0px !important;
 }

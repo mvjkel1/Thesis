@@ -1,7 +1,7 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import Description from "./components/Description/Description";
-import { Outlet } from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+import Description from './components/Description/Description';
 
 const Auth2 = () => {
   return (
@@ -11,7 +11,7 @@ const Auth2 = () => {
         mb={8}
         columns={10}
         sx={{
-          maxWidth: "1080px",
+          maxWidth: '1080px'
         }}
       >
         <Grid
@@ -22,15 +22,15 @@ const Auth2 = () => {
           lg={6}
           xl={6}
           display={{
-            xs: "none",
-            sm: "none",
-            md: "flex",
-            lg: "flex",
-            xl: "flex",
+            xs: 'none',
+            sm: 'none',
+            md: 'flex',
+            lg: 'flex',
+            xl: 'flex'
           }}
           sx={{
-            flexDirection: "column",
-            alignItems: "center",
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
           bgcolor="background.dark"
         >
@@ -45,10 +45,10 @@ const Auth2 = () => {
           lg={4}
           xl={4}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            borderRadius: "0.5rem",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            borderRadius: '0.5rem'
           }}
           bgcolor="background.main"
         >

@@ -11,6 +11,6 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react"],
-  rules: {},
+  plugins: ["react", "unused-imports"],
+  rules: {"unused-imports/no-unused-imports": "error"},
 };
