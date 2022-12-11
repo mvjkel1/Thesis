@@ -83,6 +83,7 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
 
 exports.discardGroupFounder = catchAsync(async (req, res, next) => {
   const founder = await User.findById(req.user.id);
+  console.log(founder);
   if (founder.role !== "admin") {
     founder.role = "user";
   }

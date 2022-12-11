@@ -13,7 +13,7 @@ router
   .post(authController.protect, groupController.createGroup);
 
 router
-  .route("/my-groups")
+  .route("/my-group")
   .get(authController.protect, groupController.getMyGroup);
 
 router
@@ -23,8 +23,8 @@ router
     authController.protect,
     authController.restrictTo("group-representative", "admin"),
     groupController.removeAllClassesBasedOnGroup,
-    groupController.deleteGroup,
-    groupController.discardGroupFounder
+    groupController.discardGroupFounder,
+    groupController.deleteGroup
   )
   .patch(
     authController.protect,
