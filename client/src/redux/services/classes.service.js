@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useToken } from "../../commons/useToken";
-const API_URL = "http://localhost:3001/api/v1/groups";
+import axios from 'axios';
+import { useToken } from '../../commons/useToken';
+const API_URL = 'http://localhost:3001/api/v1/groups';
 export const getClasses = (groupId, token) => {
   let responseData = {};
   return axios
@@ -14,5 +14,5 @@ export const getClasses = (groupId, token) => {
 };
 
 export const DataService = {
-  getClasses,
+  getClasses
 };

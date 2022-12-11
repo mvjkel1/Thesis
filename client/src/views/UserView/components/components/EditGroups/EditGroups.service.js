@@ -1,10 +1,10 @@
-import axios from "axios";
-const API_URL = "http://localhost:3001/api/v1/groups";
+import axios from 'axios';
+const API_URL = 'http://localhost:3001/api/v1/groups';
 
 export const deleteGroup = (id, token) => {
   return axios
     .delete(`${API_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` }
     })
     .then(
       (response) => {
@@ -12,9 +12,7 @@ export const deleteGroup = (id, token) => {
       },
       (error) => {
         const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+          (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
         return Promise.reject(message);

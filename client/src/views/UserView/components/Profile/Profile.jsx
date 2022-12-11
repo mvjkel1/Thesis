@@ -1,35 +1,21 @@
-import {
-  Alert,
-  Avatar,
-  Button,
-  Collapse,
-  Divider,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { login, updateUserData } from "../../../../redux/actions/auth";
-import { changeDetails, changePassword } from "./Profile.service";
-import {
-  FeatureContainer,
-  FormInput,
-  HeaderText,
-  NameInput,
-  SectionText,
-} from "./Profile.styles";
-import CloseIcon from "@mui/icons-material/Close";
+import { Alert, Avatar, Button, Collapse, Divider, IconButton, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { login, updateUserData } from '../../../../redux/actions/auth';
+import { changeDetails, changePassword } from './Profile.service';
+import { FeatureContainer, FormInput, HeaderText, NameInput, SectionText } from './Profile.styles';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [deletionMode, setDeletionMode] = useState(false);
   const [passwordMode, setPasswordMode] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -39,71 +25,71 @@ export const Profile = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
+    reset
   } = useForm();
 
-  const { ref: nameRef, ...nameProps } = register("name", {
-    required: "Name is required!",
+  const { ref: nameRef, ...nameProps } = register('name', {
+    required: 'Name is required!',
     minLength: {
       value: 2,
-      message: "Name is too short",
+      message: 'Name is too short'
     },
     maxLength: {
       value: 64,
-      message: "Name is too long",
-    },
+      message: 'Name is too long'
+    }
   });
-  const { ref: emailRef, ...emailProps } = register("email", {
-    required: "Email is required!",
+  const { ref: emailRef, ...emailProps } = register('email', {
+    required: 'Email is required!',
     minLength: {
       value: 2,
-      message: "Email is too short",
+      message: 'Email is too short'
     },
     maxLength: {
       value: 64,
-      message: "Email is too long",
-    },
+      message: 'Email is too long'
+    }
   });
   const { ref: oldPasswordRef, ...oldPasswordProps } = register(
-    "oldPassword",
+    'oldPassword',
     passwordMode && {
-      required: "Old password is required!",
+      required: 'Old password is required!',
       minLength: {
         value: 2,
-        message: "Old password is too short",
+        message: 'Old password is too short'
       },
       maxLength: {
         value: 64,
-        message: "Old pasword is too long",
-      },
+        message: 'Old pasword is too long'
+      }
     }
   );
   const { ref: newPasswordRef, ...newPasswordProps } = register(
-    "newPassword",
+    'newPassword',
     passwordMode && {
-      required: "New password is required!",
+      required: 'New password is required!',
       minLength: {
         value: 2,
-        message: "New password is too short",
+        message: 'New password is too short'
       },
       maxLength: {
         value: 64,
-        message: "New pasword is too long",
-      },
+        message: 'New pasword is too long'
+      }
     }
   );
   const { ref: newPasswordConfirmRef, ...newPasswordConfirmProps } = register(
-    "newPasswordConfirm",
+    'newPasswordConfirm',
     passwordMode && {
-      required: "New password is required!",
+      required: 'New password is required!',
       minLength: {
         value: 2,
-        message: "New password is too short",
+        message: 'New password is too short'
       },
       maxLength: {
         value: 64,
-        message: "New pasword is too long",
-      },
+        message: 'New pasword is too long'
+      }
     }
   );
   const getProfileData = (id) => {
@@ -118,18 +104,13 @@ export const Profile = () => {
     values.email = user.email;
     reset({
       ...values,
-      oldPassword: "",
-      newPassword: "",
-      newPasswordConfirm: "",
+      oldPassword: '',
+      newPassword: '',
+      newPasswordConfirm: ''
     });
   };
 
-  const doChangePassword = (
-    oldPassword,
-    newPassword,
-    newPasswordConfirm,
-    token
-  ) => {
+  const doChangePassword = (oldPassword, newPassword, newPasswordConfirm, token) => {
     return new Promise((resolve, reject) => {
       changePassword(oldPassword, newPassword, newPasswordConfirm, token)
         .then(() => {
@@ -155,7 +136,7 @@ export const Profile = () => {
   const onSubmit = (data) => {
     setIsLoading(true);
     setIsSuccess(false);
-    setError("");
+    setError('');
     let action = {};
     if (passwordMode)
       action = doChangePassword(
@@ -190,7 +171,7 @@ export const Profile = () => {
     >
       <Collapse in={isSuccess || error}>
         <Alert
-          severity={error ? "error" : "success"}
+          severity={error ? 'error' : 'success'}
           action={
             <IconButton
               aria-label="close"
@@ -204,13 +185,13 @@ export const Profile = () => {
             </IconButton>
           }
         >
-          {isSuccess ? "Successfully changed data." : error}
+          {isSuccess ? 'Successfully changed data.' : error}
         </Alert>
       </Collapse>
       <HeaderText>Profile</HeaderText>
       <Box mt={2} mb={3}>
         <SectionText>Avatar</SectionText>
-        <Box mt={1} sx={{ display: "flex", alignItems: "center" }}>
+        <Box mt={1} sx={{ display: 'flex', alignItems: 'center' }}>
           <Avatar
             sx={{ height: 58, width: 58 }}
             alt={user.name}
@@ -225,8 +206,8 @@ export const Profile = () => {
         </Box>
       </Box>
       <Divider />
-      <Box sx={{ display: "flex" }} mt={2} mb={3}>
-        <Box mr={0.5} sx={{ width: "50%" }}>
+      <Box sx={{ display: 'flex' }} mt={2} mb={3}>
+        <Box mr={0.5} sx={{ width: '50%' }}>
           <SectionText>Username</SectionText>
           <FormInput
             fullWidth
@@ -242,7 +223,7 @@ export const Profile = () => {
             helperText={errors?.name?.message}
           />
         </Box>
-        <Box ml={0.5} sx={{ width: "50%" }}>
+        <Box ml={0.5} sx={{ width: '50%' }}>
           <SectionText>E-mail</SectionText>
           <FormInput
             fullWidth
@@ -264,20 +245,16 @@ export const Profile = () => {
         mt={2}
         mb={2}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start'
         }}
       >
         <SectionText sx={{ mb: 2 }}>Password</SectionText>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => setPasswordMode(true)}
-        >
+        <Button variant="outlined" color="primary" onClick={() => setPasswordMode(true)}>
           Change password
         </Button>
-        <Collapse in={passwordMode} sx={{ width: "50%" }}>
+        <Collapse in={passwordMode} sx={{ width: '50%' }}>
           <Box mt={2}>
             <FormInput
               fullWidth
@@ -330,9 +307,9 @@ export const Profile = () => {
         mt={2}
         mb={2}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start'
         }}
       >
         <SectionText sx={{ mb: 2 }}>Danger area</SectionText>
@@ -341,7 +318,7 @@ export const Profile = () => {
         </Button>
       </Box>
       <Divider />
-      <Box mt={2} mb={1} sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box mt={2} mb={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           type="submit"
           disabled={isLoading}

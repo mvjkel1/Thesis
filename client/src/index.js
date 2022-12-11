@@ -1,18 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styling/index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import store from "./redux/store";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "./styling/theme";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styling/index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { ThemeProvider } from '@mui/material';
+import { theme } from './styling/theme';
 
 ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-  document.getElementById("root")
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

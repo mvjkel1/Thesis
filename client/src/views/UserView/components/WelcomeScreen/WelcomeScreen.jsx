@@ -1,17 +1,13 @@
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import moment from "moment";
-import { useState } from "react";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, CardContent, Typography } from '@mui/material';
+import { useState } from 'react';
+import MyCalendar from './Calendar';
 import {
+  CalendarContainer,
   ChatCard,
   FileCard,
   MainContainer,
-  RecentFilesContainer,
-} from "./WelcomeScreen.styles";
-import MyCalendar from "./Calendar";
-
-const localizer = momentLocalizer(moment);
+  RecentFilesContainer
+} from './WelcomeScreen.styles';
 
 const WelcomeScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +22,9 @@ const WelcomeScreen = (props) => {
         <Typography
           color="text.primary"
           sx={{
-            fontFamily: "Roboto",
+            fontFamily: 'Roboto',
             fontSize: 25,
-            fontWeight: 500,
+            fontWeight: 500
           }}
         >
           Recently happening
@@ -37,11 +33,7 @@ const WelcomeScreen = (props) => {
       <RecentFilesContainer>
         <FileCard elevation={0}>
           <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               bogus123's file
             </Typography>
             <Typography color="text.primary">Grafika_komp.pdf</Typography>
@@ -49,11 +41,7 @@ const WelcomeScreen = (props) => {
         </FileCard>
         <FileCard elevation={0}>
           <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               bogus123's file
             </Typography>
             <Typography color="text.primary">Grafika_komp.pdf</Typography>
@@ -61,11 +49,7 @@ const WelcomeScreen = (props) => {
         </FileCard>
         <FileCard elevation={0}>
           <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               bogus123's file
             </Typography>
             <Typography color="text.primary">Grafika_komp.pdf</Typography>
@@ -73,23 +57,17 @@ const WelcomeScreen = (props) => {
         </FileCard>
         <ChatCard elevation={0}>
           <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               bogus123 said:
             </Typography>
-            <Typography color="text.primary">
-              Hello world lorem ipsum bla bla bla
-            </Typography>
+            <Typography color="text.primary">Hello world lorem ipsum bla bla bla</Typography>
           </CardContent>
         </ChatCard>
       </RecentFilesContainer>
 
-      <RecentFilesContainer>
+      <CalendarContainer>
         <MyCalendar />
-      </RecentFilesContainer>
+      </CalendarContainer>
     </MainContainer>
   );
 };

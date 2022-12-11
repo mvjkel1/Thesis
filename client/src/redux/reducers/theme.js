@@ -1,14 +1,14 @@
 const initialState = {
-  mode: "light",
+  mode: 'light'
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case "SWITCH_THEME_MODE":
+    case 'SWITCH_THEME_MODE':
       return {
         ...state,
-        mode: payload,
+        mode: payload
       };
     default:
       return state;

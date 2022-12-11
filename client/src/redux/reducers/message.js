@@ -1,8 +1,4 @@
-import {
-  SET_LOGIN_MESSAGE,
-  SET_REGISTER_MESSAGE,
-  CLEAR_MESSAGE,
-} from "../actions/types";
+import { SET_LOGIN_MESSAGE, SET_REGISTER_MESSAGE, CLEAR_MESSAGE } from '../actions/types';
 
 const initialState = {};
 
@@ -14,7 +10,7 @@ export default function (state = initialState, action) {
     case SET_LOGIN_MESSAGE:
       return { login_message: payload };
     case CLEAR_MESSAGE:
-      return { login_message: "", register_message: "" };
+      return { login_message: '', register_message: '' };
     default:
       return state;
   }

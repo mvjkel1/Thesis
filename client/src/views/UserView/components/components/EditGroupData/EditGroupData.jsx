@@ -1,22 +1,20 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { getWorkgroups } from "../../../../../redux/actions/workgroups";
-import { updateGroupName } from "./EditGroupData.service";
-import { Alert, Collapse, FormHelperText, IconButton } from "@mui/material";
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import CloseIcon from '@mui/icons-material/Close';
+import { Alert, Collapse, FormHelperText, IconButton } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getWorkgroups } from '../../../../../redux/actions/workgroups';
+import { updateGroupName } from './EditGroupData.service';
 import {
   FeatureContainer,
   FormContainer,
   GroupNameInput,
   HeaderText,
   HeaderWrapper,
-  SubmitButton,
-} from "./EditGroupData.styles";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import CloseIcon from "@mui/icons-material/Close";
-import { useEffect } from "react";
+  SubmitButton
+} from './EditGroupData.styles';
 
 export const EditGroupData = (props) => {
   const { id } = useParams();
@@ -26,15 +24,13 @@ export const EditGroupData = (props) => {
   const [isSuccess, setIsSuccess] = useState();
   const [error, setError] = useState();
   const user = useSelector((state) => state.auth.user);
-  const group = useSelector((state) => state.workgroups.data)?.find(
-    (group) => group._id == id
-  );
+  const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
+    reset
   } = useForm();
 
   const setInitialFormValues = () => {
@@ -42,24 +38,24 @@ export const EditGroupData = (props) => {
     values.name = group?.name;
     reset({
       ...values,
-     name: values.name
+      name: values.name
     });
   };
 
-  const { ref: nameRef, ...nameProps } = register("name", {
-    required: "Name is required!",
+  const { ref: nameRef, ...nameProps } = register('name', {
+    required: 'Name is required!',
     minLength: {
       value: 2,
-      message: "Name is too short",
+      message: 'Name is too short'
     },
     maxLength: {
       value: 64,
-      message: "Name is too long",
-    },
+      message: 'Name is too long'
+    }
   });
 
   const onSubmit = (data) => {
-    setError("");
+    setError('');
     setIsSuccess(false);
     setIsLoading(true);
     updateGroupName(id, data.name, user.token)
@@ -77,21 +73,21 @@ export const EditGroupData = (props) => {
 
   useEffect(() => {
     setInitialFormValues();
-    console.log("user has changed!");
-  }, [user, group])
+    console.log('user has changed!');
+  }, [user, group]);
 
   return (
     <FeatureContainer>
       <HeaderWrapper>
         <HeaderText>Edit group data</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
-          {<ArrowDropDownCircleIcon sx={{ alignSelf: "center" }} />}
+          {<ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />}
         </IconButton>
       </HeaderWrapper>
       <Collapse in={open}>
         <Collapse in={isSuccess || error}>
           <Alert
-            severity={error ? "error" : "success"}
+            severity={error ? 'error' : 'success'}
             action={
               <IconButton
                 aria-label="close"
@@ -105,14 +101,10 @@ export const EditGroupData = (props) => {
               </IconButton>
             }
           >
-            {isSuccess ? "Changed group name successfully" : error}
+            {isSuccess ? 'Changed group name successfully' : error}
           </Alert>
         </Collapse>
-        <FormContainer
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-        >
+        <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <GroupNameInput
             margin="normal"
             required

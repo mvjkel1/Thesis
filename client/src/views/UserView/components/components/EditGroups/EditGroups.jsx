@@ -1,43 +1,24 @@
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FolderIcon from '@mui/icons-material/Folder';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
-  Alert,
-  AlertTitle,
   Avatar,
-  Button,
   Collapse,
-  Divider,
-  Grid,
-  Icon,
   IconButton,
-  InputAdornment,
   List,
   ListItem,
   ListItemAvatar,
   ListItemIcon,
-  ListItemText,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import * as React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getWorkgroups } from "../../../../../redux/actions/workgroups";
-import {
-  FeatureContainer,
-  GroupNameInput,
-  HeaderText,
-  HeaderWrapper,
-  LinkTextfield,
-  MainContainer,
-  SubmitButton,
-} from "./EditGroups.styles";
-import { deleteGroup } from "./EditGroups.service";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FolderIcon from "@mui/icons-material/Folder";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useNavigate } from "react-router-dom";
+  ListItemText
+} from '@mui/material';
+import * as React from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getWorkgroups } from '../../../../../redux/actions/workgroups';
+import { deleteGroup } from './EditGroups.service';
+import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroups.styles';
 
 const GroupList = ({ groups }) => {
   const user = useSelector((state) => state.auth.user);
@@ -84,15 +65,15 @@ const GroupList = ({ groups }) => {
 
 export default function EditGroups() {
   const groups = useSelector((state) => state.workgroups.data);
-  const [error, setError] = useState("");
-  const [url, setUrl] = useState("");
+  const [error, setError] = useState('');
+  const [url, setUrl] = useState('');
   const [open, setOpen] = useState(true);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
 
   const showErrorAlert = (error) => {
     setError(error);
-    setTimeout(() => setError(""), 5000);
+    setTimeout(() => setError(''), 5000);
   };
 
   return (
@@ -101,7 +82,7 @@ export default function EditGroups() {
         <HeaderWrapper>
           <HeaderText>Groups I'm in</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
-            <ArrowDropDownCircleIcon sx={{ alignSelf: "center" }} />
+            <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
           </IconButton>
         </HeaderWrapper>
         <Collapse in={open}>

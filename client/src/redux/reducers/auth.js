@@ -6,12 +6,12 @@ import {
   REQUEST_PASS_RECOVERY_SUCCESS,
   REQUEST_PASS_RECOVERY_FAILED,
   LOGOUT,
-  UPDATE_USER_DATA,
-} from "../actions/types";
+  UPDATE_USER_DATA
+} from '../actions/types';
 
 const initialState = {
-  user: null || JSON.parse(localStorage.getItem("user")),
-  error: null,
+  user: null || JSON.parse(localStorage.getItem('user')),
+  error: null
 };
 
 export default function (state = initialState, action) {
@@ -21,47 +21,47 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: payload,
-        error: null,
+        error: null
       };
     case REGISTER_FAIL:
       return {
         ...state,
-        error: payload,
+        error: payload
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         error: null,
-        user: payload,
+        user: payload
       };
     case LOGIN_FAIL:
       return {
         ...state,
         error: payload,
-        user: null,
+        user: null
       };
     case REQUEST_PASS_RECOVERY_SUCCESS:
       return {
-        ...state,
+        ...state
       };
     case REQUEST_PASS_RECOVERY_FAILED:
       return {
         ...state,
-        error: payload,
+        error: payload
       };
     case UPDATE_USER_DATA:
       return {
         ...state,
-        ["user"]: {
+        ['user']: {
           ...state.user,
           name: payload.name,
-          email: payload.email,
-        },
+          email: payload.email
+        }
       };
     case LOGOUT:
       return {
         ...state,
-        user: null,
+        user: null
       };
     default:
       return state;

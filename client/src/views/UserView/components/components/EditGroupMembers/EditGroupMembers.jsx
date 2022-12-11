@@ -1,26 +1,22 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, Collapse, IconButton } from "@mui/material";
-import {
-  FeatureContainer,
-  HeaderText,
-  HeaderWrapper,
-} from "./EditGroupMembers.styles";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import { Box, Button, Collapse, IconButton } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroupMembers.styles';
 
 const columns = [
-  { field: "_id", headerName: "ID", width: 90 },
+  { field: '_id', headerName: 'ID', width: 90 },
   {
-    field: "name",
-    headerName: "name",
+    field: 'name',
+    headerName: 'name',
     width: 150,
-    editable: true,
+    editable: true
   },
   {
-    field: "action",
-    headerName: "Action",
+    field: 'action',
+    headerName: 'Action',
     sortable: false,
     renderCell: (params) => {
       const onClick = (e) => {
@@ -31,32 +27,28 @@ const columns = [
 
         api
           .getAllColumns()
-          .filter((c) => c.field !== "__check__" && !!c)
-          .forEach(
-            (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-          );
+          .filter((c) => c.field !== '__check__' && !!c)
+          .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
 
         return alert(JSON.stringify(thisRow, null, 4));
       };
 
       return <Button onClick={onClick}>Kick (soon)</Button>;
-    },
-  },
+    }
+  }
 ];
 
 export const EditGroupMembers = () => {
   const [open, setOpen] = useState();
   const { id } = useParams();
-  const group = useSelector((state) => state.workgroups.data)?.find(
-    (group) => group._id == id
-  );
+  const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
 
   return (
     <FeatureContainer>
       <HeaderWrapper>
         <HeaderText>Manage group members</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
-          <ArrowDropDownCircleIcon sx={{ alignSelf: "center" }} />
+          <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
         </IconButton>
       </HeaderWrapper>
       <Collapse in={open}>

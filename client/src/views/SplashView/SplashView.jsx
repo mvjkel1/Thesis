@@ -1,23 +1,23 @@
-import { Box, Grid, Typography } from "@mui/material";
-import AuthContainer from "./AuthContainer";
-import ScreenShareIcon from "@mui/icons-material/ScreenShare";
+import ScreenShareIcon from '@mui/icons-material/ScreenShare';
+import { Box, Grid, Typography } from '@mui/material';
+import AuthContainer from './AuthContainer';
 
 const SplashView = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        alignItems: "center",
+        width: '100%',
+        alignItems: 'center'
       }}
       bgcolor="background.dark"
     >
       <Grid
         container
         sx={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
         }}
       >
         <Grid
@@ -26,15 +26,15 @@ const SplashView = () => {
           ml={2}
           mt={2}
           justifyContent={{
-            xs: "center",
-            sm: "center",
-            md: "flex-start",
-            lg: "flex-start",
-            xl: "flex-start",
+            xs: 'center',
+            sm: 'center',
+            md: 'flex-start',
+            lg: 'flex-start',
+            xl: 'flex-start'
           }}
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center'
           }}
         >
           <ScreenShareIcon color="primary" />
@@ -48,9 +48,9 @@ const SplashView = () => {
           ml={2}
           mr={2}
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start'
           }}
         >
           <AuthContainer />
@@ -61,13 +61,11 @@ const SplashView = () => {
           mb={1}
           xs={12}
           sx={{
-            display: "flex",
-            alignItems: "flex-end",
+            display: 'flex',
+            alignItems: 'flex-end'
           }}
         >
-          <Typography>
-            Copyright © 2022 StudentShare by B.K & M.S. All rights reserved.
-          </Typography>
+          <Typography>Copyright © 2022 StudentShare by B.K & M.S. All rights reserved.</Typography>
         </Grid>
       </Grid>
     </Box>

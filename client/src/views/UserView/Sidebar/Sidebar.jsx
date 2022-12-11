@@ -11,23 +11,20 @@ import {
   Typography,
   IconButton,
   Avatar,
-  Button,
-} from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+  Button
+} from '@mui/material';
+import SchoolIcon from '@mui/icons-material/School';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import React, { useEffect } from "react";
-import { useMatch } from "react-router-dom";
-import { useState } from "react";
-import {
-  getWorkgroups,
-  switchWorkgroup,
-} from "../../../redux/actions/workgroups";
-import { Navigate, useNavigate } from "react-router-dom";
-import { usePageStatus } from "./pages";
-import { PAGES, PAGES_SECONDARY } from "./pages";
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import React, { useEffect } from 'react';
+import { useMatch } from 'react-router-dom';
+import { useState } from 'react';
+import { getWorkgroups, switchWorkgroup } from '../../../redux/actions/workgroups';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { usePageStatus } from './pages';
+import { PAGES, PAGES_SECONDARY } from './pages';
 import {
   CurrentUserContainer,
   MaterialUISwitch,
@@ -37,11 +34,11 @@ import {
   SideBarItem,
   SidebarSectionText,
   SideBarSubItem,
-  GroupSelect,
-} from "./sidebar.styles";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../redux/actions/auth";
-import { switchMode } from "../../../redux/actions/theme";
+  GroupSelect
+} from './sidebar.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../redux/actions/auth';
+import { switchMode } from '../../../redux/actions/theme';
 
 const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
   const [open, setOpen] = useState(false);
@@ -56,7 +53,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
           <SchoolIcon color="icon" />
         </ListItemIcon>
         <ListItemText>
-          <Typography color="text.primary">{name}</Typography>{" "}
+          <Typography color="text.primary">{name}</Typography>{' '}
         </ListItemText>
         {open ? <ExpandLess color="icon" /> : <ExpandMore color="icon" />}
       </SideBarItem>
@@ -65,23 +62,27 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
           component="div"
           disablePadding
           sx={{
-            position: "relative",
-            overflow: "auto",
-            maxHeight: 300,
+            position: 'relative',
+            overflow: 'auto',
+            maxHeight: 300
           }}
         >
-          {isAdmin && <SideBarSubItem onClick={()=>navigate(`/group-admin/${workgroup._id}`)}>
+          {isAdmin && (
+            <SideBarSubItem onClick={() => navigate(`/group-admin/${workgroup._id}`)}>
               <ListItemIcon>
                 <AddIcon color="icon" />
               </ListItemIcon>
               <ListItemText primary={<Typography color="text.primary">Add class</Typography>} />
-            </SideBarSubItem>}
+            </SideBarSubItem>
+          )}
           {subpages?.map((subpage) => (
-            <SideBarSubItem key={subpage} onClick={()=>navigate(`/class/${subpage._id}`)} button>
+            <SideBarSubItem key={subpage} onClick={() => navigate(`/class/${subpage._id}`)} button>
               <ListItemIcon>
                 <LibraryBooksIcon color="icon" />
               </ListItemIcon>
-              <ListItemText primary={<Typography color="text.primary">{subpage.name}</Typography>}/>
+              <ListItemText
+                primary={<Typography color="text.primary">{subpage.name}</Typography>}
+              />
             </SideBarSubItem>
           ))}
         </List>
@@ -109,17 +110,13 @@ const PageItem = ({ page, subpages }) => {
   );
 };
 
-const GroupPicker = ({
-  workgroups,
-  currentWorkgroup,
-  handleWorkgroupChange,
-}) => {
+const GroupPicker = ({ workgroups, currentWorkgroup, handleWorkgroupChange }) => {
   return (
     <FormControl fullWidth>
       <GroupSelect
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={currentWorkgroup?._id || ""}
+        value={currentWorkgroup?._id || ''}
         InputLabelProps={{ shrink: false }}
         onChange={(event) => handleWorkgroupChange(event.target.value)}
       >
@@ -136,9 +133,7 @@ const GroupPicker = ({
 export const Sidebar = () => {
   const workgroups = useSelector((state) => state.workgroups.data);
   const classes = useSelector((state) => state.classes.data);
-  const currentWorkgroup = useSelector(
-    (state) => state.workgroups.currentWorkgroup
-  );
+  const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const mode = useSelector((state) => state.theme.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -153,9 +148,7 @@ export const Sidebar = () => {
   }, [user]);
 
   return (
-    <Box
-      sx={{ position: "fixed", width: "100%", maxWidth: "20vw", zIndex: "10" }}
-    >
+    <Box sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10' }}>
       <LogoWrapper>
         <Typography
           variant="h6"
@@ -166,16 +159,14 @@ export const Sidebar = () => {
           sx={{
             mr: 2,
             fontWeight: 900,
-            letterSpacing: ".1rem",
-            textDecoration: "none",
+            letterSpacing: '.1rem',
+            textDecoration: 'none'
           }}
         >
           StudentShare
         </Typography>
         <MaterialUISwitch
-          onClick={() =>
-            dispatch(mode == "dark" ? switchMode("light") : switchMode("dark"))
-          }
+          onClick={() => dispatch(mode == 'dark' ? switchMode('light') : switchMode('dark'))}
         />
       </LogoWrapper>
       <Box>
@@ -223,11 +214,11 @@ export const Sidebar = () => {
           <IconButton>
             <Avatar alt={user.name} src="/static/images/avatar/2.jpg" />
           </IconButton>
-          <Button onClick={() => navigate("/profile")}>Settings</Button>
+          <Button onClick={() => navigate('/profile')}>Settings</Button>
           <Button
             onClick={() => {
               dispatch(logout());
-              navigate("/");
+              navigate('/');
             }}
           >
             Sign-out

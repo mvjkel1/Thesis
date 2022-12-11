@@ -1,26 +1,31 @@
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Appointments, AppointmentTooltip } from '@devexpress/dx-react-scheduler-material-ui';
+import { Box } from '@mui/system';
+import * as React from 'react';
+import appointments from './today';
+import {
+  StyledLayout,
+  StyledScheduler,
+  StyledTimeScaleLayout,
+  StyledWeekView,
+  StyledWeekViewDayScaleEmptyCell,
+  StyledWeekViewDayScaleRow
+} from './WelcomeScreen.styles';
 
-import moment from "moment";
-import { useState } from "react";
-import { Box, Typography } from "@mui/material";
-import { StyledCalendar } from "./WelcomeScreen.styles";
-
-const localizer = momentLocalizer(moment);
-
-const MyCalendar = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  return (
-    <Box>
-      <StyledCalendar
-        localizer={localizer}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
+export const MyCalendar = () => (
+  <Box sx={{ 'min-width': 0 }}>
+    <StyledScheduler data={appointments} height={660}>
+      <StyledWeekView
+        startDayHour={9}
+        endDayHour={19}
+        dayScaleRowComponent={StyledWeekViewDayScaleRow}
+        timeScaleLayoutComponent={StyledTimeScaleLayout}
+        layoutComponent={StyledLayout}
+        dayScaleEmptyCellComponent={StyledWeekViewDayScaleEmptyCell}
       />
-    </Box>
-  );
-};
+      <Appointments />
+      <AppointmentTooltip />
+    </StyledScheduler>
+  </Box>
+);
 
 export default MyCalendar;
