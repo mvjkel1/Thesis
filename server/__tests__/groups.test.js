@@ -20,26 +20,25 @@ describe("groups", () => {
     token = response.body.token;
   });
 
-  it(
-    "Create a group --> should return 201" +
-      "Delete a group --> should return 204",
-    async () => {
-      const group = {
-        name: "testGroup",
-      };
+  let groupId = "";
+  it("Create a group --> should return 201", async () => {
+    const group = {
+      name: "testGroup",
+    };
 
-      const createGroupResponse = await request(baseURL)
-        .post("/api/v1/groups")
-        .set("Authorization", `Bearer ${token}`)
-        .send(group);
-      expect(createGroupResponse.statusCode).toBe(201);
+    const createGroupResponse = await request(baseURL)
+      .post("/api/v1/groups")
+      .set("Authorization", `Bearer ${token}`)
+      .send(group);
+    groupId = createGroupResponse.body.data.group.id;
+    expect(createGroupResponse.statusCode).toBe(201);
+  });
 
-      // Wipe out a group
-      const groupId = createGroupResponse.body.data.group.id;
-      const deleteGroupResponse = await request(baseURL)
-        .delete(`/api/v1/groups/${groupId}`)
-        .set("Authorization", `Bearer ${token}`);
-      expect(deleteGroupResponse.statusCode).toBe(204);
-    }
-  );
+  it("Delete a group --> should return 204", async () => {
+    // Wipe out a group
+    const deleteGroupResponse = await request(baseURL)
+      .delete(`/api/v1/groups/${groupId}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(deleteGroupResponse.statusCode).toBe(204);
+  });
 });
