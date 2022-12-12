@@ -1,21 +1,17 @@
-const express = require("express");
-const classController = require("../controllers/class.controller");
-const authController = require("../controllers/auth.controller");
-const multer = require("multer");
+const express = require('express');
+const classController = require('../controllers/class.controller');
+const authController = require('../controllers/auth.controller');
+const multer = require('multer');
 const router = express.Router({ mergeParams: true });
-const uploadClassItem = require("../utils/upload.file");
+const uploadClassItem = require('../utils/upload.file');
 
 router
-  .route("/")
+  .route('/')
   .get(authController.protect, classController.getAllClasses)
-  .post(
-    authController.protect,
-    classController.setUserGroupId,
-    classController.createClass
-  );
+  .post(authController.protect, classController.setUserGroupId, classController.createClass);
 
 router
-  .route("/:id")
+  .route('/:id')
   .get(authController.protect, classController.getClass)
   .post(
     authController.protect,
@@ -26,7 +22,7 @@ router
   .patch(authController.protect, classController.updateClass)
   .delete(
     authController.protect,
-    authController.restrictTo("class-representative", "admin"),
+    authController.restrictTo('class-representative', 'admin'),
     classController.deleteClass
   );
 

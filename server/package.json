@@ -31,7 +31,8 @@
     "start:test": "NODE_ENV=test nodemon server.js",
     "import": "node ./dev-data/import.data.js --import",
     "delete": "node ./dev-data/import.data.js --delete",
-    "test": "jest --testSequencer=./utils/test.sequencer.js"
+    "test": "jest --testSequencer=./utils/test.sequencer.js",
+    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
   },
   "eslintConfig": {
     "extends": [
