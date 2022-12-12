@@ -1,32 +1,29 @@
-const fs = require("fs");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const User = require("./../models/user.model");
+const fs = require('fs');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const User = require('./../models/user.model');
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: './.env_jest' });
 
 console.log(process.env.MONGO_URI);
-const DB = process.env.MONGO_URI.replace(
-  "<password>",
-  process.env.DATABASE_PASSWORD
-);
+const DB = process.env.MONGO_URI.replace('<password>', process.env.DATABASE_PASSWORD);
 
 mongoose
   .connect(DB, {
     dbName: `${process.env.MONGO_DBNAME}`,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    autoIndex: true,
+    autoIndex: true
   })
-  .then(() => console.log("DB connection successful!"));
+  .then(() => console.log('DB connection successful!'));
 
-const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, "utf-8"));
+const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 
 // IMPORT DATA INTO DB
 const importData = async () => {
   try {
     await User.create(users, { validateBeforeSave: false });
-    console.log("Data successfully loaded!");
+    console.log('Data successfully loaded!');
   } catch (err) {
     console.log(err);
   }
@@ -37,15 +34,15 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await User.deleteMany();
-    console.log("Data successfully deleted!");
+    console.log('Data successfully deleted!');
   } catch (err) {
     console.log(err);
   }
   process.exit();
 };
 
-if (process.argv[2] === "--import") {
+if (process.argv[2] === '--import') {
   importData();
-} else if (process.argv[2] === "--delete") {
+} else if (process.argv[2] === '--delete') {
   deleteData();
 }

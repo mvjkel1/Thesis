@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@jest/test-sequencer": "^29.3.1",
     "aws-sdk": "^2.1268.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -27,9 +28,10 @@
   "scripts": {
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
+    "start:test": "NODE_ENV=test nodemon server.js",
     "import": "node ./dev-data/import.data.js --import",
     "delete": "node ./dev-data/import.data.js --delete",
-    "test": "jest --setupFiles ./.env_jest --watch --detectOpenHandles --runInBand"
+    "test": "jest --testSequencer=./utils/test.sequencer.js"
   },
   "eslintConfig": {
     "extends": [

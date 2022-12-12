@@ -1,27 +1,24 @@
-const User = require("../models/user.model");
-const catchAsync = require("./../utils/catch.async");
-const factory = require("./handler.factory");
-const multer = require("multer");
-const sharp = require("sharp");
-const AppError = require("./../utils/app.error");
-const { StatusCodes } = require("http-status-codes");
+const User = require('../models/user.model');
+const catchAsync = require('./../utils/catch.async');
+const factory = require('./handler.factory');
+const multer = require('multer');
+const sharp = require('sharp');
+const AppError = require('./../utils/app.error');
+const { StatusCodes } = require('http-status-codes');
 const multerStorage = multer.memoryStorage();
-const uploadFile = require("../utils/upload.file");
+const uploadFile = require('../utils/upload.file');
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
+  if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(
-      new AppError("Please upload only images.", StatusCodes.BAD_REQUEST),
-      false
-    );
+    cb(new AppError('Please upload only images.', StatusCodes.BAD_REQUEST), false);
   }
 };
 
 const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter,
+  fileFilter: multerFilter
 });
 
 exports.uploadUserPhoto = uploadFile;
@@ -32,45 +29,44 @@ exports.postUserPhoto = catchAsync(async (req, res, next) => {
     file_name: req.filename, // Original name, with extension
     mimetype: req.mimetype,
     userId: req.user._id,
-    timestamp: Date.now(),
+    timestamp: Date.now()
   };
-
   const user = await User.findById(req.user.id);
-  if (!user)
-    return next(new AppError("User not found.", StatusCodes.BAD_REQUEST));
+  if (!user) return next(new AppError('User not found.', StatusCodes.BAD_REQUEST));
   req.body.photo = dbObject;
   next();
 });
 
 exports.updateMe = catchAsync(async (req, res) => {
-  let { name, email, photo } = req.body;
-  console.log(req.body);
-  const user = Object.assign(
-    req.user,
-    JSON.parse(JSON.stringify({ name, email, photo }))
-  );
-  if (req.file) user.photo = req.file.filename;
-  await user.save({ validateModifiedOnly: true });
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError('This route is not for password updates. Please use /update-password.', 400)
+    );
+  }
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+    new: true,
+    runValidators: true
+  });
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: {
-      user,
-    },
+      user: updatedUser
+    }
   });
 });
 
 exports.deleteMe = catchAsync(async (req, res) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
-    status: "success",
-    data: null,
+    status: 'success',
+    data: null
   });
 });
 
 exports.createUser = (req, res) => {
   res.status(500).json({
-    status: "error",
-    message: "This route is not defined!",
+    status: 'error',
+    message: 'This route is not defined!'
   });
 };
 
@@ -80,6 +76,6 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateUser = factory.updateOne(User); // don't update user password
-exports.getUser = factory.getOne(User, { path: "group" });
-exports.getAllUsers = factory.getAll(User, { path: "group" });
+exports.getUser = factory.getOne(User, { path: 'group' });
+exports.getAllUsers = factory.getAll(User, { path: 'group' });
 exports.deleteUser = factory.deleteOne(User);
