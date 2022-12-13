@@ -76,7 +76,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
             </SideBarSubItem>
           )}
           {subpages?.map((subpage) => (
-            <SideBarSubItem key={subpage} onClick={() => navigate(`/class/${subpage._id}`)} button>
+            <SideBarSubItem key={subpage._id} onClick={() => navigate(`/class/${subpage._id}`)} button>
               <ListItemIcon>
                 <LibraryBooksIcon color="icon" />
               </ListItemIcon>
@@ -96,7 +96,7 @@ const PageItem = ({ page, subpages }) => {
   const { label, route, icon, options } = usePageStatus(page);
   const isActive = useMatch(route);
   return (
-    <SideBarItem selected={Boolean(isActive)} onClick={() => navigate(route)}>
+    <SideBarItem key={route} selected={Boolean(isActive)} onClick={() => navigate(route)}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText>
         <Typography color="text.primary">{label}</Typography>
@@ -117,7 +117,6 @@ const GroupPicker = ({ workgroups, currentWorkgroup, handleWorkgroupChange }) =>
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={currentWorkgroup?._id || ''}
-        InputLabelProps={{ shrink: false }}
         onChange={(event) => handleWorkgroupChange(event.target.value)}
       >
         {workgroups?.map?.((workgroup) => (

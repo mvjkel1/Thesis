@@ -7,7 +7,6 @@ const Chat = () => {
   const [formValue, setFormValue] = useState(0);
 
   useEffect(() => {
-    console.log('useeffect');
     if (msInterval !== 0)
       setInterval(() => {
         setCounter((counter) => counter + 1);

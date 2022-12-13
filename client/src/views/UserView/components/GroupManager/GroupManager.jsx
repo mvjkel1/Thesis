@@ -36,8 +36,8 @@ export default function GroupManager() {
   return (
     <React.Fragment>
       <MainContainer>
-        <AddGroup />
-        <EditGroups />
+        <AddGroup openByDefault />
+        <EditGroups openByDefault/>
       </MainContainer>
     </React.Fragment>
   );

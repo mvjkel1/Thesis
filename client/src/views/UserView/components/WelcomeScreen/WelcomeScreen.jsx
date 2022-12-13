@@ -1,6 +1,6 @@
 import { Box, CardContent, Typography } from '@mui/material';
 import { useState } from 'react';
-import MyCalendar from './Calendar';
+import Calendar from '../components/Calendar/Calendar';
 import {
   CalendarContainer,
   ChatCard,
@@ -66,7 +66,7 @@ const WelcomeScreen = (props) => {
       </RecentFilesContainer>
 
       <CalendarContainer>
-        <MyCalendar />
+        <Calendar />
       </CalendarContainer>
     </MainContainer>
   );

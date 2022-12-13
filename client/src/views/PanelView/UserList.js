@@ -45,9 +45,7 @@ export const UserList = (props) => {
         borderRadius: 5
       }}
       onSelectionModelChange={(newSelection) => {
-        console.log('boo!');
         props.setChecked(newSelection);
-        console.log(props.checked);
       }}
       selectionModel={props.checked}
     />

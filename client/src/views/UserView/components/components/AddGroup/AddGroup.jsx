@@ -17,12 +17,12 @@ import {
   SubmitButton
 } from './AddGroup.styles';
 
-export default function AddGroup() {
+export default function AddGroup({openByDefault, ...props}) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
   const [url, setUrl] = useState('');
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
 

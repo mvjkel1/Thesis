@@ -19,9 +19,9 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import DownloadIcon from '@mui/icons-material/Download';
 
-export const ViewClassFiles = ({ id, files }) => {
+export const ViewClassFiles = ({ id, files, openByDefault, ...props }) => {
   const AWS_URL = 'https://studentshare.s3.eu-west-2.amazonaws.com';
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(openByDefault || false);
   return (
     <FeatureContainer>
       <HeaderWrapper>

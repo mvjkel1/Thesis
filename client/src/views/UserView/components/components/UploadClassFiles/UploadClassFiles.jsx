@@ -1,13 +1,16 @@
+import { Collapse, IconButton } from '@mui/material';
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import React from 'react';
-
 import Dropzone from 'react-dropzone-uploader';
 import 'react-dropzone-uploader/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getClasses } from '../../../../redux/actions/classes';
-import { FeatureContainer } from './ClassDetails.styles';
+import { getClasses } from '../../../../../redux/actions/classes';
+import { FeatureContainer, HeaderText, HeaderWrapper } from './UploadClassFiles.styles';
+import { useState } from 'react';
 
-export const Uploader = () => {
+export const UploadClassFiles = ({openByDefault, ...props}) => {
+  const [open, setOpen] = useState(openByDefault || false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.user.token);
@@ -29,12 +32,20 @@ export const Uploader = () => {
   };
   return (
     <FeatureContainer>
-      <Dropzone
-        getUploadParams={getUploadParams}
-        onChangeStatus={handleChangeStatus}
-        onSubmit={handleSubmit}
-        accept="image/*,audio/*,video/*,.pdf"
-      />
+        <HeaderWrapper>
+            <HeaderText>Upload new file</HeaderText>
+            <IconButton onClick={() => setOpen(!open)}>
+            <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
+            </IconButton>
+        </HeaderWrapper>
+        <Collapse in={open}>
+            <Dropzone
+            getUploadParams={getUploadParams}
+            onChangeStatus={handleChangeStatus}
+            onSubmit={handleSubmit}
+            accept="image/*,audio/*,video/*,.pdf"
+            />
+        </Collapse>
     </FeatureContainer>
   );
 };

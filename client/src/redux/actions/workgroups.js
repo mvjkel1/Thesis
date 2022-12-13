@@ -1,6 +1,7 @@
 import { useToken } from '../../commons/useToken';
 import { DataService } from '../services/workgroups.service';
 import { getClasses, getCurrentWorkgroupClasses } from './classes';
+import {getEvents} from './events';
 import store from '../store';
 
 export const getWorkgroups = (token) => (dispatch) => {
@@ -26,7 +27,9 @@ export const getWorkgroups = (token) => (dispatch) => {
       }
     )
     .then((res) => {
-      dispatch(getClasses(store.getState().workgroups.currentWorkgroup._id, token));
+      const groupId = store.getState().workgroups.currentWorkgroup._id;
+      dispatch(getClasses(groupId, token));
+      dispatch(getEvents(groupId, token));
       return res;
     });
 };

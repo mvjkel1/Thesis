@@ -16,9 +16,9 @@ import {
   SubmitButton
 } from './EditGroupData.styles';
 
-export const EditGroupData = (props) => {
+export const EditGroupData = ({openByDefault, ...props}) => {
   const { id } = useParams();
-  const [open, setOpen] = useState(props.openByDefault ? true : false);
+  const [open, setOpen] = useState(openByDefault || false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState();
   const [isSuccess, setIsSuccess] = useState();
@@ -73,7 +73,6 @@ export const EditGroupData = (props) => {
 
   useEffect(() => {
     setInitialFormValues();
-    console.log('user has changed!');
   }, [user, group]);
 
   return (

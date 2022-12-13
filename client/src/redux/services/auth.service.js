@@ -22,7 +22,6 @@ export const register = (name, email, password, passwordConfirm) => {
 };
 
 const login = (email, password) => {
-  console.log(email, password);
   let responseData = {};
   return axios
     .post(API_URL + 'login', {
