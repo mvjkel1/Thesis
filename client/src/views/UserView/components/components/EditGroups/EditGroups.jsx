@@ -20,7 +20,7 @@ import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { deleteGroup } from './EditGroups.service';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroups.styles';
 
-const GroupList = ({ groups }) => {
+const GroupList = ({groups, ...state }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -63,11 +63,10 @@ const GroupList = ({ groups }) => {
   );
 };
 
-export default function EditGroups() {
+export default function EditGroups({openByDefault, ...props}) {
   const groups = useSelector((state) => state.workgroups.data);
   const [error, setError] = useState('');
-  const [url, setUrl] = useState('');
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
 

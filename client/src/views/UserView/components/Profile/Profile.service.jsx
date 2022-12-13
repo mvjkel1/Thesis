@@ -38,8 +38,6 @@ export const changeDetails = (username, email, token) => {
     )
     .then(
       (response) => {
-        console.log('xdxdx');
-        console.log(username);
         return Promise.resolve(response.data.data);
       },
       (error) => {

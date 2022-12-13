@@ -23,7 +23,7 @@ export const Rightbar = () => {
       <Box sx={{ position: 'inherit', width: 'inherit' }}>
         <TitleWrapper color="text.primary">Workgroup users</TitleWrapper>
         {users.map((user) => (
-          <UserEntry username={user} />
+          <UserEntry key={user} username={user} />
         ))}
       </Box>
     </Stack>

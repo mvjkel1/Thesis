@@ -46,7 +46,6 @@ export const login = (username, password) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      console.log('ERROR:::' + error);
       const message =
         (error.response && error.response.data && error.response.data.message) ||
         error.message ||
@@ -69,7 +68,6 @@ export const requestPasswordRecovery = (email) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      console.log('ERROR:::' + error);
       const message =
         (error.response && error.response.data && error.response.data.message) ||
         error.message ||

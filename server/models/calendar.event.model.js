@@ -11,16 +11,18 @@ const calendarEventSchema = new mongoose.Schema({
     ref: 'User'
   },
   startDate: {
-    type: Date,
-    default: Date.now()
+    type: Number,
   },
   endDate: {
-    type: Date,
-    default: Date.now()
+    type: Number,
   },
   group: {
     type: mongoose.Schema.ObjectId,
     ref: 'Group'
+  },
+  class: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Class'
   }
 });
 
