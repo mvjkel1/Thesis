@@ -38,7 +38,7 @@ exports.inviteToGroup = catchAsync(async (req, res, next) => {
 
   try {
     await sendEmail({
-      email: 'thesis@mail.io',
+      email: req.body.email,
       message
     });
     res.status(200).json({
