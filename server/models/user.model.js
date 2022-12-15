@@ -57,7 +57,8 @@ const userSchema = new mongoose.Schema({
   },
   group: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Group'
+    ref: 'Group',
+    default: null
   }
 });
 

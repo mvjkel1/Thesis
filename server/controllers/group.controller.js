@@ -81,10 +81,14 @@ exports.discardGroupFounder = catchAsync(async (req, res, next) => {
 
 exports.getMyGroup = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  if (!user.group)
-    return next(new AppError('You have to belong to a group.'), StatusCodes.UNAUTHORIZED);
-  const groupId = user.group;
-  const group = await Group.find({ _id: { $in: groupId } });
+  let group = '';
+  if (user.group !== null) {
+    const groupId = user.group;
+    group = await Group.find({ _id: { $in: groupId } });
+    console.log(group);
+  } else {
+    group = user.group;
+  }
   res.status(200).json({
     title: 'My group',
     group
