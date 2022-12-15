@@ -26,7 +26,8 @@
     "xss-clean": "^0.1.1"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "start:test": "NODE_ENV=test nodemon server.js",
     "import": "node ./dev-data/import.data.js --import",
