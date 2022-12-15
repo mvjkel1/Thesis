@@ -43,7 +43,9 @@ exports.inviteToGroup = catchAsync(async (req, res, next) => {
     });
     res.status(200).json({
       status: 'success',
-      message: 'Token sent to email.'
+      message: 'Token sent to email.',
+      initiatedBy: user.name,
+      groupName: group.name
     });
   } catch (err) {
     group.inviteToken = undefined;
@@ -60,12 +62,16 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
     inviteToken: hashedToken
   });
   if (!group) return next(new AppError('Group not found.', StatusCodes.NOT_FOUND));
+  const user = await User.findById(req.user.id);
+  user.group = group;
   group.inviteToken = undefined;
+  await user.save({ validateBeforeSave: false });
   await group.save({ validateBeforeSave: false });
   res.status(201).json({
     status: 'success',
     data: {
-      group
+      group,
+      user
     }
   });
 });
