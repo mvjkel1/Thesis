@@ -5,6 +5,8 @@ const Class = require('./../models/class.model');
 const CalendarEvent = require('./../models/calendar.event.model');
 const catchAsync = require('./../utils/catch.async.js');
 const factory = require('./handler.factory');
+const AppError = require('./../utils/app.error');
+const { StatusCodes } = require('http-status-codes');
 
 exports.createEvent = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);

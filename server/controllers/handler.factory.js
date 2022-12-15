@@ -62,10 +62,10 @@ exports.getOne = (Model, populateOptions) =>
 
 exports.getAll = (Model, populateOptions) =>
   catchAsync(async (req, res, next) => {
-    // To allow for neseted GET classes pn group
+    // To allow for neseted GET classes on group
     let filter = {};
     if (req.params.groupId) {
-      filter = { groupId: req.params.groupId };
+      filter = { group: req.params.groupId };
     }
 
     let query = Model.find(filter);
