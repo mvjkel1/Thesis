@@ -146,13 +146,9 @@ exports.leaveGroup = catchAsync(async (req, res, next) => {
       )
     );
   }
-
-  user.group = undefined;
+  user.group = null;
   user.save({ validateBeforeSave: false });
-  console.log(group.members);
   await Group.updateOne({ _id: req.params.id }, { $pull: { members: ObjectId(req.user.id) } });
-
-  console.log(group.members);
   res.status(201).json({
     status: 'success',
     data: `Successfully left the ${group.name} group.`
