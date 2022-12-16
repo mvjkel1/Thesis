@@ -7,7 +7,7 @@ import { ViewClassFiles } from '../components/ViewClassFiles/ViewClassFiles';
 
 export const ClassDetails = () => {
   const { id } = useParams();
-  const groupId = useSelector(state => state.workgroups.currentWorkgroup)?._id;
+  const groupId = useSelector((state) => state.workgroups.currentWorkgroup)?._id;
   const classFiles = useSelector((state) => {
     return state.classes?.data?.find((classEntry) => classEntry._id == id);
   })?.documents;

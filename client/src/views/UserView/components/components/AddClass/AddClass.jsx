@@ -17,7 +17,7 @@ import {
   SubmitButton
 } from './AddClass.styles';
 
-export default function AddClass({openByDefault, ...props}) {
+export default function AddClass({ openByDefault, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');

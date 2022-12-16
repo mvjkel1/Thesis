@@ -1,16 +1,16 @@
 import { useToken } from '../../commons/useToken';
 import { DataService } from '../services/events.service';
 import store from '../store';
-import moment from 'moment'
+import moment from 'moment';
 
-const mapAppointmentData = appointment => ({
+const mapAppointmentData = (appointment) => ({
   id: appointment._id,
   startDate: moment(appointment.startDate).format(),
   endDate: moment(appointment.endDate).format(),
   title: appointment.title,
   class: appointment.class,
   group: appointment.group,
-  createdBy: appointment.createdBy,
+  createdBy: appointment.createdBy
 });
 
 export const getEvents = (groupId, token) => (dispatch) => {

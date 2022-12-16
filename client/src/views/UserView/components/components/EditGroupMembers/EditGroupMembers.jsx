@@ -38,7 +38,7 @@ const columns = [
   }
 ];
 
-export const EditGroupMembers = ({openByDefault, ...props}) => {
+export const EditGroupMembers = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
   const { id } = useParams();
   const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);

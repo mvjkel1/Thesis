@@ -24,6 +24,8 @@ import { getDesignTokens } from './styling/theme';
 import { GroupAdmin } from './views/UserView/components/GroupAdmin/GroupAdmin';
 import { Profile } from './views/UserView/components/Profile/Profile';
 import { ClassDetails } from './views/UserView/components/ClassDetails/ClassDetails';
+import StatusSnackbar from './views/UserView/Snackbar/Snackbar';
+import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
@@ -59,8 +61,14 @@ function App() {
             <Route path="/auth/recovery/" element={<RecoveryForm />} />
             <Route path="/auth/recovery/:token" element={<RecoveryForm />} />
           </Route>
+          <Route path="/invite" element={<SplashView />}>
+            <Route path="/invite/:invitationToken" element={<InvitationForm />}>
+              <Route path="/invite/:invitationToken" element={<SignForm />} />
+            </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
+      <StatusSnackbar />
     </ThemeProvider>
   );
 }

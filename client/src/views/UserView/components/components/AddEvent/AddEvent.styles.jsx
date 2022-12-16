@@ -37,19 +37,19 @@ export const LinkTextfield = styled(OutlinedInput)(({ theme }) => ({
 export const EventNameInput = styled(OutlinedInput)(({ theme }) => ({
   borderRadius: theme.spacing(2),
   width: '100%',
-  alignSelf: "flex-start"
+  alignSelf: 'flex-start'
 }));
 
 export const EventDescriptionInput = styled(OutlinedInput)(({ theme }) => ({
-    borderRadius: theme.spacing(2),
-    width: '100%',
-  }));
+  borderRadius: theme.spacing(2),
+  width: '100%'
+}));
 
 export const FormContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
   display: 'flex',
-  flexDirection: "column",
+  flexDirection: 'column',
   gap: theme.spacing(1)
 }));
 
@@ -58,5 +58,5 @@ export const SubmitButton = styled(Button)(({ theme }) => ({
   backgroundColor: '#8361e8',
   marginLeft: theme.spacing(2),
   width: '30%',
-  height: "56px"
+  height: '56px'
 }));

@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { Collapse, LinearProgress } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useOutletContext } from 'react-router-dom';
+
 import {
   FormBox,
   FormContainer,
@@ -24,10 +26,13 @@ import {
   SecondaryButton,
   SubmitButton
 } from './SignForm.styles';
+import { joinGroup } from '../../../../redux/actions/workgroups';
 
-export default function SignForm() {
+export default function SignForm({ ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [signUpMode, setSignUpMode] = useState(false);
+  const [invitationToken] = useOutletContext() || [];
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const error = useSelector((state) => state.auth.error);
@@ -106,15 +111,19 @@ export default function SignForm() {
     return dispatch(registerAction(data.name, data.email, data.password, data.passwordConfirm));
   };
 
+  const executeBeforeRedirect = (invToken, userToken) => {
+    if (invToken) return dispatch(joinGroup(invToken, userToken));
+    else return Promise.resolve();
+  };
+
   const onSubmit = (data) => {
     setIsLoading(true);
     var action = {};
     if (signUpMode) action = signUp;
     else action = signIn;
     action(data)
-      .then(() => {
-        navigate('/');
-      })
+      .then((data) => executeBeforeRedirect(invitationToken, data.token))
+      .then(() => navigate('/'))
       .catch(() => setIsLoading(false));
   };
 
