@@ -37,7 +37,6 @@ export const getWorkgroups = (token) => (dispatch) => {
 };
 
 export const joinGroup = (invitationToken, token) => (dispatch) => {
-  console.log('joinGroup action');
   return DataService.joinGroup(invitationToken, token).then(
     (data) => {
       dispatch({

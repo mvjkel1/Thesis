@@ -6,15 +6,17 @@ import { useSelector } from 'react-redux';
 export default function StatusSnackbar() {
   const workgroups = useSelector((state) => state.workgroups);
   const classes = useSelector((state) => state.classes);
-  const auth = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const handleClose = () => {
     setOpen(false);
   };
   useEffect(() => {
-    if (workgroups.error || classes.error || auth.error) setOpen(true);
-    else setOpen(false);
-  }, [workgroups.error, classes.error, auth.error]);
+    if (workgroups.error || classes.error) {
+      setOpen(true);
+      setAlertMessage(workgroups.error || classes.error);
+    }
+  }, [workgroups.error, classes.error]);
   return (
     <Snackbar
       open={open}
@@ -22,7 +24,7 @@ export default function StatusSnackbar() {
       autoHideDuration={6000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
-      <Alert severity="error">{workgroups.error || classes.error || auth.error}</Alert>
+      <Alert severity="error">{alertMessage}</Alert>
     </Snackbar>
   );
 }

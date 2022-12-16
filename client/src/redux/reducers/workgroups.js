@@ -58,7 +58,8 @@ export default function (state = initialState, action) {
     }
     case 'JOIN_GROUP_FAIL': {
       return {
-        ...state
+        ...state,
+        error: payload
       };
     }
     default:
