@@ -1,6 +1,5 @@
 const express = require('express');
 const morgan = require('morgan');
-const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -10,11 +9,14 @@ const userRouter = require('./routes/user.routes');
 const groupRouter = require('./routes/group.routes');
 const classRouter = require('./routes/class.routes');
 const eventRouter = require('./routes/calendar.event.routes');
+const conversationRouter = require('./routes/conversation.routes');
+const messageRouter = require('./routes/message.routes');
 const globalErrorHandler = require('./controllers/error.controller');
 const AppError = require('./utils/app.error');
 const PORT = process.env.PORT;
 const { StatusCodes } = require('http-status-codes');
 
+const app = express();
 const corsOptions = {
   origin: '127.0.0.1:' + PORT
 };
@@ -50,6 +52,8 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/groups', groupRouter);
 app.use('/api/v1/classes', classRouter);
+app.use('/api/v1/conversations', conversationRouter);
+app.use('/api/v1/messages', messageRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server.`, StatusCodes.NOT_FOUND));
 });

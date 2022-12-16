@@ -21,7 +21,6 @@
     "nodemailer": "^6.8.0",
     "react": "^17.0.2",
     "sharp": "^0.31.2",
-    "socket.io": "^4.5.4",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13",
     "validator": "^13.7.0",
