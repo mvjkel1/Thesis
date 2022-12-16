@@ -155,6 +155,34 @@ exports.leaveGroup = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.kickUserFromGroup = catchAsync(async (req, res, next) => {
+  console.log(req.params.userid);
+  const user = await User.findById(req.params.userid);
+  const group = await Group.findById(req.params.groupid);
+  if (!user) return next(new AppError('No user found with that ID.', StatusCodes.NOT_FOUND));
+  if (!group) return next(new AppError('No group found with that ID.', StatusCodes.NOT_FOUND));
+  if (!user.group)
+    return next(new AppError('User does not belong to any group.', StatusCodes.NOT_FOUND));
+
+  if (user._id.toString() == group.founder._id.toString()) {
+    return next(
+      new AppError('You can not kick group founder from the group.', StatusCodes.UNAUTHORIZED)
+    );
+  }
+
+  user.group = null;
+  user.save({ validateBeforeSave: false });
+  await Group.updateOne(
+    { _id: req.params.groupid },
+    { $pull: { members: ObjectId(req.params.userid) } }
+  );
+  group.save({ validateBeforeSave: false });
+  res.status(201).json({
+    status: 'success',
+    data: `Successfully kicked out ${user.name} from the ${group.name} group.`
+  });
+});
+
 exports.updateGroup = factory.updateOne(Group);
 exports.getGroup = factory.getOne(Group, { path: 'classes' });
 exports.getAllGroups = factory.getAll(Group, { path: 'classes' });

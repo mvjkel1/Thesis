@@ -35,6 +35,14 @@ router
   .route('/leave')
   .post(authController.protect, authController.restrictTo('user'), groupController.leaveGroup);
 
+router
+  .route('/:groupid/kick-user/:userid')
+  .post(
+    authController.protect,
+    authController.restrictTo('group-representative', 'admin'),
+    groupController.kickUserFromGroup
+  );
+
 router.route('/:token').post(authController.protect, groupController.joinGroup);
 
 router.route('/invite/:id').post(authController.protect, groupController.inviteToGroup);
