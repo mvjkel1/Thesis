@@ -51,6 +51,16 @@ export default function (state = initialState, action) {
         ...state,
         currentWorkgroup: payload
       };
+    case 'JOIN_GROUP_SUCCESS': {
+      return {
+        ...state
+      };
+    }
+    case 'JOIN_GROUP_FAIL': {
+      return {
+        ...state
+      };
+    }
     default:
       return state;
   }

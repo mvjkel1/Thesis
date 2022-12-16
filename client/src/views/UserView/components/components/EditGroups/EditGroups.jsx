@@ -2,6 +2,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import {
   Avatar,
   Collapse,
@@ -20,7 +21,7 @@ import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { deleteGroup } from './EditGroups.service';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroups.styles';
 
-const GroupList = ({groups, ...state }) => {
+const GroupList = ({ groups, ...state }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -40,21 +41,33 @@ const GroupList = ({groups, ...state }) => {
           </ListItemAvatar>
           <ListItemText primary={group.name} />
           <ListItemIcon>
+            {group?.founder?._id == user._id && (
+              <IconButton
+                sx={{ marginRight: 0.1 }}
+                edge="end"
+                aria-label="delete"
+                onClick={() => navigate(`/group-admin/${group._id}`)}
+              >
+                <SettingsIcon />
+              </IconButton>
+            )}
+            {group?.founder?._id == user._id && (
+              <IconButton
+                sx={{ marginRight: 0.1 }}
+                edge="end"
+                aria-label="delete"
+                onClick={() => handleDelete(group._id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
             <IconButton
               sx={{ marginRight: 0.1 }}
               edge="end"
               aria-label="delete"
-              onClick={() => navigate(`/group-admin/${group._id}`)}
+              onClick={() => window.alert('dupa! wee need api for user leaving a group!')}
             >
-              <SettingsIcon />
-            </IconButton>
-            <IconButton
-              sx={{ marginRight: 0.1 }}
-              edge="end"
-              aria-label="delete"
-              onClick={() => handleDelete(group._id)}
-            >
-              <DeleteIcon />
+              <ExitToAppIcon />
             </IconButton>
           </ListItemIcon>
         </ListItem>
@@ -63,7 +76,7 @@ const GroupList = ({groups, ...state }) => {
   );
 };
 
-export default function EditGroups({openByDefault, ...props}) {
+export default function EditGroups({ openByDefault, ...props }) {
   const groups = useSelector((state) => state.workgroups.data);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(openByDefault || false);

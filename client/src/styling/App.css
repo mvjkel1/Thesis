@@ -149,3 +149,12 @@ body {
 .MuiTable-root.Table-table {
   min-width: 0px !important;
 }
+
+.fade-in {
+  transition: opacity 1.5s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}

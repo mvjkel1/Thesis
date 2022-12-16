@@ -20,7 +20,7 @@ export const registerAction = (name, email, password, passwordConfirm) => (dispa
         type: REGISTER_SUCCESS,
         payload: data
       });
-      return Promise.resolve();
+      return Promise.resolve(data);
     },
     (error) => {
       const message =
@@ -43,7 +43,7 @@ export const login = (username, password) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: data
       });
-      return Promise.resolve();
+      return Promise.resolve(data);
     },
     (error) => {
       const message =
@@ -65,7 +65,7 @@ export const requestPasswordRecovery = (email) => (dispatch) => {
       dispatch({
         type: REQUEST_PASS_RECOVERY_SUCCESS
       });
-      return Promise.resolve();
+      return Promise.resolve(data);
     },
     (error) => {
       const message =

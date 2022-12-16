@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-export default function Footer() {
+export default function StatusSnackbar() {
   const workgroups = useSelector((state) => state.workgroups);
   const classes = useSelector((state) => state.classes);
   const auth = useSelector((state) => state.auth);
@@ -16,8 +16,13 @@ export default function Footer() {
     else setOpen(false);
   }, [workgroups.error, classes.error, auth.error]);
   return (
-    <Box mt={2} mb={2} bgcolor="background.main">
-      Hello, footer.
-    </Box>
+    <Snackbar
+      open={open}
+      onClose={handleClose}
+      autoHideDuration={6000}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    >
+      <Alert severity="error">{workgroups.error || classes.error || auth.error}</Alert>
+    </Snackbar>
   );
 }

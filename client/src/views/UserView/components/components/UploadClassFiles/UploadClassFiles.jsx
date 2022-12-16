@@ -9,7 +9,7 @@ import { getClasses } from '../../../../../redux/actions/classes';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './UploadClassFiles.styles';
 import { useState } from 'react';
 
-export const UploadClassFiles = ({openByDefault, ...props}) => {
+export const UploadClassFiles = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -32,20 +32,20 @@ export const UploadClassFiles = ({openByDefault, ...props}) => {
   };
   return (
     <FeatureContainer>
-        <HeaderWrapper>
-            <HeaderText>Upload new file</HeaderText>
-            <IconButton onClick={() => setOpen(!open)}>
-            <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
-            </IconButton>
-        </HeaderWrapper>
-        <Collapse in={open}>
-            <Dropzone
-            getUploadParams={getUploadParams}
-            onChangeStatus={handleChangeStatus}
-            onSubmit={handleSubmit}
-            accept="image/*,audio/*,video/*,.pdf"
-            />
-        </Collapse>
+      <HeaderWrapper>
+        <HeaderText>Upload new file</HeaderText>
+        <IconButton onClick={() => setOpen(!open)}>
+          <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
+        </IconButton>
+      </HeaderWrapper>
+      <Collapse in={open}>
+        <Dropzone
+          getUploadParams={getUploadParams}
+          onChangeStatus={handleChangeStatus}
+          onSubmit={handleSubmit}
+          accept="image/*,audio/*,video/*,.pdf"
+        />
+      </Collapse>
     </FeatureContainer>
   );
 };

@@ -76,7 +76,11 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
             </SideBarSubItem>
           )}
           {subpages?.map((subpage) => (
-            <SideBarSubItem key={subpage._id} onClick={() => navigate(`/class/${subpage._id}`)} button>
+            <SideBarSubItem
+              key={subpage._id}
+              onClick={() => navigate(`/class/${subpage._id}`)}
+              button
+            >
               <ListItemIcon>
                 <LibraryBooksIcon color="icon" />
               </ListItemIcon>
@@ -216,6 +220,7 @@ export const Sidebar = () => {
           <Button onClick={() => navigate('/profile')}>Settings</Button>
           <Button
             onClick={() => {
+              dispatch(switchMode('light'));
               dispatch(logout());
               navigate('/');
             }}

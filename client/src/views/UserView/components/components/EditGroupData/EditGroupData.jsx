@@ -16,7 +16,7 @@ import {
   SubmitButton
 } from './EditGroupData.styles';
 
-export const EditGroupData = ({openByDefault, ...props}) => {
+export const EditGroupData = ({ openByDefault, ...props }) => {
   const { id } = useParams();
   const [open, setOpen] = useState(openByDefault || false);
   const dispatch = useDispatch();

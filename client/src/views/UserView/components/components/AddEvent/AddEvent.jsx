@@ -1,6 +1,15 @@
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, Box, Button, Collapse, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography
+} from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,7 +32,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/L
 import moment from 'moment';
 import 'moment-timezone';
 
-export default function AddEvent({openByDefault, classId, groupId, ...props}) {
+export default function AddEvent({ openByDefault, classId, groupId, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -54,7 +63,7 @@ export default function AddEvent({openByDefault, classId, groupId, ...props}) {
   });
 
   const { ref: startDateRef, ...startDateProps } = register('startDate', {
-    required: 'Time is required!',
+    required: 'Time is required!'
   });
 
   const { ref: endDateRef, ...endDateProps } = register('endDate', {
@@ -90,7 +99,14 @@ export default function AddEvent({openByDefault, classId, groupId, ...props}) {
     setError('');
     setIsSuccess(false);
     setIsLoading(true);
-    addEvent(data.name, moment(data.startDate).format('x'), moment(data.endDate).format('x'), groupId, classId, token)
+    addEvent(
+      data.name,
+      moment(data.startDate).format('x'),
+      moment(data.endDate).format('x'),
+      groupId,
+      classId,
+      token
+    )
       .then(() => {
         showAlert('success');
         setUrl('https://blabla.com/invite/322-bfdda-sgaw');
@@ -102,7 +118,6 @@ export default function AddEvent({openByDefault, classId, groupId, ...props}) {
         showAlert('error', err);
       })
       .finally(() => setIsLoading(false));
-
   };
 
   return (
@@ -135,9 +150,9 @@ export default function AddEvent({openByDefault, classId, groupId, ...props}) {
             </Alert>
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Box sx={{display: "flex", gap: 1}}>
-                <EventNameInput
-                sx={{flex: 2}}
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <EventNameInput
+                sx={{ flex: 2 }}
                 margin="normal"
                 required
                 fullWidth
@@ -148,75 +163,75 @@ export default function AddEvent({openByDefault, classId, groupId, ...props}) {
                 {...nameProps}
                 error={!!errors.name}
                 helperText={errors?.name?.message}
+              />
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <Controller
+                  control={control}
+                  defaultValue={moment()}
+                  name="startDate"
+                  render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                    <DateTimePicker
+                      {...field}
+                      inputRef={startDateRef}
+                      label="Date"
+                      renderInput={(inputProps) => (
+                        <TextField
+                          {...inputProps}
+                          onBlur={onBlur}
+                          name={name}
+                          error={!!errors.startDate}
+                          helperText={errors.startDate?.message}
+                        />
+                      )}
+                    />
+                  )}
                 />
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <Controller
-                    control={control}
-                    defaultValue={moment()}
-                    name="startDate"
-                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                      <DateTimePicker
-                        {...field}
-                        inputRef={startDateRef}
-                        label="Date"
-                        renderInput={(inputProps) => (
-                          <TextField
-                            {...inputProps}
-                            onBlur={onBlur}
-                            name={name}
-                            error={!!errors.startDate}
-                            helperText={errors.startDate?.message}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <Controller
-                    control={control}
-                    defaultValue={moment().add(1, 'days')}
-                    name="endDate"
-                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                      <DateTimePicker
-                        {...field}
-                        inputRef={endDateRef}
-                        label="Date"
-                        renderInput={(inputProps) => (
-                          <TextField
-                            {...inputProps}
-                            onBlur={onBlur}
-                            name={name}
-                            error={!!fieldState.error}
-                            helperText={errors.endDate?.message}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+              </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <Controller
+                  control={control}
+                  defaultValue={moment().add(1, 'days')}
+                  name="endDate"
+                  render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                    <DateTimePicker
+                      {...field}
+                      inputRef={endDateRef}
+                      label="Date"
+                      renderInput={(inputProps) => (
+                        <TextField
+                          {...inputProps}
+                          onBlur={onBlur}
+                          name={name}
+                          error={!!fieldState.error}
+                          helperText={errors.endDate?.message}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
             </Box>
             <EventDescriptionInput
-                margin="normal"
-                required
-                multiline
-                rows={3}
-                fullWidth
-                name="name"
-                id="name"
-                placeholder="Description"
-                inputRef={descriptionRef}
-                {...descriptionProps}
-                error={!!errors.description}
-                helperText={errors?.description?.message}
-                />
+              margin="normal"
+              required
+              multiline
+              rows={3}
+              fullWidth
+              name="name"
+              id="name"
+              placeholder="Description"
+              inputRef={descriptionRef}
+              {...descriptionProps}
+              error={!!errors.description}
+              helperText={errors?.description?.message}
+            />
             <SubmitButton
               type="submit"
               fullWidth
               variant="contained"
               disabled={isLoading}
               disableElevation
-              sx={{alignSelf: "end"}}
+              sx={{ alignSelf: 'end' }}
             >
               Submit
             </SubmitButton>

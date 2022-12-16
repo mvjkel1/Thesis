@@ -1,7 +1,8 @@
 import { useToken } from '../../commons/useToken';
 import { DataService } from '../services/workgroups.service';
 import { getClasses, getCurrentWorkgroupClasses } from './classes';
-import {getEvents} from './events';
+import { getEvents } from './events';
+import { logout } from './auth';
 import store from '../store';
 
 export const getWorkgroups = (token) => (dispatch) => {
@@ -23,6 +24,7 @@ export const getWorkgroups = (token) => (dispatch) => {
           type: 'GET_WORKGROUPS_FAIL',
           payload: message
         });
+        if (error.response.status == 401) dispatch(logout());
         return Promise.reject();
       }
     )
@@ -32,6 +34,31 @@ export const getWorkgroups = (token) => (dispatch) => {
       dispatch(getEvents(groupId, token));
       return res;
     });
+};
+
+export const joinGroup = (invitationToken, token) => (dispatch) => {
+  console.log('joinGroup action');
+  return DataService.joinGroup(invitationToken, token).then(
+    (data) => {
+      dispatch({
+        type: 'JOIN_GROUP_SUCCESS',
+        payload: data
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch({
+        type: 'JOIN_GROUP_FAIL',
+        payload: message
+      });
+      if (error.response.status == 401) dispatch(logout());
+      return Promise.reject();
+    }
+  );
 };
 
 export const switchWorkgroup = (id) => (dispatch, getState) => {
