@@ -7,6 +7,7 @@ const AppError = require('./../utils/app.error');
 const crypto = require('crypto');
 const sendEmail = require('./../utils/email');
 const { StatusCodes } = require('http-status-codes');
+const { ObjectId } = require('mongoose').Types;
 
 exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
@@ -63,10 +64,16 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
   });
   if (!group) return next(new AppError('Group not found.', StatusCodes.NOT_FOUND));
   const user = await User.findById(req.user.id);
-  user.group = group;
-  // group.inviteToken = undefined;
+  // if (user.group !== null) {
+  //   return next(new AppError('You already belong to a group.', StatusCodes.UNAUTHORIZED));
+  //   if (user.group._id.toString() === group._id.toString())
+  //     return next(new AppError('You already belong to this group.', StatusCodes.UNAUTHORIZED));
+  // }
+  user.group = group._id.toString();
   await user.save({ validateBeforeSave: false });
+  group.members.push({ user });
   await group.save({ validateBeforeSave: false });
+  // group.inviteToken = undefined;
   res.status(201).json({
     status: 'success',
     data: {
@@ -124,6 +131,34 @@ exports.removeAllClassesBasedOnGroup = catchAsync(async (req, res, next) => {
   // Find all classes based on the group
   await Class.deleteMany({ group: req.params.id });
   next();
+});
+
+exports.leaveGroup = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const group = await Group.findById(user.group._id);
+  if (!group) {
+    return next(new AppError('No document found with that ID', StatusCodes.NOT_FOUND));
+  }
+
+  if (user.role !== 'user') {
+    return next(
+      new AppError(
+        'If you are a founder you have to delete a group, to leave it.',
+        StatusCodes.UNAUTHORIZED
+      )
+    );
+  }
+
+  user.group = undefined;
+  user.save({ validateBeforeSave: false });
+  console.log(group.members);
+  await Group.updateOne({ _id: req.params.id }, { $pull: { members: ObjectId(req.user.id) } });
+
+  console.log(group.members);
+  res.status(201).json({
+    status: 'success',
+    data: `Successfully left the ${group.name} group.`
+  });
 });
 
 exports.updateGroup = factory.updateOne(Group);

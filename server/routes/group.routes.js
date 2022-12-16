@@ -31,14 +31,12 @@ router
     groupController.updateGroup
   );
 
+router
+  .route('/leave')
+  .post(authController.protect, authController.restrictTo('user'), groupController.leaveGroup);
+
 router.route('/:token').post(authController.protect, groupController.joinGroup);
 
-router
-  .route('/invite/:id')
-  .post(
-    authController.protect,
-    authController.restrictTo('group-representative', 'admin'),
-    groupController.inviteToGroup
-  );
+router.route('/invite/:id').post(authController.protect, groupController.inviteToGroup);
 
 module.exports = router;
