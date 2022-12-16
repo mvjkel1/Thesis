@@ -169,7 +169,7 @@ exports.kickUserFromGroup = catchAsync(async (req, res, next) => {
       new AppError('You can not kick group founder from the group.', StatusCodes.UNAUTHORIZED)
     );
   }
-
+  console.log();
   user.group = null;
   user.save({ validateBeforeSave: false });
   await Group.updateOne(
