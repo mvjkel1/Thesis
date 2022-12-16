@@ -64,14 +64,15 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
   if (!group) return next(new AppError('Group not found.', StatusCodes.NOT_FOUND));
   const user = await User.findById(req.user.id);
   user.group = group;
-  group.inviteToken = undefined;
+  // group.inviteToken = undefined;
   await user.save({ validateBeforeSave: false });
   await group.save({ validateBeforeSave: false });
   res.status(201).json({
     status: 'success',
     data: {
       group,
-      user
+      user,
+      inivitedBy: group.founder
     }
   });
 });

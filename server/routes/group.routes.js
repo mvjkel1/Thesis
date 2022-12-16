@@ -33,6 +33,12 @@ router
 
 router.route('/:token').post(authController.protect, groupController.joinGroup);
 
-router.route('/invite/:id').post(authController.protect, groupController.inviteToGroup);
+router
+  .route('/invite/:id')
+  .post(
+    authController.protect,
+    authController.restrictTo('group-representative', 'admin'),
+    groupController.inviteToGroup
+  );
 
 module.exports = router;
