@@ -66,8 +66,6 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   // if (user.group !== null) {
   //   return next(new AppError('You already belong to a group.', StatusCodes.UNAUTHORIZED));
-  //   if (user.group._id.toString() === group._id.toString())
-  //     return next(new AppError('You already belong to this group.', StatusCodes.UNAUTHORIZED));
   // }
   user.group = group._id.toString();
   await user.save({ validateBeforeSave: false });
