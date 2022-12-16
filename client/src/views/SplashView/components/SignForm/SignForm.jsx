@@ -123,8 +123,10 @@ export default function SignForm({ ...props }) {
     else action = signIn;
     action(data)
       .then((data) => executeBeforeRedirect(invitationToken, data.token))
-      .then(() => navigate('/'))
-      .catch(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        navigate('/');
+      });
   };
 
   return (
