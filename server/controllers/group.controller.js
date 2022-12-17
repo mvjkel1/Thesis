@@ -69,7 +69,7 @@ exports.joinGroup = catchAsync(async (req, res, next) => {
   // }
   user.group = group._id.toString();
   await user.save({ validateBeforeSave: false });
-  group.members.push({ user });
+  group.members.push(user);
   await group.save({ validateBeforeSave: false });
   // group.inviteToken = undefined;
   res.status(201).json({
