@@ -17,11 +17,10 @@ export const TitleWrapper = styled(Typography)(({ theme }) => ({
 
 export const RecentFilesContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  flex: 1,
   flexWrap: 'wrap',
   justifyContent: 'center',
-  marginTop: theme.spacing(1),
-  borderColor: theme.palette.border.main,
-  padding: theme.spacing(0.5)
+  borderColor: theme.palette.border.main
 }));
 
 export const CalendarContainer = styled(Box)(({ theme }) => ({
@@ -32,20 +31,18 @@ export const CalendarContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(1),
   borderColor: theme.palette.border.main,
   borderRadius: theme.spacing(3),
-  padding: theme.spacing(2),
   margin: theme.spacing(1.3)
 }));
 
 export const FileCard = styled(Card)(({ theme }) => ({
-  backgroundColor: theme.palette.neutral.main,
-  flex: 1,
-  height: 'fit-content',
+  backgroundColor: theme.palette.neutral.light,
+  flex: '1 0 25%',
   borderRadius: theme.spacing(3),
   marginRight: theme.spacing(1),
   marginLeft: theme.spacing(1),
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
-  padding: theme.spacing(1)
+  padding: theme.spacing(0)
 }));
 
 export const ChatCard = styled(Card)(({ theme }) => ({

@@ -9,6 +9,8 @@ export const getClasses = (groupId, token) => (dispatch) => {
         type: 'GET_CLASSES_SUCCESS',
         payload: data
       });
+      console.log('action');
+      console.log(data);
       return Promise.resolve();
     },
     (error) => {

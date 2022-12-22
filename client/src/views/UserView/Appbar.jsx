@@ -13,10 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { CssBaseline } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { logout } from '../../redux/actions/auth';
 import { useNavigate } from 'react-router-dom';
+import { switchDrawer, switchMode } from '../../redux/actions/theme';
+import { MaterialUISwitch } from './Sidebar/sidebar.styles';
 
 const pages = ['test', 'test2', 'test3'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -24,162 +26,70 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const mode = useSelector((state) => state.theme.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleOpenNavMenu = () => {
+    dispatch(switchDrawer(true));
   };
 
   return (
     <React.Fragment>
-      <AppBar sx={{ backgroundColor: '#FFFFFE' }} elevation={0}>
-        <Container maxWidth="xl" sx={{ paddingLeft: '0 !important' }}>
+      <AppBar sx={{ backgroundColor: 'light-blue' }} elevation={0}>
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Box
-              display={{
-                xs: 'none',
-                sm: 'none',
-                md: 'flex',
-                lg: 'flex',
-                xl: 'flex'
-              }}
-              sx={{
-                width: 'calc(25vw - 13px)',
-                borderRight: '1px solid',
-                borderColor: '#c0c0c0',
-                height: 67,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
-              <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontWeight: 900,
-                  letterSpacing: '.1rem',
-                  color: 'black',
-                  textDecoration: 'none'
-                }}
-              >
-                StudentShare
-              </Typography>
-            </Box>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left'
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' }
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              LOGO
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+            <Box sx={{ display: 'flex', width: '100%' }}>
+              <Box>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
                 >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <MenuIcon />
                 </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100vw'
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
               >
-                <MenuItem key="logout" onClick={handleLogout}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              </Menu>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  href="/"
+                  sx={{
+                    mr: 2,
+                    fontWeight: 700,
+                    letterSpacing: '.1rem',
+                    color: 'black',
+                    textDecoration: 'none'
+                  }}
+                >
+                  StudentShare
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '48px'
+                }}
+              >
+                <MaterialUISwitch
+                  onClick={() =>
+                    dispatch(mode == 'dark' ? switchMode('light') : switchMode('dark'))
+                  }
+                />
+              </Box>
             </Box>
           </Toolbar>
         </Container>

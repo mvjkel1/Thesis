@@ -50,7 +50,7 @@ const Auth2 = () => {
             alignItems: 'center',
             borderRadius: '0.5rem'
           }}
-          bgcolor="background.main"
+          bgcolor="background.light"
         >
           <Outlet />
         </Grid>

@@ -4,9 +4,8 @@ import { Button } from '@mui/material';
 export const LogoWrapper = styled(Box)(({ theme }) => ({
   height: 67,
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
-  width: '100%'
+  paddingLeft: theme.spacing(2.5)
 }));
 
 export const SideBarItem = styled(MenuItem)(({ theme }) => ({

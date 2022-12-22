@@ -11,7 +11,8 @@ import {
   Typography,
   IconButton,
   Avatar,
-  Button
+  Button,
+  LinearProgress
 } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -46,6 +47,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
   const handleOpen = () => {
     setOpen(!open);
   };
+
   return (
     <>
       <SideBarItem onClick={handleOpen}>
@@ -151,7 +153,10 @@ export const Sidebar = () => {
   }, [user]);
 
   return (
-    <Box sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10' }}>
+    <Box
+      className="sidebarContent"
+      sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10' }}
+    >
       <LogoWrapper>
         <Typography
           variant="h6"
@@ -210,24 +215,19 @@ export const Sidebar = () => {
         <Divider />
       </Box>
       <Box mt={2}>
-        <SidebarSectionText>Current user</SidebarSectionText>
+        <SidebarSectionText>Storage</SidebarSectionText>
       </Box>
-      <Box ml={2} mr={2}>
-        <CurrentUserContainer>
-          <IconButton>
-            <Avatar alt={user.name} src="/static/images/avatar/2.jpg" />
-          </IconButton>
-          <Button onClick={() => navigate('/profile')}>Settings</Button>
-          <Button
-            onClick={() => {
-              dispatch(switchMode('light'));
-              dispatch(logout());
-              navigate('/');
-            }}
-          >
-            Sign-out
-          </Button>
-        </CurrentUserContainer>
+      <Box ml={2.6} mr={2} mt={1}>
+        <Box sx={{ display: 'flex', gap: 0.5 }}>
+          <Typography sx={{ fontWeight: 600 }}>100.12 MB</Typography>
+          <Typography>used</Typography>
+        </Box>
+        <Box>
+          <Typography sx={{ fontSize: 14 }} mb={1} color="text.secondary">
+            10% used - 1.00 GB free
+          </Typography>
+        </Box>
+        <LinearProgress sx={{ height: '10px', borderRadius: 2 }} variant="determinate" value={10} />
       </Box>
     </Box>
   );

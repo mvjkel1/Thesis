@@ -18,12 +18,12 @@ const lightPalette = {
     },
     neutral: {
       light: 'white', // white menu items etc (in white mode udistinguishable)
-      main: '#f6f6f6', // slightly gray menu items etc
+      main: '#f6f6f6', // slightly gray menu items etc /////////////////////////////////////was #f6f6f6
       dark: 'rgba(234,234,234,255)' // menuitems doublehover
     },
     background: {
       light: 'white',
-      main: 'white', // white bg
+      main: '#f2f6fe', // white bg
       dark: 'rgba(244,246,248,255)' //neutral off-white bg
     },
     text: {
