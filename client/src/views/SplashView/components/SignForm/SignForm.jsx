@@ -27,6 +27,7 @@ import {
   SubmitButton
 } from './SignForm.styles';
 import { joinGroup } from '../../../../redux/actions/workgroups';
+import { useEffect } from 'react';
 
 export default function SignForm({ ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,9 +36,11 @@ export default function SignForm({ ...props }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log('lol');
   const error = useSelector((state) => state.auth.error);
   const {
     register,
+    unregister,
     handleSubmit,
     formState: { errors },
     watch
@@ -112,21 +115,19 @@ export default function SignForm({ ...props }) {
   };
 
   const executeBeforeRedirect = (invToken, userToken) => {
-    if (invToken) return dispatch(joinGroup(invToken, userToken));
+    // Not crucial for login/signup, so always resolved, does not break onSubmit flow.
+    if (invToken)
+      return new Promise((res) => dispatch(joinGroup(invToken, userToken)).finally(() => res()));
     else return Promise.resolve();
   };
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    var action = {};
-    if (signUpMode) action = signUp;
-    else action = signIn;
+    let action = signUpMode ? signUp : signIn;
     action(data)
       .then((data) => executeBeforeRedirect(invitationToken, data.token))
-      .finally(() => {
-        setIsLoading(false);
-        navigate('/');
-      });
+      .then(() => navigate('/'))
+      .finally((data) => setIsLoading(false));
   };
 
   return (
@@ -222,7 +223,10 @@ export default function SignForm({ ...props }) {
               color="secondary"
               fullWidth
               variant="outlined"
-              onClick={() => setSignUpMode(!signUpMode)}
+              onClick={() => {
+                unregister(['name', 'email', 'passwordConfirm']);
+                setSignUpMode(!signUpMode);
+              }}
             >
               {signUpMode ? 'Back to login' : 'New user? Sign Up!'}
             </SecondaryButton>
@@ -233,7 +237,7 @@ export default function SignForm({ ...props }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" onClick={() => setSignUpMode(true)}>
+                <Link variant="body2" onClick={() => navigate('/')}>
                   {'Our terms of service (TOS)'}
                 </Link>
               </Grid>

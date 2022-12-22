@@ -19,3 +19,26 @@ export const deleteGroup = (id, token) => {
       }
     );
 };
+
+export const leaveGroup = (id, token) => {
+  return axios
+    .post(
+      `${API_URL}/leave`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+    .then(
+      (response) => {
+        return Promise.resolve(response.data.data);
+      },
+      (error) => {
+        const message =
+          (error.response && error.response.data && error.response.data.message) ||
+          error.message ||
+          error.toString();
+        return Promise.reject(message);
+      }
+    );
+};

@@ -107,7 +107,7 @@ export default function RecoveryForm() {
           </Box>
         )}
         <FormContainer>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1 }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -173,14 +173,14 @@ export default function RecoveryForm() {
             )}
 
             {!isTokenSent && (
-              <SubmitButton type="submit" color="primaryCtaButton" fullWidth variant="contained">
+              <SubmitButton type="submit" fullWidth variant="contained">
                 Submit
               </SubmitButton>
             )}
             <SecondaryButton
-              color="secondaryCtaButton"
               fullWidth
               variant="outlined"
+              color="secondary"
               onClick={() => navigate('/auth')}
             >
               Go back to log-in.

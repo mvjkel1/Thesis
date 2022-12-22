@@ -1,8 +1,16 @@
 const { v4: uuidv4 } = require('uuid');
 const aws = require('aws-sdk');
-const s3 = new aws.S3();
 const multer = require('multer');
 const sharp = require('sharp');
+require('dotenv').config();
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Set access key here
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+console.log(process.env.AWS_ACCESS_KEY_ID);
+console.log(process.env.AWS_SECRET_ACCESS_KEY);
+
 
 function resizeImage(imageBuffer) {
   return sharp(imageBuffer).resize(400).jpeg({ quality: 50 }).toBuffer();

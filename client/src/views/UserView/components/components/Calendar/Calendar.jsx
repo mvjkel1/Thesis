@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
 import * as React from 'react';
+import moment from 'moment';
 import {
   StyledLayout,
   StyledScheduler,
@@ -66,16 +67,14 @@ export const Calendar = () => {
     <Box sx={{ 'min-width': 0 }}>
       <StyledScheduler data={events.data || []} height={660}>
         <EditingState onCommitChanges={commitChanges} />
-        <ViewState defaultCurrentDate="2022-12-13" />
-        <Toolbar />
+        <ViewState defaultCurrentDate={moment()} />
         <StyledWeekView
+          startDayHour={9}
           dayScaleRowComponent={StyledWeekViewDayScaleRow}
           timeScaleLayoutComponent={StyledTimeScaleLayout}
           layoutComponent={StyledLayout}
           dayScaleEmptyCellComponent={StyledWeekViewDayScaleEmptyCell}
         />
-        <DateNavigator />
-        <IntegratedEditing />
         <Appointments />
         <AppointmentTooltip contentComponent={Content} showDeleteButton />
       </StyledScheduler>

@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
+    "@devexpress/dx-react-chart": "^4.0.1",
+    "@devexpress/dx-react-chart-material-ui": "^4.0.1",
     "@devexpress/dx-react-core": "^3.0.4",
     "@devexpress/dx-react-scheduler": "^3.0.4",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.4",
@@ -21,6 +23,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "i": "^0.3.7",
     "install": "^0.13.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",

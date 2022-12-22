@@ -18,66 +18,74 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getWorkgroups } from '../../../../../redux/actions/workgroups';
-import { deleteGroup } from './EditGroups.service';
+import { deleteGroup, leaveGroup } from './EditGroups.service';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroups.styles';
 
 const GroupList = ({ groups, ...state }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const groupData = groups;
 
   const handleDelete = (id) => {
     deleteGroup(id, user.token).then(() => dispatch(getWorkgroups(user.token)));
   };
 
+  const handleLeave = (id) => {
+    leaveGroup(id, user.token).then(() => dispatch(getWorkgroups(user.token)));
+  };
+
   const navigate = useNavigate();
   return (
     <List>
-      {groups?.map((group) => (
-        <ListItem sx={{ padding: 0, marginBottom: 2 }}>
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={group.name} />
-          <ListItemIcon>
-            {group?.founder?._id == user._id && (
-              <IconButton
-                sx={{ marginRight: 0.1 }}
-                edge="end"
-                aria-label="delete"
-                onClick={() => navigate(`/group-admin/${group._id}`)}
-              >
-                <SettingsIcon />
-              </IconButton>
-            )}
-            {group?.founder?._id == user._id && (
-              <IconButton
-                sx={{ marginRight: 0.1 }}
-                edge="end"
-                aria-label="delete"
-                onClick={() => handleDelete(group._id)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            )}
-            <IconButton
-              sx={{ marginRight: 0.1 }}
-              edge="end"
-              aria-label="delete"
-              onClick={() => window.alert('dupa! wee need api for user leaving a group!')}
-            >
-              <ExitToAppIcon />
-            </IconButton>
-          </ListItemIcon>
-        </ListItem>
-      ))}
+      {Array.isArray(groupData) &&
+        groupData.map((group) => (
+          <ListItem sx={{ padding: 0, marginBottom: 2 }}>
+            <ListItemAvatar>
+              <Avatar>
+                <FolderIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={group.name} />
+            <ListItemIcon>
+              {group?.founder?._id == user._id && (
+                <IconButton
+                  sx={{ marginRight: 0.1 }}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => navigate(`/group-admin/${group._id}`)}
+                >
+                  <SettingsIcon />
+                </IconButton>
+              )}
+              {group?.founder?._id == user._id && (
+                <IconButton
+                  sx={{ marginRight: 0.1 }}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDelete(group._id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
+              {group?.founder?._id !== user._id && (
+                <IconButton
+                  sx={{ marginRight: 0.1 }}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleLeave(group._id)}
+                >
+                  <ExitToAppIcon />
+                </IconButton>
+              )}
+            </ListItemIcon>
+          </ListItem>
+        ))}
     </List>
   );
 };
 
 export default function EditGroups({ openByDefault, ...props }) {
-  const groups = useSelector((state) => state.workgroups.data);
+  const groups = useSelector((state) => state.workgroups?.data);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);

@@ -158,3 +158,9 @@ body {
   opacity: 0;
   transition: opacity 1.5s ease;
 }
+
+@media only screen and (max-width: 900px) {
+  .sidebarContent {
+    max-width: 100vw !important;
+  }
+}

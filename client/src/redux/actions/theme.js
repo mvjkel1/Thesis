@@ -4,3 +4,10 @@ export const switchMode = (payload) => {
     payload
   };
 };
+
+export const switchDrawer = (payload) => {
+  return {
+    type: 'SWITCH_DRAWER',
+    payload
+  };
+};

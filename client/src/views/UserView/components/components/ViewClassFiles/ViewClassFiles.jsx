@@ -21,6 +21,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 export const ViewClassFiles = ({ id, files, openByDefault, ...props }) => {
   const AWS_URL = 'https://studentshare.s3.eu-west-2.amazonaws.com';
+  const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const [open, setOpen] = useState(openByDefault || false);
   return (
     <FeatureContainer>
@@ -47,7 +48,13 @@ export const ViewClassFiles = ({ id, files, openByDefault, ...props }) => {
               </ListItemAvatar>
               <ListItemText
                 primary={<Typography color="text.primary">{file.file_name}</Typography>}
-                secondary={<Typography color="text.secondary">Username</Typography>}
+                secondary={
+                  <Typography color="text.secondary">
+                    {Array.isArray(currentWorkgroup.members)
+                      ? currentWorkgroup.members?.find((member) => member._id == file.userId).name
+                      : 'unknown'}
+                  </Typography>
+                }
               />
             </ListItem>
           ))}

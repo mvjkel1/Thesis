@@ -14,6 +14,7 @@ export const UploadClassFiles = ({ openByDefault, ...props }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.user.token);
+  const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const getUploadParams = ({ meta }) => {
     return {
       url: `http://localhost:3001/api/v1/classes/${id}`,
@@ -28,7 +29,7 @@ export const UploadClassFiles = ({ openByDefault, ...props }) => {
     // Remove them from dropzone
     allFiles.map((f) => f.remove());
     // Dispatch action to refetch class data (to show new files)
-    dispatch(getClasses(id, token));
+    dispatch(getClasses(currentWorkgroup._id, token));
   };
   return (
     <FeatureContainer>

@@ -1,5 +1,6 @@
 const initialState = {
-  mode: 'light'
+  mode: 'light',
+  drawer: false
 };
 
 export default function (state = initialState, action) {
@@ -9,6 +10,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         mode: payload
+      };
+    case 'SWITCH_DRAWER':
+      return {
+        ...state,
+        drawer: payload
       };
     default:
       return state;

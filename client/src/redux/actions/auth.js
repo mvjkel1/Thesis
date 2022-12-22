@@ -12,6 +12,7 @@ import {
 } from './types';
 
 import { AuthService } from '../services/auth.service';
+import { switchMode } from './theme';
 
 export const registerAction = (name, email, password, passwordConfirm) => (dispatch) => {
   return AuthService.register(name, email, password, passwordConfirm).then(
