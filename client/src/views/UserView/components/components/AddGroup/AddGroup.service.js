@@ -12,7 +12,8 @@ export const addGroup = (name, token) => {
     )
     .then(
       (response) => {
-        return Promise.resolve(response.data.data);
+        console.log(response.data)
+        return Promise.resolve(response.data);
       },
       (error) => {
         const message =

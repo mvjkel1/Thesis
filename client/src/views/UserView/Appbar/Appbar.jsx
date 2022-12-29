@@ -1,24 +1,17 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { CssBaseline } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logout } from '../../redux/actions/auth';
+import { logout } from '../../../redux/actions/auth';
 import { useNavigate } from 'react-router-dom';
-import { switchDrawer, switchMode } from '../../redux/actions/theme';
-import { MaterialUISwitch } from './Sidebar/sidebar.styles';
+import { switchDrawer, switchMode } from '../../../redux/actions/theme';
+import { MaterialUISwitch } from '../Sidebar/sidebar.styles';
+import { StyledAppBar } from './Appbar.styles';
 
 const pages = ['test', 'test2', 'test3'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,14 +29,14 @@ const ResponsiveAppBar = () => {
 
   return (
     <React.Fragment>
-      <AppBar sx={{ backgroundColor: 'light-blue' }} elevation={0}>
+      <StyledAppBar elevation={0}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ display: 'flex', width: '100%' }}>
               <Box>
                 <IconButton
                   size="large"
-                  aria-label="account of current user"
+                  aria-label="open"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
@@ -63,13 +56,13 @@ const ResponsiveAppBar = () => {
                 <Typography
                   variant="h6"
                   noWrap
+                  color="text.primary"
                   component="a"
                   href="/"
                   sx={{
                     mr: 2,
                     fontWeight: 700,
                     letterSpacing: '.1rem',
-                    color: 'black',
                     textDecoration: 'none'
                   }}
                 >
@@ -93,7 +86,7 @@ const ResponsiveAppBar = () => {
             </Box>
           </Toolbar>
         </Container>
-      </AppBar>
+      </StyledAppBar>
       <Toolbar />
     </React.Fragment>
   );

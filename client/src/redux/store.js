@@ -3,31 +3,26 @@ import thunk from 'redux-thunk';
 import auth from './reducers/auth';
 import workgroups from './reducers/workgroups';
 import classes from './reducers/classes';
+import messages from './reducers/messages';
 import events from './reducers/events';
 import theme from './reducers/theme';
 import logger from 'redux-logger';
+import messagesMiddleware from './middleware/messagesMiddleware';
 
 const middleware = [thunk];
 
-const reducer = {
-  auth,
-  workgroups,
-  classes,
-  events,
-  theme
-};
 
 const combinedReducer = combineReducers({
   auth,
   workgroups,
   classes,
   events,
+  messages,
   theme
 });
 
 const rootReducer = (state, action) => {
   if (action.type === 'LOGOUT') {
-    // check for action type
     state = undefined;
   }
   return combinedReducer(state, action);
@@ -35,5 +30,5 @@ const rootReducer = (state, action) => {
 
 export default configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger).concat(messagesMiddleware)
 });

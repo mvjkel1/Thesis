@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { kickUser } from './EditGroupMembers.service';
+import { useTranslation } from 'react-i18next';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroupMembers.styles';
 
 export const EditGroupMembers = ({ openByDefault, ...props }) => {
@@ -14,13 +15,14 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
   const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
   const user = useSelector((state) => state.auth.user);
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
       { field: '_id', headerName: 'ID', width: 90 },
       {
         field: 'name',
-        headerName: 'name',
+        headerName: t('editGroupMembers.name'),
         width: 100
       },
       {
@@ -30,7 +32,7 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
       },
       {
         field: 'action',
-        headerName: 'Action',
+        headerName: t('editGroupMembers.action'),
         sortable: false,
         renderCell: (params) => {
           const api = params.api;
@@ -48,7 +50,7 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
           };
           return (
             <Button disabled={isCurrentUser} onClick={onClick}>
-              Kick user
+              {t('editGroupMembers.kickuser')}
             </Button>
           );
         }
@@ -60,7 +62,7 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
   return (
     <FeatureContainer>
       <HeaderWrapper>
-        <HeaderText>Manage group members</HeaderText>
+        <HeaderText>{t('editGroupMembers.editgroupmembers')}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
           <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
         </IconButton>

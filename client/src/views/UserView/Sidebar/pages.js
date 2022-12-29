@@ -3,10 +3,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import GroupsIcon from '@mui/icons-material/Groups';
 
-export const HOME = 'Home';
-export const CHAT = 'Chat';
-export const CLASSES = 'Classes';
-export const MANAGE_GROUPS = 'Manage groups';
+export const HOME = 'home';
+export const CHAT = 'chat';
+export const CLASSES = 'classes';
+export const MANAGE_GROUPS = 'manageworkgroups';
 
 export const PAGES = [HOME, CHAT, CLASSES]; // main pages
 export const PAGES_SECONDARY = [MANAGE_GROUPS];

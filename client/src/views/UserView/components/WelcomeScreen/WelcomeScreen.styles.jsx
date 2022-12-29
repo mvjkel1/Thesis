@@ -23,6 +23,17 @@ export const RecentFilesContainer = styled(Box)(({ theme }) => ({
   borderColor: theme.palette.border.main
 }));
 
+export const EventBarContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flex: 1,
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  borderColor: theme.palette.border.main,
+  "@media (max-width: 768px)": {
+    flex: "1 1 100%"
+  }
+}));
+
 export const CalendarContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',

@@ -29,6 +29,7 @@ import {
   EventDescriptionInput
 } from './AddEvent.styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
+import { useTranslation} from 'react-i18next';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -40,6 +41,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
+  const {t} = useTranslation();
+
 
   const {
     register,
@@ -51,42 +54,42 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
   } = useForm();
 
   const { ref: nameRef, ...nameProps } = register('name', {
-    required: 'Name is required!',
+    required: t('addEvent.namerequired'),
     minLength: {
       value: 2,
-      message: 'Name is too short'
+      message: t('addEvent.nametooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Name is too long'
+      message: t('addEvent.nametoolong')
     }
   });
 
   const { ref: startDateRef, ...startDateProps } = register('startDate', {
-    required: 'Time is required!'
+    required: t('addEvent.timerequired')
   });
 
   const { ref: endDateRef, ...endDateProps } = register('endDate', {
-    required: 'Time is required!',
+    required: t('addEvent.timerequired'),
     validate: (val) => {
       if (moment(val).diff(moment(watch('startDate')), 'seconds') < 0) {
-        return 'End date is before start date.';
+        return t('addEvent.endbeforestart');
       }
       if (moment(val).diff(moment(watch('startDate')), 'days') > 0) {
-        return 'Event should end the same day.';
+        return t('addEvent.sameday');
       }
     }
   });
 
   const { ref: descriptionRef, ...descriptionProps } = register('description', {
-    required: 'Description is required!',
+    required: t('addEvent.descriptionrequired'),
     minLength: {
       value: 2,
-      message: 'Description is too short'
+      message: t('addEvent.descriptiontooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Description is too long'
+      message: t('addEvent.descriptiontoolong')
     }
   });
 
@@ -124,7 +127,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
     <React.Fragment>
       <FeatureContainer>
         <HeaderWrapper>
-          <HeaderText>Add event</HeaderText>
+          <HeaderText>{t('addEvent.addevent')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
             <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
           </IconButton>
@@ -146,7 +149,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                 </IconButton>
               }
             >
-              {isSuccess ? 'Event added successfully' : error}
+              {isSuccess ? t('addEvent.success') : error}
             </Alert>
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -158,7 +161,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                 fullWidth
                 name="name"
                 id="name"
-                placeholder="Event name"
+                placeholder={t('addEvent.name')}
                 inputRef={nameRef}
                 {...nameProps}
                 error={!!errors.name}
@@ -173,7 +176,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                     <DateTimePicker
                       {...field}
                       inputRef={startDateRef}
-                      label="Date"
+                      label={t('addEvent.date')}
                       renderInput={(inputProps) => (
                         <TextField
                           {...inputProps}
@@ -196,7 +199,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                     <DateTimePicker
                       {...field}
                       inputRef={endDateRef}
-                      label="Date"
+                      label={t('addEvent.date')}
                       renderInput={(inputProps) => (
                         <TextField
                           {...inputProps}
@@ -219,7 +222,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
               fullWidth
               name="name"
               id="name"
-              placeholder="Description"
+              placeholder={t('addEvent.description')}
               inputRef={descriptionRef}
               {...descriptionProps}
               error={!!errors.description}
@@ -236,23 +239,6 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
               Submit
             </SubmitButton>
           </FormContainer>
-          <Collapse in={url}>
-            <Typography mt={2} mb={1}>
-              Invite share link
-            </Typography>
-            <LinkTextfield
-              fullWidth
-              id="outlined-adornment-password"
-              InputLabelProps={{ shrink: false }}
-              value={url || 'Submit the form to get your invitation link.'}
-              disabled
-              endAdornment={
-                <InputAdornment position="end">
-                  <Button onClick={() => navigator.clipboard.writeText(url)}>Copy</Button>
-                </InputAdornment>
-              }
-            />
-          </Collapse>
         </Collapse>
       </FeatureContainer>
     </React.Fragment>
