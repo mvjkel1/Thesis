@@ -1,0 +1,117 @@
+{
+    "title": "Welcome to react using react-i18next",
+    "auth": {
+        "signin": "Zaloguj",
+        "signup": "Rejestracja",
+        "email": "Adres e-mail",
+        "name": "Imie",
+        "password": "Hasło",
+        "confirmpassword": "Potwierdź hasło",
+        "rememberme": "Zapamiętaj mnie",
+        "signupbutton": "Nowy uzytkownik?",
+        "backtologin": "Wróć do logowania",
+        "forgotpassword": "Zapomniane hasło?",
+        "tos": "Our Terms of Service (TOS)",
+        "namerequired": "Nazwa jest wymagana!",
+        "nametooshort": "Nazwa jest za krótka",
+        "nametoolong": "Nazwa jest za długa",
+        "emailreqired": "E-mail jest wymagany!",
+        "emailtooshort": "E-mail jest za krótki",
+        "emailtoolong": "E-mail jest za wolny",
+        "emailinvalid": "Adres e-mail niepoprawny",
+        "passwordtooshort": "Hasło jest za krótkie",
+        "passwordtoolong": "Hasło jest za długie",
+        "passwordrequired": "Hasło jest wymagane",
+        "passwordsdonotmatch": "Hasła nie są identyczne"
+    },
+    "WelcomeScreen": {
+        "images": "Obrazki",
+        "docs": "Docs",
+        "videos": "Filmy",
+        "others": "Inne",
+        "events": "Wydarzenia"
+    },
+    "Sidebar": {
+        "menu": "Menu główne",
+        "home": "Home",
+        "chat": "Czat",
+        "classes": "Podgrupy",
+        "myclasses": "Moje podgrupy",
+        "currentworkgroup": "Aktualna grupa",
+        "manageworkgroups": "Zarządzaj grupami",
+        "newbadge": "Nowość",
+        "storage": "Przestrzeń dyskowa",
+        "used": "zajęte",
+        "free": "wolne"
+    },
+    "Rightbar": {
+        "users": "Użytkownicy",
+        "myaccount": "Moje konto",
+        "logout": "Wyloguj",
+        "displaysettings": "Wyświetlanie"
+    },
+    "displaySettings":{
+        "language": "Język",
+        "displaymode": "Tryb wyświetlania",
+        "notifications": "Powiadomienia"
+    },
+    "sharedfiles": "Udostępnione pliki",
+    "uploadnewfile": "Prześlij nowy plik",
+    "addEvent": {
+        "addevent": "Dodaj wydarzenie",
+        "name": "Nazwa",
+        "namerequired": "Nazwa jest wymagana",
+        "nametooshort": "Nazwa grupy jest za krótka",
+        "nametoolong": "Nazwa grupy jest za długa",
+        "timerequired": "Czas wydarzenia jest wymagany",
+        "endbeforestart": "Data zakończenia jest przed datą rozpoczęcia",
+        "sameday": "Wydarzenie powinno kończyć się tego samego dnia",
+        "descriptionrequired": "Opis jest wymagany",
+        "descriptiontooshort": "Opis jest za krótki",
+        "descriptiontoolong": "Opis jest za długi",
+        "description": "Opis wydarzenia",
+        "date": "Data",
+        "submit": "Dodaj",
+        "success": "Wydarzenie dodane pomyślnie."
+    },
+    "addGroup":{
+        "createnewgroup": "Stwórz nową grupę",
+        "name": "Nazwa grupy",
+        "namerequired": "Nazwa jest wymagana",
+        "nametooshort": "Nazwa grupy jest za krótka",
+        "nametoolong": "Nazwa grupy jest za długa",
+        "submit": "Zatwierdź",
+        "success": "Groupa utworzona pomyślnie.",
+        "invitationlink": "Link zaproszeniowy",
+        "submittogetlink": "Stwórz grupę, aby uzyskać link zaproszeniowy..",
+        "copy": "kopiuj"
+    },
+    "addClass": {
+        "createnewclass": "Dodaj nową podgrupę",
+        "name": "Nazwa podgrupy",
+        "namerequired": "Nazwa jest wymagana",
+        "nametooshort": "Nazwa jest za krótka",
+        "nametoolong": "Nazwa jest za długa",
+        "submit": "Zatwierdź",
+        "success": "Podgrupa utworzona pomyślnie"
+    },
+    "editGroupData": {
+        "editgroupdata": "Edytuj dane grupy",
+        "name": "Nazwa grupy",
+        "namerequired": "Name jest wymagana!",
+        "nametooshort": "Nazwa jest za krótka",
+        "nametoolong" : "Nazwa jest za długa",
+        "success": "Pomyślnie zmieniono nazwę grupy",
+        "submit": "Zatwierdź"
+    },
+    "editGroupMembers": {
+        "editgroupmembers": "Zarządzaj członkami grupy",
+        "name": "Nazwa",
+        "action": "Działanie",
+        "kickuser": "Usuń z grupy"
+    },
+    "description": {
+      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
+      "part2": "Switch language between english and german using buttons above."
+    }
+  }

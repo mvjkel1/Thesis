@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { addGroup } from './AddGroup.service';
+import { useTranslation } from 'react-i18next';
 import {
   FeatureContainer,
   FormContainer,
@@ -24,6 +25,7 @@ export default function AddGroup({ openByDefault, ...props }) {
   const [url, setUrl] = useState('');
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
+  const {t} = useTranslation();
   const dispatch = useDispatch();
 
   const {
@@ -35,14 +37,14 @@ export default function AddGroup({ openByDefault, ...props }) {
   } = useForm();
 
   const { ref: nameRef, ...nameProps } = register('name', {
-    required: 'Name is required!',
+    required: t('addGroup.namerequired'),
     minLength: {
       value: 2,
-      message: 'Name is too short'
+      message: t('addGroup.nametooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Name is too long'
+      message: t('addGroup.nametoolong')
     }
   });
 
@@ -56,9 +58,9 @@ export default function AddGroup({ openByDefault, ...props }) {
     setIsSuccess(false);
     setIsLoading(true);
     addGroup(data.name, token)
-      .then(() => {
+      .then((res) => {
         showAlert('success');
-        setUrl('https://blabla.com/invite/322-bfdda-sgaw');
+        setUrl('https://localhost:3000/invite/' + res.data.group.invitationToken);
         dispatch(getWorkgroups(token));
         reset();
       })
@@ -73,7 +75,7 @@ export default function AddGroup({ openByDefault, ...props }) {
     <React.Fragment>
       <FeatureContainer>
         <HeaderWrapper>
-          <HeaderText>Create new group</HeaderText>
+          <HeaderText>{t('addGroup.createnewgroup')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
             <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
           </IconButton>
@@ -95,7 +97,7 @@ export default function AddGroup({ openByDefault, ...props }) {
                 </IconButton>
               }
             >
-              {isSuccess ? 'Group created successfully' : error}
+              {isSuccess ? t('addGroup.success') : error}
             </Alert>
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -105,7 +107,7 @@ export default function AddGroup({ openByDefault, ...props }) {
               fullWidth
               name="name"
               id="name"
-              placeholder="Group name"
+              placeholder={t('addGroup.name')}
               inputRef={nameRef}
               {...nameProps}
               error={!!errors.name}
@@ -118,22 +120,22 @@ export default function AddGroup({ openByDefault, ...props }) {
               disabled={isLoading}
               disableElevation
             >
-              Submit
+              {t('addGroup.submit')}
             </SubmitButton>
           </FormContainer>
           <Collapse in={url}>
             <Typography mt={2} mb={1}>
-              Invite share link
+              {t('addGroup.submittogetlink')}
             </Typography>
             <LinkTextfield
               fullWidth
               id="outlined-adornment-password"
               InputLabelProps={{ shrink: false }}
-              value={url || 'Submit the form to get your invitation link.'}
+              value={url || t('addGroup.submittogetlink')}
               disabled
               endAdornment={
                 <InputAdornment position="end">
-                  <Button onClick={() => navigator.clipboard.writeText(url)}>Copy</Button>
+                  <Button onClick={() => navigator.clipboard.writeText(url)}>{t('addGroup.copy')}</Button>
                 </InputAdornment>
               }
             />

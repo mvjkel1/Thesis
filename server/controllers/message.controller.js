@@ -6,9 +6,12 @@ const Message = require('../models/message.model');
 const Conversation = require('../models/conversation.model');
 
 exports.addMessage = catchAsync(async (req, res, next) => {
+  console.log("body");
+  console.log(req.body)
   const message = await Message.create({
     conversationId: req.body.conversationId,
     senderId: req.user.id,
+    receiverId: req.body.receiverId,
     text: req.body.text
   });
   res.status(200).json({ status: 'success', message });

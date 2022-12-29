@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './styling/index.css';
 import App from './App';
@@ -7,11 +7,16 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './styling/theme';
+import './i18n';
+import { Loader } from './loader';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Suspense fallback={<Loader/>}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Suspense>
+  ,
   document.getElementById('root')
 );
 

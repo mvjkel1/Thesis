@@ -18,7 +18,7 @@ import { Collapse, LinearProgress } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useOutletContext } from 'react-router-dom';
-
+import { useTranslation} from 'react-i18next';
 import {
   FormBox,
   FormContainer,
@@ -36,7 +36,7 @@ export default function SignForm({ ...props }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log('lol');
+  const {t} = useTranslation();
   const error = useSelector((state) => state.auth.error);
   const {
     register,
@@ -48,59 +48,58 @@ export default function SignForm({ ...props }) {
   const { ref: nameRef, ...nameProps } = register(
     'name',
     signUpMode && {
-      required: 'Name is required!',
+      required: t('auth.namerequired'),
       minLength: {
         value: 2,
-        message: 'Name is too short'
+        message: t('auth.nametooshort')
       },
       maxLength: {
         value: 64,
-        message: 'Name is too long'
+        message: t('auth.nametoolong')
       }
     }
   );
   const { ref: emailRef, ...emailProps } = register('email', {
-    required: 'E-mail is required',
+    required: t('auth.emailrequired'),
     minLength: {
       value: 8,
-      message: 'Email is too short'
+      message: t('auth.emailtooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Email is too long'
+      message: t('auth.emailtoolong')
     },
     pattern: {
       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: 'Invalid email address.'
+      message: t('auth.emailinvalid')
     }
   });
   const { ref: passwordRef, ...passwordProps } = register('password', {
     minLength: {
       value: 8,
-      message: 'Password is too short'
+      message: t('auth.passwordtooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Password is too long'
+      message: t('auth.passwordtoolong')
     },
-    required: 'Password is required.'
+    required: t('auth.passwordrequired')
   });
   const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
     'passwordConfirm',
     signUpMode && {
       minLength: {
         value: 8,
-        message: 'Password is too short'
+        message: t('auth.passwordtooshort')
       },
       maxLength: {
         value: 64,
-        message: 'Password is too long'
+        message: t('auth.passwordtoolong')
       },
-      required: 'Password is required.',
-
+      required: t('auth.passwordrequired'),
       validate: (val) => {
         if (watch('password') != val) {
-          return 'Your passwords do not match';
+          return t('auth.passwordsdonotmatch');
         }
       }
     }
@@ -144,7 +143,7 @@ export default function SignForm({ ...props }) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {signUpMode ? 'Sign Up' : 'Sign In'}
+            {signUpMode ? t('auth.signup') : t('auth.signin')}
           </Typography>
           <Typography>{error}</Typography>
           <FormInputContainer
@@ -159,7 +158,7 @@ export default function SignForm({ ...props }) {
                 required
                 fullWidth
                 name="name"
-                label="Name"
+                label={t('auth.name')}
                 id="name"
                 autoComplete="name"
                 inputRef={nameRef}
@@ -173,7 +172,7 @@ export default function SignForm({ ...props }) {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label={t('auth.email')}
               name="email"
               autoComplete="email"
               autoFocus
@@ -187,7 +186,7 @@ export default function SignForm({ ...props }) {
               required
               fullWidth
               name="password"
-              label="Password"
+              label={t('auth.password')}
               type="password"
               id="password"
               autoComplete="current-password"
@@ -202,7 +201,7 @@ export default function SignForm({ ...props }) {
                 required
                 fullWidth
                 name="passwordConfirm"
-                label="Confirm password"
+                label={t('auth.confirmpassword')}
                 type="password"
                 id="passwordConfirm"
                 autoComplete="current-password"
@@ -214,10 +213,10 @@ export default function SignForm({ ...props }) {
             </Collapse>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label={t('auth.rememberme')}
             />
             <SubmitButton type="submit" fullWidth variant="contained">
-              {signUpMode ? 'Sign Up' : 'Sign In'}
+              {signUpMode ? t('auth.signup') : t('auth.signin')}
             </SubmitButton>
             <SecondaryButton
               color="secondary"
@@ -228,12 +227,12 @@ export default function SignForm({ ...props }) {
                 setSignUpMode(!signUpMode);
               }}
             >
-              {signUpMode ? 'Back to login' : 'New user? Sign Up!'}
+              {signUpMode ? t('auth.backtologin') : t('auth.signupbutton')}
             </SecondaryButton>
             <Grid container>
               <Grid item xs>
                 <Link variant="body2" onClick={() => navigate('/auth/recovery')}>
-                  Forgot password?
+                  {t('auth.forgotpassword')}
                 </Link>
               </Grid>
               <Grid item>

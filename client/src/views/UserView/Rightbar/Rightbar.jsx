@@ -6,37 +6,52 @@ import {
   SettingsIconButton,
   TitleWrapper,
   UserEntryContainer,
-  UserSettingsIcon
+  UserSettingsIcon,
+  StyledBadge
 } from './Rightbar.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../redux/actions/auth';
-import { switchMode } from '../../../redux/actions/theme';
-import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
+import { useEffect, useState } from 'react';
+import { createConversation, messagesSocketInit } from '../../../redux/actions/messages';
+import { GroupMembers } from '../components/components/GroupMembers/GroupMembers';
+import {useTranslation} from 'react-i18next';
+import { DisplaySettings } from '../components/components/DisplaySettings/DisplaySettings';
 
-const users = ['Bogus', 'Michal', 'Kasia', 'Basia', 'Asia', 'Stasia'];
-
-export const UserEntry = ({ username }) => {
+export const UserEntry = ({ user, onChatStart }) => {
+  const activeUsers = useSelector(state => state.messages.activeUsers);
+  const currentUser = useSelector(state => state.auth.user);
+  const isOnline = () => {
+    return activeUsers.some(usr => usr.userId == user._id) && user._id !== currentUser._id
+  }
   return (
     <UserEntryContainer>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <StyledBadge
+        overlap="circular"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        variant={isOnline() ? "dot" : ""}
+        >
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        </StyledBadge>
         <Typography color="text.primary" ml={1}>
-          {username}
+          {user.name}
         </Typography>
+        <Button onClick={() => onChatStart(user)}>chat</Button>
       </Box>
     </UserEntryContainer>
   );
 };
 
 export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const {t} = useTranslation();
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,7 +62,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <React.Fragment>
+    <>
       <Box>
         <Tooltip title="Account settings">
           <SettingsIconButton onClick={handleClick}>
@@ -93,7 +108,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={() => navigate('/profile')}>
-          <Avatar /> My account
+          <Avatar /> {t('Rightbar.myaccount')}
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => dispatch(logout())}>
@@ -103,14 +118,14 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
 
 export const Rightbar = () => {
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const {t} = useTranslation();
+
   return (
     <Stack mt={2} sx={{ width: '23%', position: 'fixed', paddingLeft: 1.25 }}>
       <Box>
@@ -135,14 +150,14 @@ export const Rightbar = () => {
           </Box>
         </CurrentUserContainer>
       </Box>
-      <Box>
-        <TitleWrapper color="text.primary">Activity</TitleWrapper>
-        <RecentlyActiveContainer>
-          {users.map((user) => (
-            <UserEntry key={user} username={user} />
-          ))}
-        </RecentlyActiveContainer>
+      <Box mt={2} mb={2}>
+        <Typography fontWeight={500} fontSize={18} color="text.primary">{t('Rightbar.users')}</Typography>
       </Box>
+      <GroupMembers/>
+      <Box mt={2} mb={2}>
+        <Typography fontWeight={500} fontSize={18} color="text.primary">{t('Rightbar.displaysettings')}</Typography>
+      </Box>
+      <DisplaySettings/>
     </Stack>
   );
 };

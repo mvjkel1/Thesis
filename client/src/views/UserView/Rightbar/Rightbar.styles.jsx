@@ -1,4 +1,4 @@
-import { Box, Card, styled, Typography, IconButton } from '@mui/material';
+import { Box, Card, styled, Typography, IconButton, Badge } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 export const TitleWrapper = styled(Typography)(({ theme }) => ({
@@ -35,4 +35,33 @@ export const SettingsIconButton = styled(IconButton)(({ theme }) => ({
 
 export const UserSettingsIcon = styled(SettingsIcon)(({ theme }) => ({
   color: theme.palette.text.primary
+}));
+
+export const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
 }));

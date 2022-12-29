@@ -1,4 +1,4 @@
-const io = require('socket.io')(3001, {
+const io = require('socket.io')(8800, {
   cors: {
     origin: 'http://localhost:3000'
   }
@@ -20,12 +20,15 @@ io.on('connection', (socket) => {
   });
 
   // send message
-  socket.on('send-message' (data) => {
-    const receiverId = data;
+  socket.on('send-message', (data) => {
+    const receiverId = data.receiverId;
+    console.log("RID")
+    console.log(receiverId);
     const user = activeUsers.find((user) => user.userId === receiverId);
     console.log("Sending from socket to : ", receiverId);
     console.log("Data: ", data)
     if (user) {
+        console.log("actually sent!")
         io.to(user.socketId).emit('receive-message', data)
     }
   })

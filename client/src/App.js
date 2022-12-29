@@ -1,20 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
-import styled from '@emotion/styled';
 import './styling/App.css';
 import {
-  Box,
-  Button,
-  Container,
   createTheme,
-  Grid,
-  Stack,
   ThemeProvider,
-  Toolbar
 } from '@mui/material';
 import UserView from './views/UserView/UserView';
 import SplashView from './views/SplashView/SplashView';
-import Chat from './views/UserView/components/Chat/Chat';
 import WelcomeScreen from './views/UserView/components/WelcomeScreen/WelcomeScreen';
 import { useSelector } from 'react-redux';
 import SignForm from './views/SplashView/components/SignForm/SignForm';
@@ -24,8 +16,10 @@ import { getDesignTokens } from './styling/theme';
 import { GroupAdmin } from './views/UserView/components/GroupAdmin/GroupAdmin';
 import { Profile } from './views/UserView/components/Profile/Profile';
 import { ClassDetails } from './views/UserView/components/ClassDetails/ClassDetails';
-import StatusSnackbar from './views/UserView/Snackbar/Snackbar';
 import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
+import ChatBox from './views/UserView/components/components/ChatBox/ChatBox';
+import {StatusSnackbar, MessageSnackbar} from './views/UserView/Snackbar/Snackbar'
+import { GroupMembers } from './views/UserView/components/components/GroupMembers/GroupMembers';
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
@@ -49,7 +43,8 @@ function App() {
             }
           >
             <Route path="/" element={<WelcomeScreen />} />
-            <Route path="chat" element={<Chat />} />
+            <Route path="chat/:conversationId" element={<ChatBox />} />
+            <Route path="chat" element={<GroupMembers />} />
             <Route path="manage-groups" element={<GroupManager />} />
             <Route path="group-admin/:id" element={<GroupAdmin />} />
             <Route path="/class/:id" element={<ClassDetails />} />
@@ -69,6 +64,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <StatusSnackbar />
+      <MessageSnackbar/>
     </ThemeProvider>
   );
 }

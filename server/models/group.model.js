@@ -8,6 +8,9 @@ const groupSchema = new mongoose.Schema(
       required: [true, 'A group must have a name'],
       unique: true
     },
+    invitationToken: {
+      type: String,
+    },
     founder: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',

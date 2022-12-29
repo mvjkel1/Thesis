@@ -1,7 +1,7 @@
 import { Drawer, Grid, SwipeableDrawer, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
-import ResponsiveAppBar from './Appbar';
+import ResponsiveAppBar from './Appbar/Appbar';
 import Footer from './Footer/Footer';
 import Main from './Main/Main';
 import { Rightbar } from './Rightbar/Rightbar';

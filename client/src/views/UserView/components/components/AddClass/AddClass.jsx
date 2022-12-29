@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { addClass } from './AddClass.service';
 import {
@@ -25,6 +26,7 @@ export default function AddClass({ openByDefault, ...props }) {
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const {
     register,
@@ -35,14 +37,14 @@ export default function AddClass({ openByDefault, ...props }) {
   } = useForm();
 
   const { ref: nameRef, ...nameProps } = register('name', {
-    required: 'Name is required!',
+    required: t('addClass.namerequired'),
     minLength: {
       value: 2,
-      message: 'Name is too short'
+      message: t('addClass.nametooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Name is too long'
+      message: t('addClass.nametoolong')
     }
   });
 
@@ -73,7 +75,7 @@ export default function AddClass({ openByDefault, ...props }) {
     <React.Fragment>
       <FeatureContainer>
         <HeaderWrapper>
-          <HeaderText>Create new group's class</HeaderText>
+          <HeaderText>{t('addClass.createnewclass')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
             <ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />
           </IconButton>
@@ -95,7 +97,7 @@ export default function AddClass({ openByDefault, ...props }) {
                 </IconButton>
               }
             >
-              {isSuccess ? 'Class added successfully' : error}
+              {isSuccess ? t('addClass.success') : error}
             </Alert>
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -105,7 +107,7 @@ export default function AddClass({ openByDefault, ...props }) {
               fullWidth
               name="name"
               id="name"
-              placeholder="Class"
+              placeholder={t('addClass.name')}
               inputRef={nameRef}
               {...nameProps}
               error={!!errors.name}
@@ -118,7 +120,7 @@ export default function AddClass({ openByDefault, ...props }) {
               disabled={isLoading}
               disableElevation
             >
-              Submit
+              {t('addClass.submit')}
             </SubmitButton>
           </FormContainer>
           <Collapse in={url}>

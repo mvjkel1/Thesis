@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getWorkgroups } from '../../../../../redux/actions/workgroups';
 import { updateGroupName } from './EditGroupData.service';
+import { useTranslation } from 'react-i18next';
 import {
   FeatureContainer,
   FormContainer,
@@ -25,6 +26,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
   const [error, setError] = useState();
   const user = useSelector((state) => state.auth.user);
   const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
+  const {t} = useTranslation();
   const {
     register,
     handleSubmit,
@@ -43,14 +45,14 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
   };
 
   const { ref: nameRef, ...nameProps } = register('name', {
-    required: 'Name is required!',
+    required: t('editGroupData.namerequired'),
     minLength: {
       value: 2,
-      message: 'Name is too short'
+      message: t('editGroupData.nametooshort')
     },
     maxLength: {
       value: 64,
-      message: 'Name is too long'
+      message: t('editGroupData.nametoolong')
     }
   });
 
@@ -78,7 +80,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
   return (
     <FeatureContainer>
       <HeaderWrapper>
-        <HeaderText>Edit group data</HeaderText>
+        <HeaderText>{t('editGroupData.editgroupdata')}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
           {<ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />}
         </IconButton>
@@ -100,7 +102,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
               </IconButton>
             }
           >
-            {isSuccess ? 'Changed group name successfully' : error}
+            {isSuccess ? t('editGroupData.success') : error}
           </Alert>
         </Collapse>
         <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -110,7 +112,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
             fullWidth
             name="name"
             id="name"
-            placeholder="Group name"
+            placeholder={t('editGroupData.name')}
             inputRef={nameRef}
             {...nameProps}
             error={!!errors.name}
@@ -123,7 +125,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
             disabled={isLoading}
             disableElevation
           >
-            Submit
+            {t('editGroupData.submit')}
           </SubmitButton>
         </FormContainer>
         <FormHelperText error>{errors?.name?.message}</FormHelperText>
