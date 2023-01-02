@@ -1,10 +1,24 @@
+const User = require('./../models/user.model');
 const io = require('socket.io')(8800, {
   cors: {
     origin: 'http://localhost:3000'
   }
 });
 
+const moodboardIo = require('socket.io')(8801, {
+  cors: {
+    origin: 'http://localhost:3000'
+  }
+});
+
 let activeUsers = [];
+
+moodboardIo.on('connection', (socket) => {
+  console.log("connection")
+  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data))
+
+});
+
 
 io.on('connection', (socket) => {
   // add new User
@@ -33,7 +47,7 @@ io.on('connection', (socket) => {
     }
   })
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', async () => {
     activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
     console.log('User disconnected', activeUsers);
     io.emit('get-users', activeUsers);

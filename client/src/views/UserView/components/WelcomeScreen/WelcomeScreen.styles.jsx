@@ -1,5 +1,6 @@
 import { Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 import { Box, Card, styled, Typography } from '@mui/material';
+import { Link, NavLink } from 'react-router-dom';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),

@@ -12,6 +12,7 @@ const ChatBox = ({...props}) => {
   const dispatch = useDispatch();
   const {conversationId} = useParams();
   const user = useSelector(state => state.auth.user)
+  const currentWorkgroup = useSelector(state => state.workgroups.currentWorkgroup);
   const conversation = useSelector(state => state.messages?.conversations.find(conv => conv._id == conversationId))
   const [newMessage, setNewMessage] = useState("");
   const scroll = useRef();
@@ -21,9 +22,9 @@ const ChatBox = ({...props}) => {
   }
 
   useEffect(() => {
-      if(conversation && conversation?.messages?.length < 1)
+      if(conversation)
         dispatch(getConversationMessages(conversationId, user.token)) 
-  }, [conversationId, conversation, user])
+  }, [conversationId, user])
 
   useEffect(()=> {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
@@ -48,7 +49,9 @@ const ChatBox = ({...props}) => {
         {conversation ? (
           <>
             <HeaderContainer>
-              <Avatar>A</Avatar>
+              <Typography fontSize={22} color="text.primary">
+              {currentWorkgroup?.members?.find(member => member._id == conversation.members.find(cm => cm !== user._id))?.name}
+              </Typography>
             </HeaderContainer>
             <ChatsContainer>
               {conversation?.messages?.map((message) => (

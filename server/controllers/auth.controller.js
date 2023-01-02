@@ -73,6 +73,8 @@ exports.login = catchAsync(async (req, res, next) => {
     if (!user || !(await user.correctPasswords(password, user.password))) {
       return next(new AppError('Incorrect email or password!', StatusCodes.UNAUTHORIZED));
     }
+    user.lastLogin = Date.now();
+    await user.save({ validateBeforeSave: false });
     createSendToken(user, 200, res);
   }
 });

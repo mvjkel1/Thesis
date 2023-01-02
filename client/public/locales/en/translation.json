@@ -29,12 +29,14 @@
         "docs": "Docs",
         "videos": "Videos",
         "others": "Others",
-        "events": "Events"
+        "events": "Events",
+        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or create your own."
     },
     "Sidebar": {
         "menu": "Main menu",
         "home": "Home",
         "chat": "Chat",
+        "files": "Files",
         "classes": "Classes",
         "myclasses": "My classes",
         "currentworkgroup": "Current workgroup",
@@ -110,6 +112,11 @@
         "action": "Action",
         "kickuser": "Kick user"
     },
+    "viewClassFiles": {
+        "shared": "Shared",
+        "files": "files"
+    },
+    "groupsimin": "Grupy, do których należysz",
     "description": {
       "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
       "part2": "Switch language between english and german using buttons above."

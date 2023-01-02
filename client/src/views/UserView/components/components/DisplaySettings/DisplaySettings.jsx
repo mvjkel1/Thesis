@@ -1,7 +1,7 @@
 import { Typography, Box, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux"
 import { switchMode } from "../../../../../redux/actions/theme";
-import { useTranslation, withTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { DndSwitch, MaterialUISwitch, RecentlyActiveContainer } from "./DisplaySettings.styles"
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
@@ -12,8 +12,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from "react";
 
 export default function ToggleLanguage() {
-    const [alignment, setAlignment] = useState('left');
     const {i18n } = useTranslation();
+    const [alignment, setAlignment] = useState(i18n.language || "en");
     const changeLanguage = (lng) => {
       i18n.changeLanguage(lng);
     };

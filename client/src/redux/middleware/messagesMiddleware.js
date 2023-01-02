@@ -1,13 +1,14 @@
 
 import { io } from "socket.io-client";
 import { getUserConversations, setMessageNotification, updateActiveUsers } from "../actions/messages";
+import { getWorkgroups } from "../actions/workgroups";
 
 const messagesMiddleware = store => {
     let socket;
    
     return next => action => {
       const user = store.getState().auth.user;
-   
+
       if (action.type == "MESSAGES_SOCKET_INIT") {
         // Init socket connection
         socket = io("ws://localhost:8800");
@@ -17,7 +18,9 @@ const messagesMiddleware = store => {
 
         // Get other on-line users.
         socket.on("get-users", (users) => {
+          store.dispatch(getWorkgroups(user.token));
           store.dispatch(updateActiveUsers(users));
+          store.dispatch(getUserConversations(user._id, user.token))
         });
 
         // Get all conversations (without messages).
@@ -34,6 +37,9 @@ const messagesMiddleware = store => {
       if (action.type == "SEND_MESSAGE_SUCCESS") {
         socket.emit("send-message", action.payload);
       }
+
+      if(action.type == "CREATE_CONVERSATION_SUCCESS")
+        socket.emit("new-user-add", user._id);
 
       if (action.type == "LOGOUT") {
         socket.disconnect();

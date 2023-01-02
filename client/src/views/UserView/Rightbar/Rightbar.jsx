@@ -136,7 +136,7 @@ export const Rightbar = () => {
               <Avatar
                 sx={{ width: 54, height: 54 }}
                 alt={user.name}
-                src="https://thispersondoesnotexist.com/image"
+                src="/assets/avatar.png"
               />
             </IconButton>
           </Box>
