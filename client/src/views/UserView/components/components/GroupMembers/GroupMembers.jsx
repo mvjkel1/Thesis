@@ -1,22 +1,20 @@
-import { Avatar, Button, IconButton, Typography } from "@mui/material";
+import { Avatar, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { format, register } from "timeago.js";
 import { createConversation, messagesSocketInit } from "../../../../../redux/actions/messages";
 import {
-    CurrentUserContainer,
     RecentlyActiveContainer,
-    SettingsIconButton,
-    TitleWrapper,
     UserEntryContainer,
-    UserSettingsIcon,
     StyledBadge
   } from './GroupMembers.styles';
   import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
   import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { createSelector } from "@reduxjs/toolkit";
-import {useTranslation} from 'react-i18next';
+import { localeFunc } from "./localefunc";
+import { useMemo } from "react";
 
 const UserEntry = ({ user, currentUser, activeUsers, notifications, onChatStart }) => {
     const isOnline = activeUsers.some(usr => usr.userId == user._id) && user._id !== currentUser._id
@@ -32,9 +30,14 @@ const UserEntry = ({ user, currentUser, activeUsers, notifications, onChatStart 
           >
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </StyledBadge>
-          <Typography sx={{flex: 1}} color="text.primary" ml={1}>
-            {user.name}{isCurrentUser && " (me)"}
-          </Typography>
+          <Box sx={{display: "flex", flex: 1}}>
+            <Typography color="text.primary" ml={1}>
+              {user.name}{isCurrentUser && " (me)"}
+            </Typography>
+            <Typography color="text.secondary" ml={1}>
+              {!isOnline && !isCurrentUser && format(user.lastLogin, 'my-locale')}
+            </Typography>
+          </Box>
           {notifications.some(notif => notif?.senderId == user._id) && <FiberManualRecordIcon sx={{height: 15, width: 15}} color="error"/>}
           <IconButton disabled={isCurrentUser} onClick={() => onChatStart(user)}><ChatBubbleIcon color={isCurrentUser ? "neutral" : "primary"} /></IconButton>
         </Box>
@@ -54,6 +57,12 @@ export const GroupMembers = () => {
       })
     const notifications = useSelector(notificationsSelector)
 
+    const setTimeagoLocale = useMemo(
+      () =>
+        register('my-locale', localeFunc),
+      []
+    );
+
     useEffect(() => {
         if(currentUser._id)
             dispatch(messagesSocketInit());
@@ -72,7 +81,7 @@ export const GroupMembers = () => {
     return (
         <>
             <RecentlyActiveContainer>
-                {currentWorkgroup?.members?.map((user) => (
+                {currentWorkgroup ? currentWorkgroup?.members?.map((user) => (
                     <UserEntry 
                     key={user._id} 
                     user={user} 
@@ -80,7 +89,11 @@ export const GroupMembers = () => {
                     currentUser={currentUser}
                     activeUsers={activeUsers}
                     onChatStart={onChatStart} />
-                ))}
+                )) : <UserEntry 
+                user={currentUser} 
+                notifications={[]}
+                currentUser={currentUser}
+                activeUsers={activeUsers} />}
             </RecentlyActiveContainer>
         </>
     )

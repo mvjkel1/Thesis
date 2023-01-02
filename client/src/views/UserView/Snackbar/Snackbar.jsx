@@ -1,8 +1,9 @@
-import { Alert, Box, Snackbar } from '@mui/material';
+import { Alert, Box, Button, Snackbar } from '@mui/material';
 import { createSelector } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { clearNotification } from '../../../redux/actions/messages';
 
 export function StatusSnackbar() {
@@ -33,6 +34,7 @@ export function StatusSnackbar() {
 
 export function MessageSnackbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const conversationsSelector = state => state.messages.conversations;
   const notificationsSelector = createSelector(conversationsSelector, (conversations) => {
     return conversations.map(conv => conv.notification)
@@ -50,10 +52,10 @@ export function MessageSnackbar() {
       <Snackbar
       open={notification?.text}
       onClose={() => handleClose(notification)}
-      autoHideDuration={6000}
+      autoHideDuration={60000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     >
-      <Alert severity="info">You've got an new unread message.</Alert>
+      <Alert severity="info" action={<Button size="small" onClick={() => navigate(`/chat/${notification.conversationId}`)}>OPEN</Button>}>You've got an new unread message.</Alert>
     </Snackbar>
     </>
     )) : ""}

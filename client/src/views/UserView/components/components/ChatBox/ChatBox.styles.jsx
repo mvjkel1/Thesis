@@ -30,7 +30,9 @@ export const ChatBoxContainer = styled(Box)(({ theme}) => ({
 
 export const HeaderContainer = styled(Box)(({ theme}) => ({
     display: "flex",
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    alignItems: "center",
+    gap: theme.spacing(1)
 }));
 
 

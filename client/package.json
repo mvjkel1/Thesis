@@ -29,6 +29,8 @@
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.1.1",
     "install": "^0.13.0",
+    "mime": "^3.0.0",
+    "mime-types": "^2.1.35",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "npm": "^9.2.0",

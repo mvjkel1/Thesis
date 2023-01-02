@@ -59,6 +59,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Group',
     default: null
+  },
+  lastLogin : { 
+    type : Date, 
+    default: Date.now 
   }
 });
 

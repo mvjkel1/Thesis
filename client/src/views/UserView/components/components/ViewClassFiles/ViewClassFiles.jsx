@@ -18,15 +18,18 @@ import { useState } from 'react';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import DownloadIcon from '@mui/icons-material/Download';
+import { useTranslation } from 'react-i18next';
 
-export const ViewClassFiles = ({ id, files, openByDefault, ...props }) => {
+
+export const ViewClassFiles = ({ id, files, openByDefault, name, ...props }) => {
   const AWS_URL = 'https://studentshare.s3.eu-west-2.amazonaws.com';
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
+  const {t} = useTranslation();
   const [open, setOpen] = useState(openByDefault || false);
   return (
     <FeatureContainer>
       <HeaderWrapper>
-        <HeaderText color="text.primary">Shared files</HeaderText>
+        <HeaderText color="text.primary">{`${t('viewClassFiles.shared')} ${name?.toLowerCase() || t('viewClassFiles.files')}`}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
           {<ArrowDropDownCircleIcon sx={{ alignSelf: 'center' }} />}
         </IconButton>

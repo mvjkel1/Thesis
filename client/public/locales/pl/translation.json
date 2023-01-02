@@ -26,15 +26,17 @@
     },
     "WelcomeScreen": {
         "images": "Obrazki",
-        "docs": "Docs",
+        "docs": "Dokumenty",
         "videos": "Filmy",
         "others": "Inne",
-        "events": "Wydarzenia"
+        "events": "Wydarzenia",
+        "noevents": "Nie należysz jeszcze do żadnej grupy. Uzyj linku zaproszeniowego aby dołączyć, lub stwórz własną grupę."
     },
     "Sidebar": {
         "menu": "Menu główne",
         "home": "Home",
         "chat": "Czat",
+        "files": "Pliki",
         "classes": "Podgrupy",
         "myclasses": "Moje podgrupy",
         "currentworkgroup": "Aktualna grupa",
@@ -110,6 +112,11 @@
         "action": "Działanie",
         "kickuser": "Usuń z grupy"
     },
+    "viewClassFiles": {
+        "shared": "Udostępnione",
+        "files": "pliki"
+    },
+    "groupsimin": "Grupy, do których należysz",
     "description": {
       "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
       "part2": "Switch language between english and german using buttons above."
