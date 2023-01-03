@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { getClasses } from '../../../../../redux/actions/classes';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './UploadClassFiles.styles';
 import { useState } from 'react';
+import configData from '../../../../../config.json';
 
 export const UploadClassFiles = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
@@ -17,7 +18,7 @@ export const UploadClassFiles = ({ openByDefault, ...props }) => {
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const getUploadParams = ({ meta }) => {
     return {
-      url: `http://localhost:3001/api/v1/classes/${id}`,
+      url: `${configData.SERVER_URL}api/v1/classes/${id}`,
       headers: { Authorization: `Bearer ${token}` }
     };
   };

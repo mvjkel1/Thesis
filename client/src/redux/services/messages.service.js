@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useToken } from '../../commons/useToken';
-const API = axios.create({ baseURL: 'http://localhost:3001/api/v1' });
+import configData from '../../config.json';
+const API = axios.create({ baseURL: `${configData.SERVER_URL}api/v1` });
 
 export const getConversations = (userId, token) => {
   let responseData = {};
