@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:3001/api/v1/classes';
+import configData from '../../../../../config.json';
+const API_URL = `${configData.SERVER_URL}api/v1/classes`;
 
 export const addClass = (name, token) => {
   return axios

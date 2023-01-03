@@ -4,6 +4,7 @@ import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
+import configData from '../../../../config.json';
 
 function throttle(callback, delay) {
     var previousCall = new Date().getTime();
@@ -61,7 +62,7 @@ export const Moodboard = () => {
     }
 
     useEffect(() => {
-        socketRef.current = io("ws://localhost:8801");
+        socketRef.current = io(configData.MOODBOARD_SOCKET_SERVER_URL);
         const canvas = canvasRef.current
         const context = canvas.getContext('2d');
         socketRef.current.on('drawing', (data) => onDrawing(data, canvas, context));
