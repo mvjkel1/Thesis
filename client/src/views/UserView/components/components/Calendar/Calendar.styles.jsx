@@ -102,10 +102,12 @@ export const StyledLayout = styled(WeekView.Layout)(({ theme }) => ({
   borderRadius: theme.spacing(3),
   '.MuiTableCell-root,.MainLayout-ordinaryLeftPanelBorder,.MainLayout-ordinaryHeaderBorder,.MainLayout-brightHeaderBorder':
     {
-      borderColor: theme.palette.border.light
+      borderColor: theme.palette.border.light,
+      borderRightColor: theme.palette.border.light,
     },
   '.Appointment-clickableAppointment': {
     filter: theme.mode == 'dark' ? 'brightness(85%)' : '',
     color: 'white !important'
-  }
+  },
+
 }));

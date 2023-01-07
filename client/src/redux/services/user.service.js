@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { authHeader } from './auth-header';
-const API_URL = 'http://localhost:3001/api/test/';
+import configData from '../../config.json';
+const API_URL = `${configData.SERVER_URL}api/test/`;
+
 const getPublicContent = () => {
   return axios.get(API_URL + 'all');
 };

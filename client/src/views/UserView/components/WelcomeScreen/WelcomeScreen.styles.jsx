@@ -1,5 +1,6 @@
 import { Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 import { Box, Card, styled, Typography } from '@mui/material';
+import { Link, NavLink } from 'react-router-dom';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -21,6 +22,17 @@ export const RecentFilesContainer = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   justifyContent: 'center',
   borderColor: theme.palette.border.main
+}));
+
+export const EventBarContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flex: 1,
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  borderColor: theme.palette.border.main,
+  "@media (max-width: 768px)": {
+    flex: "1 1 100%"
+  }
 }));
 
 export const CalendarContainer = styled(Box)(({ theme }) => ({

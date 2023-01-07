@@ -14,9 +14,8 @@ export const ClassDetails = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Box>Class {id}</Box>
       <Box>
-        <ViewClassFiles openByDefault files={classFiles} />
+        <ViewClassFiles openByDefault files={classFiles} name={"class files"} />
       </Box>
       <Box key={id}>
         <UploadClassFiles />

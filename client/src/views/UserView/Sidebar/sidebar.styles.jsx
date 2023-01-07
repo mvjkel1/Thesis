@@ -5,6 +5,7 @@ export const LogoWrapper = styled(Box)(({ theme }) => ({
   height: 67,
   display: 'flex',
   alignItems: 'center',
+  justifyContent: "center",
   paddingLeft: theme.spacing(2.5)
 }));
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:3001/api/v1/groups';
+import configData from '../../../../../config.json';
+const API_URL = `${configData.SERVER_URL}api/v1/groups`;
 
 export const kickUser = (groupId, userId, token) => {
   return axios
