@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -15,10 +16,12 @@ const globalErrorHandler = require('./controllers/error.controller');
 const AppError = require('./utils/app.error');
 const PORT = process.env.PORT;
 const { StatusCodes } = require('http-status-codes');
+const publicPath = path.join(__dirname, '../client', 'build');
+
 
 const app = express();
 const corsOptions = {
-  origin: '127.0.0.1:' + PORT
+  origin: '127.0.0.1:' + 3001
 };
 
 // HTTP security headers
@@ -54,9 +57,11 @@ app.use('/api/v1/groups', groupRouter);
 app.use('/api/v1/classes', classRouter);
 app.use('/api/v1/conversations', conversationRouter);
 app.use('/api/v1/messages', messageRouter);
-app.all('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server.`, StatusCodes.NOT_FOUND));
+app.use(express.static(publicPath));
+app.get('*', (req, res) => {
+   res.sendFile(path.join(publicPath, 'index.html'));
 });
+
 
 app.use(globalErrorHandler);
 module.exports = app;
