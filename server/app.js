@@ -57,11 +57,11 @@ app.use('/api/v1/groups', groupRouter);
 app.use('/api/v1/classes', classRouter);
 app.use('/api/v1/conversations', conversationRouter);
 app.use('/api/v1/messages', messageRouter);
-
 app.use(express.static(publicPath));
 app.get('*', (req, res) => {
    res.sendFile(path.join(publicPath, 'index.html'));
 });
+
 
 app.use(globalErrorHandler);
 module.exports = app;
