@@ -1,26 +1,24 @@
 const User = require('./../models/user.model');
-const io = require('socket.io')(8800, {
-  cors: {
-    origin: 'http://localhost:3000'
-  }
-});
+function initSocketServer(httpObject){
 
-const moodboardIo = require('socket.io')(8801, {
+console.log("initializing socket...")
+
+const io = require('socket.io')(httpObject, {
   cors: {
     origin: 'http://localhost:3000'
   }
-});
+})
 
 let activeUsers = [];
 
-moodboardIo.on('connection', (socket) => {
-  console.log("connection")
+io.of('/moodboard').on('connection', (socket) => {
+  console.log("connection moodbard")
   socket.on('drawing', (data) => socket.broadcast.emit('drawing', data))
 
 });
 
 
-io.on('connection', (socket) => {
+io.of("/").on('connection', (socket) => {
   // add new User
   socket.on('new-user-add', (newUserId) => {
     if (!activeUsers.some((user) => user.userId === newUserId)) {
@@ -53,3 +51,9 @@ io.on('connection', (socket) => {
     io.emit('get-users', activeUsers);
   });
 });
+
+httpObject.listen(8800, () => console.log("sockets listening: OK"));
+
+}
+
+module.exports = initSocketServer;

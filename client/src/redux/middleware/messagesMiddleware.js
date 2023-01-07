@@ -14,7 +14,7 @@ const messagesMiddleware = store => {
 
       if (action.type == "MESSAGES_SOCKET_INIT") {
         // Init socket connection
-        socket = io(configData.CHAT_SOCKET_SERVER_URL);
+        socket = io(configData.CHAT_SOCKET_SERVER_URL)
 
         // Notify other users that you're in.
         socket.emit("new-user-add", user._id);
