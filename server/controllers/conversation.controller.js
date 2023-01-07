@@ -13,6 +13,7 @@ exports.createConversation = catchAsync(async (req, res, next) => {
 });
 
 exports.userConverstations = catchAsync(async (req, res, next) => {
+  // TBD: change from req.params.userId to id obtained from token...
   const conversation = await Conversation.find({
     members: { $in: [req.params.userId] }
   });

@@ -1,0 +1,124 @@
+{
+    "title": "Welcome to react using react-i18next",
+    "auth": {
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "email": "Email address",
+        "name": "Name",
+        "password": "Password",
+        "confirmpassword": "Confirm Password",
+        "rememberme": "Remember me",
+        "signupbutton": "New user? Sign Up!",
+        "backtologin": "Back to login",
+        "forgotpassword": "Forgot password?",
+        "tos": "Our Terms of Service (TOS)",
+        "namerequired": "Name is required!",
+        "nametooshort": "Name is too short",
+        "nametoolong": "Name is too long",
+        "emailreqired": "E-mail is required!",
+        "emailtooshort": "E-mail is too short",
+        "emailtoolong": "E-mail is too long",
+        "emailinvalid": "Invalid e-mail address",
+        "passwordtooshort": "Password is too short",
+        "passwordtoolong": "Password is too long",
+        "passwordrequired": "Password is required",
+        "passwordsdonotmatch": "Your passwords do not match"
+    },
+    "WelcomeScreen": {
+        "images": "Images",
+        "docs": "Docs",
+        "videos": "Videos",
+        "others": "Others",
+        "events": "Events",
+        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or create your own."
+    },
+    "Sidebar": {
+        "menu": "Main menu",
+        "home": "Home",
+        "chat": "Chat",
+        "files": "Files",
+        "classes": "Classes",
+        "myclasses": "My classes",
+        "currentworkgroup": "Current workgroup",
+        "manageworkgroups": "Manage groups",
+        "newbadge": "New",
+        "storage": "Storage",
+        "used": "used",
+        "free": "free"
+    },
+    "Rightbar": {
+        "users": "Workgroup users",
+        "myaccount": "My account",
+        "logout": "Logout",
+        "displaysettings": "Display settings"
+    },
+    "displaySettings":{
+        "language": "Language",
+        "displaymode": "Display mode",
+        "notifications": "Message notifications"
+    },
+    "sharedfiles": "Shared files",
+    "uploadnewfile": "Upload new file",
+    "addEvent": {
+        "addevent": "dodaj wydarzenie",
+        "name": "Name",
+        "namerequired": "Name is required",
+        "nametooshort": "Name is too short",
+        "nametoolong": "Name is too long",
+        "timerequired": "Event timing is required",
+        "endbeforestart": "End date is before start date",
+        "sameday": "Event should end the same day",
+        "descriptionrequired": "Description is required",
+        "descriptiontooshort": "Description is too short",
+        "descriptiontoolong": "Description is too long",
+        "description": "Description",
+        "date": "Date",
+        "submit": "Submit",
+        "success": "Event added successfully."
+    },
+    "addGroup":{
+        "createnewgroup": "Create new group",
+        "name": "Group name",
+        "namerequired": "Name is required",
+        "nametooshort": "Name is too short",
+        "nametoolong": "Name is too long",
+        "submit": "Submit",
+        "success": "Group added successfully.",
+        "invitationlink": "Invitation link",
+        "submittogetlink": "Submit the form to get your invitation link.",
+        "copy": "copy"
+    },
+    "addClass": {
+        "createnewclass": "Create new class",
+        "name": "Class name",
+        "namerequired": "Name is required",
+        "nametooshort": "Name is too short",
+        "nametoolong": "Name is too long",
+        "submit": "Submit",
+        "success": "Class added successfully."
+    },
+    "editGroupData": {
+        "editgroupdata": "Edit group data",
+        "name": "Group name",
+        "namerequired": "Name is required!",
+        "nametooshort": "Name is too short",
+        "nametoolong" :"Name is too long",
+        "success": "Successfully changed group name",
+        "submit": "Submit"
+    },
+    "editGroupMembers": {
+        "editgroupmembers": "Edit group members",
+        "name": "Name",
+        "action": "Action",
+        "kickuser": "Kick user"
+    },
+    "viewClassFiles": {
+        "shared": "Shared",
+        "files": "files"
+    },
+    "groupsimin": "Grupy, do których należysz",
+    "description": {
+      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
+      "part2": "Switch language between english and german using buttons above."
+    }
+  }
