@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+const initSocketServer = require('./socket/index');
+
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! Shutting down...');
@@ -9,6 +11,8 @@ process.on('uncaughtException', (err) => {
 });
 
 const app = require('./app');
+const http = require('http').createServer(app);
+initSocketServer(http);
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: './.env_jest' });
