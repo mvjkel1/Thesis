@@ -5,7 +5,7 @@ console.log("initializing socket...")
 
 const io = require('socket.io')(httpObject, {
   cors: {
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3001'
   }
 })
 
