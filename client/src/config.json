@@ -1,7 +1,7 @@
 {
-    "SERVER_URL": "http://localhost:3001/",
-    "CHAT_SOCKET_SERVER_URL": ":8800/",
+    "SERVER_URL": "/",
+    "CHAT_SOCKET_SERVER_URL": "/",
     "CHAT_SOCKET_SERVER_PORT": 8800,
-    "MOODBOARD_SOCKET_SERVER_URL": ":8800/moodboard",
+    "MOODBOARD_SOCKET_SERVER_URL": "/moodboard",
     "MOODBOARD_SOCKET_SERVER_PORT": 8801
 }
