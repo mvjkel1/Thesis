@@ -52,7 +52,6 @@ io.of("/").on('connection', (socket) => {
   });
 });
 
-httpObject.listen(process.env.NODE_ENV == 'development' ? 8800 : process.env.PORT, () => console.log("sockets listening: OK"));
 
 }
 
