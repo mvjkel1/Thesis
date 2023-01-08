@@ -10,8 +10,11 @@ process.on('uncaughtException', (err) => {
 }); 
 
 const app = require('./app');
-const http = require('http').createServer(app);
-initSocketServer(http);
+
+const server = require('http').createServer(app)
+
+//onst http = require('http').createServer(app);
+initSocketServer(server);
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: './.env_jest' });
@@ -32,9 +35,7 @@ mongoose
 
 const port = process.env.PORT || 3001;
 
-const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}.`);
-});
+server.listen(port);
 
 // Handle rejection
 process.on('unhandledRejection', (err) => {
