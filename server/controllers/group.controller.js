@@ -12,11 +12,11 @@ const { ObjectId } = require('mongoose').Types;
 exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
   const founder = await User.findById(req.body.founder);
-  const newGroup = await Group.create(req.body);
-  const groupToken = newGroup.createInviteToken();
   if (founder.group)
     return next(new AppError('You already belong to a group.', StatusCodes.UNAUTHORIZED));
   if (founder.role != 'admin') founder.role = 'group-representative';
+  const newGroup = await Group.create(req.body);
+  const groupToken = newGroup.createInviteToken();
   founder.group = newGroup._id;
   founder.save({ validateBeforeSave: false });
   newGroup.members.push(founder);
