@@ -7,21 +7,21 @@ import {
 } from '@mui/material';
 import UserView from './views/UserView/UserView';
 import SplashView from './views/SplashView/SplashView';
-import WelcomeScreen from './views/UserView/components/WelcomeScreen/WelcomeScreen';
+import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
 import { useSelector } from 'react-redux';
 import SignForm from './views/SplashView/components/SignForm/SignForm';
 import RecoveryForm from './views/SplashView/components/RecoveryForm/RecoveryForm';
-import GroupManager from './views/UserView/components/GroupManager/GroupManager';
+import GroupManager from './components/GroupManager/GroupManager';
 import { getDesignTokens } from './styling/theme';
-import { GroupAdmin } from './views/UserView/components/GroupAdmin/GroupAdmin';
-import { Profile } from './views/UserView/components/Profile/Profile';
-import { ClassDetails } from './views/UserView/components/ClassDetails/ClassDetails';
+import { GroupAdmin } from './components/GroupAdmin/GroupAdmin';
+import { Profile } from './components/Profile/Profile';
+import { ClassDetails } from './components/ClassDetails/ClassDetails';
 import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
-import ChatBox from './views/UserView/components/components/ChatBox/ChatBox';
+import ChatBox from './components/subcomponents/ChatBox/ChatBox';
 import {StatusSnackbar, MessageSnackbar} from './views/UserView/Snackbar/Snackbar'
-import { GroupFiles } from './views/UserView/components/GroupFiles/GroupFiles';
-import Chat from './views/UserView/components/Chat/Chat';
-import { Moodboard } from './views/UserView/components/Moodboard/Moodboard';
+import { GroupFiles } from './components/GroupFiles/GroupFiles';
+import Chat from './components/Chat/Chat';
+import { Moodboard } from './components/Moodboard/Moodboard';
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);

@@ -38,6 +38,7 @@
         "chat": "Czat",
         "files": "Pliki",
         "classes": "Podgrupy",
+        "moodboard": "Moodboard",
         "myclasses": "Moje podgrupy",
         "currentworkgroup": "Aktualna grupa",
         "manageworkgroups": "Zarządzaj grupami",
@@ -118,7 +119,7 @@
     },
     "groupsimin": "Grupy, do których należysz",
     "description": {
-      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-      "part2": "Switch language between english and german using buttons above."
+      "header": "Student co-working platform",
+      "subheader": "share, schedule and draw together"
     }
   }

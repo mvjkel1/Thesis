@@ -5,7 +5,7 @@ const lightGray = '#c9c9c9';
 const white = '#ffffff';
 const black = '#000000';
 
-const lightPalette = {
+export const lightPalette = {
   mode: 'light',
   palette: {
     primary: {
@@ -40,7 +40,7 @@ const lightPalette = {
   }
 };
 
-const darkPalette = {
+export const darkPalette = {
   mode: 'dark',
   palette: {
     primary: {

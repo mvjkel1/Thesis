@@ -37,14 +37,13 @@ export function MessageSnackbar() {
   const navigate = useNavigate()
   const conversationsSelector = state => state.messages.conversations;
   const notificationsSelector = createSelector(conversationsSelector, (conversations) => {
-    return conversations.map(conv => conv.notification)
+    return Array.isArray(conversations) ? conversations.map(conv => conv.notification):[]
   })
   const notifications = useSelector(notificationsSelector)
   const handleClose = (notification) => {
     dispatch(clearNotification(notification))
   }
 
-  useEffect(() => console.log(notifications), [notifications]);
   return (
     <Box>
     {Array.isArray(notifications) ? notifications.map(notification => (

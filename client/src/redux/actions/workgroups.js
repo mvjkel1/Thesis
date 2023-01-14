@@ -24,14 +24,17 @@ export const getWorkgroups = (token) => (dispatch) => {
           type: 'GET_WORKGROUPS_FAIL',
           payload: message
         });
-        if (error.response.status == 401) dispatch(logout());
+        if (error.response?.status == 401) dispatch(logout());
         return Promise.reject();
       }
     )
     .then((res) => {
-      const groupId = store.getState().workgroups.currentWorkgroup._id;
-      dispatch(getClasses(groupId, token));
-      dispatch(getEvents(groupId, token));
+      //const groupId = store.getState().workgroups.currentWorkgroup._id;
+      const group = store.getState().workgroups.currentWorkgroup;
+      if(group?._id){
+        dispatch(getClasses(group._id, token));
+        dispatch(getEvents(group._id, token));
+      }
       return res;
     });
 };

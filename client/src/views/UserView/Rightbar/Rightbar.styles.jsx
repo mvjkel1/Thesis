@@ -19,7 +19,8 @@ export const UserEntryContainer = styled(Box)(({ theme }) => ({
 export const CurrentUserContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'nowrap',
-  borderRadius: theme.spacing(2)
+  borderRadius: theme.spacing(2),
+  gap: theme.spacing(1)
 }));
 
 export const RecentlyActiveContainer = styled(Box)(({ theme }) => ({
