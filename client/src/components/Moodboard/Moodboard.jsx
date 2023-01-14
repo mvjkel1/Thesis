@@ -126,7 +126,7 @@ export const Moodboard = () => {
               canvas.width = containerRef.current.getBoundingClientRect().width - 32;
               canvas.height = 600;
               drawPrevious(board.current.state, canvas, context)
-          }, 150)
+          }, 350)
       }
 
       }, [])
