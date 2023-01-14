@@ -23,7 +23,6 @@ const SplashView = () => {
         <Grid
           item
           xs={12}
-          ml={2}
           mt={2}
           justifyContent={{
             xs: 'center',
@@ -32,15 +31,15 @@ const SplashView = () => {
             lg: 'flex-start',
             xl: 'flex-start'
           }}
-          sx={{
-            display: 'flex',
-            alignItems: 'center'
-          }}
+          sx={{display: "flex"}}
         >
-          <ScreenShareIcon color="primary" />
-          <Typography fontSize="1.5rem" fontWeight={700}>
-            &nbsp;StudentShare
-          </Typography>
+          <Box ml={2} display={{xs: "none", sm: "none", md: "block", lg: "block", xl: "block"}}/>
+          <Box sx={{display: "flex", alignItems: "center"}}>
+            <img height="30" src="/assets/logo.svg"/>
+            <Typography fontSize="1.5rem" fontWeight={500}>
+              &nbsp;StudentShare
+            </Typography>
+          </Box>
         </Grid>
         <Grid
           item
@@ -50,7 +49,7 @@ const SplashView = () => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
           }}
         >
           <AuthContainer />

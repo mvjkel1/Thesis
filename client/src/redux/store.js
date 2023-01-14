@@ -9,9 +9,6 @@ import theme from './reducers/theme';
 import logger from 'redux-logger';
 import messagesMiddleware from './middleware/messagesMiddleware';
 
-const middleware = [thunk];
-
-
 const combinedReducer = combineReducers({
   auth,
   workgroups,

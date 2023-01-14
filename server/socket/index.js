@@ -10,11 +10,17 @@ const io = require('socket.io')(httpObject, {
 })
 
 let activeUsers = [];
+let drawings = [];
 
 io.of('/moodboard').on('connection', (socket) => {
-  console.log("connection moodbard")
-  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data))
-
+  socket.emit('previousDrawings', drawings);
+  socket.on('drawing', (data) => {
+    socket.broadcast.emit('drawing', data); 
+    drawings.push(data)
+  })
+  socket.on('clear', () => {
+    drawings = [];
+  })
 });
 
 

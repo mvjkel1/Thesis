@@ -8,8 +8,6 @@ import {
   ListItemText,
   MenuItem,
   Typography,
-  Avatar,
-  Button,
   LinearProgress,
   IconButton
 } from '@mui/material';
@@ -23,14 +21,11 @@ import React, { useEffect } from 'react';
 import { useMatch } from 'react-router-dom';
 import { useState } from 'react';
 import { getWorkgroups, switchWorkgroup } from '../../../redux/actions/workgroups';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePageStatus } from './pages';
 import { PAGES, PAGES_SECONDARY } from './pages';
-import { useTranslation, withTranslation, Trans } from 'react-i18next';
-
+import { useTranslation } from 'react-i18next';
 import {
-  CurrentUserContainer,
-  MaterialUISwitch,
   LogoWrapper,
   NewBadge,
   NewBadgeText,
@@ -40,8 +35,8 @@ import {
   GroupSelect
 } from './sidebar.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../redux/actions/auth';
-import { switchDrawer, switchMode } from '../../../redux/actions/theme';
+import { switchDrawer } from '../../../redux/actions/theme';
+import UserToolbar from '../../../components/subcomponents/UserToolbar/UserToolbar';
 
 const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
   const [open, setOpen] = useState(false);
@@ -142,14 +137,11 @@ export const Sidebar = () => {
   const workgroups = useSelector((state) => state.workgroups.data);
   const classes = useSelector((state) => state.classes.data);
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
-  const mode = useSelector((state) => state.theme.mode);
   const drawer = useSelector((state) => state.theme.drawer);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const {t} = useTranslation();
   
-
   const handleWorkgroupChange = (workgroupId) => {
     dispatch(switchWorkgroup(workgroupId));
   };
@@ -167,89 +159,97 @@ export const Sidebar = () => {
       className="sidebarContent"
       sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10' }}
     >
-      <LogoWrapper>
-        <Box sx={{flex:1}} display={{md: "none", xl: "none"}}/>
-        <Box sx={{display: "flex", justifyContent: "center"}}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            color="text.primary"
-            sx={{
-              mr: 2,
-              fontWeight: 900,
-              letterSpacing: '.1rem',
-              textDecoration: 'none'
-            }}
-          >
-            StudentShare
-          </Typography>
-        </Box>
-         <Box display={{xs: "flex", sm: "flex", md: "none", xl: "none",}} sx={{flex: 1, justifyContent: "flex-end"}}>
-          <IconButton
-            size="large"
-            aria-label="open sidebar"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
+      <Box sx={{overflowY: "scroll", maxHeight: "100vh"}}>
+        <LogoWrapper>
+          <Box sx={{flex:1}} display={{md: "none", xl: "none"}}/>
+          <Box sx={{display: "flex", justifyContent: "center"}}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              color="text.primary"
+              sx={{
+                mr: 2,
+                fontWeight: 900,
+                letterSpacing: '.1rem',
+                textDecoration: 'none'
+              }}
+            >
+              StudentShare
+            </Typography>
           </Box>
-      </LogoWrapper>
-      <Box>
-        <SidebarSectionText>{t('Sidebar.menu')}</SidebarSectionText>
-      </Box>
-      <Box>
-        <List>
-          {PAGES.map((page) => (
-            <PageItem key={page} page={page}></PageItem>
-          ))}
-          <CollapsingList
-            name={t('Sidebar.myclasses')}
-            subpages={classes}
-            isAdmin={currentWorkgroup?.founder?._id == user?._id}
-            workgroup={currentWorkgroup}
-          />
-        </List>
-      </Box>
-      <Box mr={3} ml={3}>
-        <Divider />
-      </Box>
-      <Box mt={2}>
-        <SidebarSectionText>{t('Sidebar.currentworkgroup')}</SidebarSectionText>
-      </Box>
-      <Box ml={2} mr={2} mt={1}>
-        <GroupPicker
-          workgroups={workgroups}
-          currentWorkgroup={currentWorkgroup}
-          handleWorkgroupChange={handleWorkgroupChange}
-        />
-      </Box>
-      <Box>
-        {PAGES_SECONDARY.map((page) => (
-          <PageItem page={page} />
-        ))}
-      </Box>
-      <Box mr={3} ml={3}>
-        <Divider />
-      </Box>
-      <Box mt={2}>
-        <SidebarSectionText>{t('Sidebar.storage')}</SidebarSectionText>
-      </Box>
-      <Box ml={2.6} mr={2} mt={1}>
-        <Box sx={{ display: 'flex', gap: 0.5 }}>
-          <Typography color="text.primary" sx={{ fontWeight: 600 }}>100.12 MB</Typography>
-          <Typography color="text.primary">{t('Sidebar.used')}</Typography>
+          <Box display={{xs: "flex", sm: "flex", md: "none", xl: "none",}} sx={{flex: 1, justifyContent: "flex-end"}}>
+            <IconButton
+              size="large"
+              aria-label="open sidebar"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            </Box>
+        </LogoWrapper>
+        <Box>
+          <SidebarSectionText>{t('Sidebar.menu')}</SidebarSectionText>
         </Box>
         <Box>
-          <Typography sx={{ fontSize: 14 }} mb={1} color="text.secondary">
-            10% {t('Sidebar.used')} - 1.00 GB {t('Sidebar.free')}
-          </Typography>
+          <List>
+            {PAGES.map((page) => (
+              <PageItem key={page} page={page}></PageItem>
+            ))}
+            <CollapsingList
+              name={t('Sidebar.myclasses')}
+              subpages={classes}
+              isAdmin={currentWorkgroup?.founder?._id == user?._id}
+              workgroup={currentWorkgroup}
+            />
+          </List>
         </Box>
-        <LinearProgress sx={{ height: '10px', borderRadius: 2 }} variant="determinate" value={10} />
+        <Box mr={3} ml={3} mb={2}>
+          <Divider />
+        </Box>
+        <Box>
+          <SidebarSectionText>{t('Sidebar.currentworkgroup')}</SidebarSectionText>
+        </Box>
+        <Box ml={2} mr={2} mt={1}>
+          <GroupPicker
+            workgroups={workgroups}
+            currentWorkgroup={currentWorkgroup}
+            handleWorkgroupChange={handleWorkgroupChange}
+          />
+        </Box>
+        <Box>
+          {PAGES_SECONDARY.map((page) => (
+            <PageItem page={page} />
+          ))}
+        </Box>
+        <Box mr={3} ml={3}>
+          <Divider />
+        </Box>
+        <Box mt={2} mb={1}>
+          <SidebarSectionText>{t('Sidebar.storage')}</SidebarSectionText>
+        </Box>
+        <Box ml={2.6} mr={2}>
+          <Box sx={{ display: 'flex', gap: 0.5 }}>
+            <Typography color="text.primary" sx={{ fontWeight: 600 }}>100.12 MB</Typography>
+            <Typography color="text.primary">{t('Sidebar.used')}</Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ fontSize: 14 }} mb={1} color="text.secondary">
+              10% {t('Sidebar.used')} - 1.00 GB {t('Sidebar.free')}
+            </Typography>
+          </Box>
+          <LinearProgress sx={{ height: '10px', borderRadius: 2 }} variant="determinate" value={10} />
+        </Box>
+        <Box mr={3} ml={3} mt={3} mb={2} display={{xs: "block", sm: "block", md: "none", xl: "none"}}>
+          <Divider />
+        </Box>
+        <Box ml={2.6} mr={2} mt={1} display={{xs: "flex", sm: "flex", md: "none", xl: "none"}}>
+          <UserToolbar/>
+        </Box>
       </Box>
     </Box>
   );

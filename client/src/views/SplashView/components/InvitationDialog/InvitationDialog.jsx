@@ -4,8 +4,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../../redux/actions/auth';
-import { registerAction } from '../../../../redux/actions/auth';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { SubmitButton } from './InvitationDialog.styles';
@@ -98,7 +96,7 @@ export default function InvitationForm() {
         <Box>
           <AnimatedText />
           <Typography component="h1" variant="h5" textAlign="center">
-            User2252 invited you to join group.
+            You are invited you to join a group!
           </Typography>
         </Box>
         <Box>
