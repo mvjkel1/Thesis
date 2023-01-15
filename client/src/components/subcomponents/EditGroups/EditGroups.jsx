@@ -88,16 +88,8 @@ const GroupList = ({ groups, ...state }) => {
 
 export default function EditGroups({ openByDefault, ...props }) {
   const groups = useSelector((state) => state.workgroups?.data);
-  const [error, setError] = useState('');
   const [open, setOpen] = useState(openByDefault || false);
-  const token = useSelector((state) => state.auth.user.token);
   const {t} = useTranslation();
-  const dispatch = useDispatch();
-
-  const showErrorAlert = (error) => {
-    setError(error);
-    setTimeout(() => setError(''), 5000);
-  };
 
   return (
     <React.Fragment>

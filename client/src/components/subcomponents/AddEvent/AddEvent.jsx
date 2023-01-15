@@ -5,6 +5,7 @@ import {
   Alert,
   Box,
   Collapse,
+  Grid,
   IconButton,
   TextField,
 } from '@mui/material';
@@ -150,7 +151,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
             </Alert>
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Grid container spacing={1} rows={12}>
+            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
               <EventNameInput
                 sx={{ flex: 2 }}
                 margin="normal"
@@ -164,6 +166,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                 error={!!errors.name}
                 helperText={errors?.name?.message}
               />
+            </Grid>
+            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Controller
                   control={control}
@@ -173,11 +177,12 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                     <DateTimePicker
                       {...field}
                       inputRef={startDateRef}
-                      label={t('addEvent.date')}
+                      label={t('addEvent.date-from')}
                       renderInput={(inputProps) => (
                         <TextField
                           {...inputProps}
                           onBlur={onBlur}
+                          fullWidth
                           name={name}
                           error={!!errors.startDate}
                           helperText={errors.startDate?.message}
@@ -187,6 +192,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                   )}
                 />
               </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <Controller
                   control={control}
@@ -196,11 +203,12 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                     <DateTimePicker
                       {...field}
                       inputRef={endDateRef}
-                      label={t('addEvent.date')}
+                      label={t('addEvent.date-to')}
                       renderInput={(inputProps) => (
                         <TextField
                           {...inputProps}
                           onBlur={onBlur}
+                          fullWidth
                           name={name}
                           error={!!fieldState.error}
                           helperText={errors.endDate?.message}
@@ -210,7 +218,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                   )}
                 />
               </LocalizationProvider>
-            </Box>
+              </Grid>
+            <Grid item xs={12}>
             <EventDescriptionInput
               margin="normal"
               required
@@ -225,16 +234,19 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
               error={!!errors.description}
               helperText={errors?.description?.message}
             />
+            </Grid>
+            <Grid item xs={12} display="flex" justifyContent="flex-end">
             <SubmitButton
               type="submit"
               fullWidth
               variant="contained"
               disabled={isLoading}
               disableElevation
-              sx={{ alignSelf: 'end' }}
             >
-              Submit
+              {t('addEvent.submit')}
             </SubmitButton>
+            </Grid>
+            </Grid>
           </FormContainer>
         </Collapse>
       </FeatureContainer>

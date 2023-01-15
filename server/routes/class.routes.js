@@ -15,7 +15,7 @@ router
   .get(authController.protect, classController.getClass)
   .post(
     authController.protect,
-    multer({ limits: { fileSize: 1 * 1000 * 1000 } }).any(),
+    multer({ limits: { fileSize: 5 * 1000 * 1000 } }).any(),
     classController.uploadClassItem,
     classController.postClassItem
   )
