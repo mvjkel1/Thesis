@@ -38,9 +38,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { switchDrawer } from '../../../redux/actions/theme';
 import UserToolbar from '../../../components/subcomponents/UserToolbar/UserToolbar';
 
-const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
+const CollapsingList = ({ name, subpages, workgroup, isAdmin, handleItemClick }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -67,7 +66,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
           }}
         >
           {isAdmin && (
-            <SideBarSubItem onClick={() => navigate(`/group-admin/${workgroup._id}`)}>
+            <SideBarSubItem onClick={() => handleItemClick(`/group-admin/${workgroup._id}`)}>
               <ListItemIcon>
                 <AddIcon color="icon" />
               </ListItemIcon>
@@ -77,7 +76,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
           {subpages?.map((subpage) => (
             <SideBarSubItem
               key={subpage._id}
-              onClick={() => navigate(`/class/${subpage._id}`)}
+              onClick={() => handleItemClick(`/class/${subpage._id}`)}
               button
             >
               <ListItemIcon>
@@ -94,13 +93,13 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin }) => {
   );
 };
 
-const PageItem = ({ page, subpages }) => {
-  const navigate = useNavigate();
+const PageItem = ({ page, subpages, handleItemClick }) => {
   const { label, route, icon, options } = usePageStatus(page);
   const isActive = useMatch(route);
   const {t} = useTranslation();
+
   return (
-    <SideBarItem key={route} selected={Boolean(isActive)} onClick={() => navigate(route)}>
+    <SideBarItem key={route} selected={Boolean(isActive)} onClick={() => handleItemClick(route)}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText>
         <Typography color="text.primary">{t(`Sidebar.${label}`)}</Typography>
@@ -139,6 +138,7 @@ export const Sidebar = () => {
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const drawer = useSelector((state) => state.theme.drawer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const {t} = useTranslation();
   
@@ -150,6 +150,11 @@ export const Sidebar = () => {
     dispatch(switchDrawer(!drawer));
   };
 
+  const handleItemClick = (path) => {
+    navigate(path);
+    if(drawer) dispatch(switchDrawer(!drawer))
+  }
+
   useEffect(() => {
     dispatch(getWorkgroups(user.token));
   }, [user]);
@@ -157,7 +162,7 @@ export const Sidebar = () => {
   return (
     <Box
       className="sidebarContent"
-      sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10' }}
+      sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10'}}
     >
       <Box sx={{overflowY: "scroll", maxHeight: "100vh"}}>
         <LogoWrapper>
@@ -198,12 +203,13 @@ export const Sidebar = () => {
         <Box>
           <List>
             {PAGES.map((page) => (
-              <PageItem key={page} page={page}></PageItem>
+              <PageItem key={page} page={page} handleItemClick={handleItemClick} ></PageItem>
             ))}
             <CollapsingList
               name={t('Sidebar.myclasses')}
               subpages={classes}
               isAdmin={currentWorkgroup?.founder?._id == user?._id}
+              handleItemClick={handleItemClick}
               workgroup={currentWorkgroup}
             />
           </List>
@@ -250,6 +256,7 @@ export const Sidebar = () => {
         <Box ml={2.6} mr={2} mt={1} display={{xs: "flex", sm: "flex", md: "none", xl: "none"}}>
           <UserToolbar/>
         </Box>
+        <Box sx={{height: "env(safe-area-inset-bottom)"}} />
       </Box>
     </Box>
   );

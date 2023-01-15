@@ -61,7 +61,7 @@
     "sharedfiles": "Shared files",
     "uploadnewfile": "Upload new file",
     "addEvent": {
-        "addevent": "dodaj wydarzenie",
+        "addevent": "Create new event",
         "name": "Name",
         "namerequired": "Name is required",
         "nametooshort": "Name is too short",
@@ -73,7 +73,8 @@
         "descriptiontooshort": "Description is too short",
         "descriptiontoolong": "Description is too long",
         "description": "Description",
-        "date": "Date",
+        "date-from": "Start",
+        "date-to": "End",
         "submit": "Submit",
         "success": "Event added successfully."
     },
@@ -116,6 +117,10 @@
     "viewClassFiles": {
         "shared": "Shared",
         "files": "files"
+    },
+    "uploadFiles": {
+        "uploadfile": "Upload new file",
+        "dropzonetext": "Drag files or click to browse"
     },
     "groupsimin": "Grupy, do których należysz",
     "description": {

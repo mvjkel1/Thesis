@@ -73,7 +73,8 @@
         "descriptiontooshort": "Opis jest za krótki",
         "descriptiontoolong": "Opis jest za długi",
         "description": "Opis wydarzenia",
-        "date": "Data",
+        "date-from": "Start",
+        "date-to": "Koniec",
         "submit": "Dodaj",
         "success": "Wydarzenie dodane pomyślnie."
     },
@@ -116,6 +117,11 @@
     "viewClassFiles": {
         "shared": "Udostępnione",
         "files": "pliki"
+    },
+    "uploadFiles": {
+        "uploadfile": "Prześlij nowy plik",
+        "dropzonetext": "Przeciągnij plik lub kliknij, aby dodać"
+
     },
     "groupsimin": "Grupy, do których należysz",
     "description": {

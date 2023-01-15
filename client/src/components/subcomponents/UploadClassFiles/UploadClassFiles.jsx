@@ -10,11 +10,14 @@ import { getClasses } from '../../../redux/actions/classes';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './UploadClassFiles.styles';
 import { useState } from 'react';
 import configData from '../../../config.json';
+import { useTranslation, withTranslation, Trans } from 'react-i18next';
+
 
 export const UploadClassFiles = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
   const token = useSelector((state) => state.auth.user.token);
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
   const getUploadParams = ({ meta }) => {
@@ -36,13 +39,14 @@ export const UploadClassFiles = ({ openByDefault, ...props }) => {
   return (
     <FeatureContainer>
       <HeaderWrapper>
-        <HeaderText>Upload new file</HeaderText>
+        <HeaderText>{t('uploadFiles.uploadfile')}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
           {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
         </IconButton>
       </HeaderWrapper>
       <Collapse in={open}>
         <Dropzone
+          inputContent={t('uploadFiles.dropzonetext')}
           getUploadParams={getUploadParams}
           onChangeStatus={handleChangeStatus}
           onSubmit={handleSubmit}
