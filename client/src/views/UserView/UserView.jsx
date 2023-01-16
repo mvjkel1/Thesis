@@ -66,7 +66,6 @@ const UserView = () => {
             lg={6.25}
             xl={6.25}
             sx={{
-              minHeight: 'calc(100vh - 64px)',
               borderColor: theme.palette.border.main,
               paddingLeft: 2,
               paddingRight: 2,
