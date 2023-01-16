@@ -162,9 +162,21 @@ export const Sidebar = () => {
   return (
     <Box
       className="sidebarContent"
-      sx={{ position: 'fixed', width: '100%', maxWidth: '20vw', zIndex: '10'}}
+      sx={{ position: 'fixed', 
+      width: '100%', 
+      maxWidth: '20vw', 
+      zIndex: '10',
+    }}
     >
-      <Box sx={{overflowY: "scroll", maxHeight: "100vh"}}>
+      <Box sx={{
+        overflowY: "scroll", 
+
+        minHeight: "100vh",
+        minHeight: "-moz-available",
+        minHeight: "-webkit-fill-available",
+        minHeight: "fill-available",
+        maxHeight: "100vh"
+        }}>
         <LogoWrapper>
           <Box sx={{flex:1}} display={{md: "none", xl: "none"}}/>
           <Box sx={{display: "flex", justifyContent: "center"}}>
@@ -256,7 +268,6 @@ export const Sidebar = () => {
         <Box ml={2.6} mr={2} mt={1} display={{xs: "flex", sm: "flex", md: "none", xl: "none"}}>
           <UserToolbar/>
         </Box>
-        <Box sx={{height: "env(safe-area-inset-bottom)"}} />
       </Box>
     </Box>
   );
