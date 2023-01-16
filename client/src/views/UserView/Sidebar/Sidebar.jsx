@@ -166,16 +166,13 @@ export const Sidebar = () => {
       width: '100%', 
       maxWidth: '20vw', 
       zIndex: '10',
+      height: "-webkit-fill-available",
+      height: "fill-available",
     }}
     >
       <Box sx={{
-        overflowY: "scroll", 
-
-        minHeight: "100vh",
-        minHeight: "-moz-available",
-        minHeight: "-webkit-fill-available",
-        minHeight: "fill-available",
-        maxHeight: "100vh"
+        overflowY: "scroll",
+        maxHeight: "100%",
         }}>
         <LogoWrapper>
           <Box sx={{flex:1}} display={{md: "none", xl: "none"}}/>
