@@ -1,4 +1,4 @@
-import { Drawer, Grid, SwipeableDrawer, useTheme } from '@mui/material';
+import { Grid, SwipeableDrawer, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
 import ResponsiveAppBar from './Appbar/Appbar';
@@ -14,6 +14,8 @@ const UserView = () => {
     <>
       <SwipeableDrawer
         open={drawer}
+        onClose={() => null}
+        onOpen={() => null}
         PaperProps={{
           sx: { display: 'block', zIndex: 2, width: '100%' }
         }}
@@ -21,7 +23,7 @@ const UserView = () => {
       >
         <Sidebar />
       </SwipeableDrawer>
-      <Box bgcolor="background.main" sx={{ minHeight: '100vh' }}>
+      <Box bgcolor="background.main">
         <Grid container spacing={0}>
           <Grid
             item
@@ -69,7 +71,9 @@ const UserView = () => {
               borderColor: theme.palette.border.main,
               paddingLeft: 2,
               paddingRight: 2,
-              zIndex: 10
+              zIndex: 10,
+              display: 'flex',
+              flexDirection: 'column'
             }}
             bgcolor="background.main"
           >

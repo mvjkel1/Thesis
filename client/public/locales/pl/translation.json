@@ -22,7 +22,9 @@
         "passwordtooshort": "Hasło jest za krótkie",
         "passwordtoolong": "Hasło jest za długie",
         "passwordrequired": "Hasło jest wymagane",
-        "passwordsdonotmatch": "Hasła nie są identyczne"
+        "passwordsdonotmatch": "Hasła nie są identyczne",
+        "passwordrecovery": "Przywracanie hasła",
+        "demo": "Wypróbuj (demo)"
     },
     "WelcomeScreen": {
         "images": "Obrazki",

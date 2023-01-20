@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getWorkgroups } from '../../../redux/actions/workgroups';
 import { deleteGroup, leaveGroup } from './EditGroups.service';
-import { useTranslation, withTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { FeatureContainer, HeaderText, HeaderWrapper } from './EditGroups.styles';
 
 const GroupList = ({ groups, ...state }) => {
@@ -89,7 +89,7 @@ const GroupList = ({ groups, ...state }) => {
 export default function EditGroups({ openByDefault, ...props }) {
   const groups = useSelector((state) => state.workgroups?.data);
   const [open, setOpen] = useState(openByDefault || false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <React.Fragment>
@@ -97,7 +97,7 @@ export default function EditGroups({ openByDefault, ...props }) {
         <HeaderWrapper>
           <HeaderText>{t('groupsimin')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
-            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
           </IconButton>
         </HeaderWrapper>
         <Collapse in={open}>

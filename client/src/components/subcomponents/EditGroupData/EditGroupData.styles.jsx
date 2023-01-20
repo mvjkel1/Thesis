@@ -1,4 +1,4 @@
-import { Box, Button, OutlinedInput, styled, TextField, Typography } from '@mui/material';
+import { Box, Button, OutlinedInput, styled, Typography } from '@mui/material';
 
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',

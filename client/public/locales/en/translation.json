@@ -22,7 +22,9 @@
         "passwordtooshort": "Password is too short",
         "passwordtoolong": "Password is too long",
         "passwordrequired": "Password is required",
-        "passwordsdonotmatch": "Your passwords do not match"
+        "passwordsdonotmatch": "Your passwords do not match",
+        "passwordrecovery": "Password recovery",
+        "demo": "Try me (demo)"
     },
     "WelcomeScreen": {
         "images": "Images",

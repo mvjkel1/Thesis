@@ -6,15 +6,10 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { logout } from '../../../redux/actions/auth';
 import { useNavigate } from 'react-router-dom';
 import { switchDrawer, switchMode } from '../../../redux/actions/theme';
 import { MaterialUISwitch } from '../Sidebar/sidebar.styles';
 import { StyledAppBar } from './Appbar.styles';
-
-const pages = ['test', 'test2', 'test3'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -28,7 +23,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <StyledAppBar elevation={0}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -88,7 +83,7 @@ const ResponsiveAppBar = () => {
         </Container>
       </StyledAppBar>
       <Toolbar />
-    </React.Fragment>
+    </>
   );
 };
 export default ResponsiveAppBar;

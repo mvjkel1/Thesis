@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EditGroupData } from '../subcomponents/EditGroupData/EditGroupData';
 import { EditGroupMembers } from '../subcomponents/EditGroupMembers/EditGroupMembers';
@@ -30,3 +30,5 @@ export const GroupAdmin = () => {
     </Box>
   );
 };
+
+export default GroupAdmin;

@@ -48,7 +48,7 @@ const Auth2 = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            borderRadius: '0.5rem',
+            borderRadius: '1rem',
             zIndex: '3'
           }}
           bgcolor="background.light"

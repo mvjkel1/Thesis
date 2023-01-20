@@ -2,21 +2,20 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Collapse, LinearProgress } from '@mui/material';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { LinearProgress } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { requestResetToken, resetPassword } from './recovery.service';
 import {
   FormBox,
   FormContainer,
   FormInputContainer,
-  FormWrapper,
   MailAnimationWrapper,
   SecondaryButton,
   SubmitButton
@@ -26,6 +25,7 @@ export default function RecoveryForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isTokenSent, setIsTokenSent] = useState(false);
   const [message, setMessage] = useState('');
+  const { t } = useTranslation();
   const { token } = useParams();
   const navigate = useNavigate();
   const {
@@ -36,18 +36,18 @@ export default function RecoveryForm() {
   const { ref: emailRef, ...emailProps } = register(
     'email',
     !token && {
-      required: 'E-mail is required',
+      required: t('auth.emailrequired'),
       minLength: {
         value: 8,
-        message: 'Email is too short'
+        message: t('auth.emailtooshort')
       },
       maxLength: {
         value: 64,
-        message: 'Email is too long'
+        message: t('auth.emailtoolong')
       },
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: 'Invalid email address.'
+        message: t('auth.emailinvalid')
       }
     }
   );
@@ -55,13 +55,13 @@ export default function RecoveryForm() {
   const { ref: passwordRef, ...passwordProps } = register(
     'password',
     token && {
-      required: 'Password is required.'
+      required: t('auth.passwordrequired')
     }
   );
   const { ref: passwordConfirmRef, ...passwordConfirmProps } = register(
     'passwordConfirm',
     token && {
-      required: 'Password is required.'
+      required: t('auth.passwordrequired')
     }
   );
 
@@ -111,9 +111,8 @@ export default function RecoveryForm() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            "Password recovery"
+            {t('auth.passwordrecovery')}
           </Typography>
-          <Typography>token: {token}</Typography>
           <Typography>{message}</Typography>
           <FormInputContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             {!isTokenSent && !token && (
@@ -183,17 +182,17 @@ export default function RecoveryForm() {
               color="secondary"
               onClick={() => navigate('/auth')}
             >
-              Go back to log-in.
+              {t('auth.backtologin')}
             </SecondaryButton>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link to="/auth/recovery">
+                  <Typography variant="body2">{t('auth.forgotpassword')}</Typography>
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" onClick={() => navigate('/')}>
-                  {'Our terms of service (TOS)'}
+                <Link to="/auth">
+                  <Typography variant="body2">{t('auth.demo')}</Typography>
                 </Link>
               </Grid>
             </Grid>

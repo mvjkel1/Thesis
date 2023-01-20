@@ -1,31 +1,34 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './styling/App.css';
-import {
-  createTheme,
-  ThemeProvider,
-} from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { Loader } from './loader';
 import UserView from './views/UserView/UserView';
 import SplashView from './views/SplashView/SplashView';
-import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
 import { useSelector } from 'react-redux';
 import SignForm from './views/SplashView/components/SignForm/SignForm';
 import RecoveryForm from './views/SplashView/components/RecoveryForm/RecoveryForm';
-import GroupManager from './components/GroupManager/GroupManager';
 import { getDesignTokens } from './styling/theme';
-import { GroupAdmin } from './components/GroupAdmin/GroupAdmin';
-import { Profile } from './components/Profile/Profile';
-import { ClassDetails } from './components/ClassDetails/ClassDetails';
 import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
-import ChatBox from './components/subcomponents/ChatBox/ChatBox';
-import {StatusSnackbar, MessageSnackbar} from './views/UserView/Snackbar/Snackbar'
-import { GroupFiles } from './components/GroupFiles/GroupFiles';
-import Chat from './components/Chat/Chat';
-import { Moodboard } from './components/Moodboard/Moodboard';
+import { StatusSnackbar, MessageSnackbar } from './views/UserView/Snackbar/Snackbar';
+import { MobileTest } from './components/MobileTest/MobileTest';
+const ChatBox = React.lazy(() => import('./components/subcomponents/ChatBox/ChatBox'));
+const Chat = React.lazy(() => import('./components/Chat/Chat'));
+const Moodboard = React.lazy(() => import('./components/Moodboard/Moodboard'));
+const WelcomeScreen = React.lazy(() => import('./components/WelcomeScreen/WelcomeScreen'));
+const GroupManager = React.lazy(() => import('./components/GroupManager/GroupManager'));
+const GroupAdmin = React.lazy(() => import('./components/GroupAdmin/GroupAdmin'));
+const ClassDetails = React.lazy(() => import('./components/ClassDetails/ClassDetails'));
+const GroupFiles = React.lazy(() => import('./components/GroupFiles/GroupFiles'));
+const { Profile } = React.lazy(() => import('./components/Profile/Profile'));
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
   return user ? children : <Navigate to={redirectTo} />;
+}
+
+function SuspenseWrapper({ component }) {
+  return <React.Suspense fallback={<Loader />}>{component}</React.Suspense>;
 }
 
 function App() {
@@ -36,38 +39,39 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
+          <Route path="/test" element={<MobileTest />} />
+          <Route path="/auth" element={<SplashView />}>
+            <Route path="/auth" element={<SignForm />} />
+            <Route path="/auth/recovery/" element={<RecoveryForm />} />
+            <Route path="/auth/recovery/:token" element={<RecoveryForm />} />
+          </Route>
+          <Route path="/invite" element={<SplashView />}>
+            <Route path="/invite/:invitationToken" element={<InvitationForm />}>
+              <Route path="/invite/:invitationToken" element={<SignForm />} />
+            </Route>
+          </Route>
           <Route
             path="/"
             element={
               <RequireAuth redirectTo="/auth">
-                <UserView/>
+                <UserView />
               </RequireAuth>
             }
           >
-            <Route path="/" element={<WelcomeScreen/>}/>
-            <Route path="chat/:conversationId" element={<ChatBox/>} />
-            <Route path="chat" element={<Chat/>} />
-            <Route path="moodboard" element={<Moodboard/>} />
-            <Route path="manage-groups" element={<GroupManager/>} />
-            <Route path="group-admin/:id" element={<GroupAdmin/>} />
-            <Route path="/class/:id" element={<ClassDetails/>} />
-            <Route path="/group-files" element={<GroupFiles/>} />
-            <Route path="/profile/:id" element={<Profile/>} />
-            <Route path="/profile" element={<Profile/>} />
-          </Route>
-          <Route path="/auth" element={<SplashView/>}>
-            <Route path="/auth" element={<SignForm/>} />
-            <Route path="/auth/recovery/" element={<RecoveryForm/>} />
-            <Route path="/auth/recovery/:token" element={<RecoveryForm/>} />
-          </Route>
-          <Route path="/invite" element={<SplashView />}>
-            <Route path="/invite/:invitationToken" element={<InvitationForm/>}>
-              <Route path="/invite/:invitationToken" element={<SignForm/>} />
-            </Route>
+            <Route path="/" element={<SuspenseWrapper component={<WelcomeScreen />} />} />
+            <Route path="chat/:conversationId" element={<SuspenseWrapper component={<ChatBox />} />}/>
+            <Route path="chat" element={<SuspenseWrapper component={<Chat />} />} />
+            <Route path="moodboard" element={<SuspenseWrapper component={<Moodboard />} />} />
+            <Route path="manage-groups" element={<SuspenseWrapper component={<GroupManager />} />}/>
+            <Route path="group-admin/:id" element={<SuspenseWrapper component={<GroupAdmin />} />}/>
+            <Route path="/class/:id" element={<SuspenseWrapper component={<ClassDetails />} />} />
+            <Route path="/group-files" element={<SuspenseWrapper component={<GroupFiles />} />} />
+            <Route path="/profile/:id" element={<SuspenseWrapper component={<Profile />} />} />
+            <Route path="/profile" element={<SuspenseWrapper component={<WelcomeScreen />} />} />
           </Route>
         </Routes>
-        <StatusSnackbar/>
-        <MessageSnackbar/>
+        <StatusSnackbar />
+        <MessageSnackbar />
       </BrowserRouter>
     </ThemeProvider>
   );

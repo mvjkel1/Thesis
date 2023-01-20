@@ -1,4 +1,4 @@
-import { Alert, Avatar, Button, Collapse, Divider, IconButton, Typography } from '@mui/material';
+import { Alert, Avatar, Button, Collapse, Divider, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { login, updateUserData } from '../../redux/actions/auth';
 import { changeDetails, changePassword } from './Profile.service';
-import { FeatureContainer, FormInput, HeaderText, NameInput, SectionText } from './Profile.styles';
+import { FeatureContainer, FormInput, HeaderText, SectionText } from './Profile.styles';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const Profile = () => {
+const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [deletionMode, setDeletionMode] = useState(false);
@@ -332,3 +332,5 @@ export const Profile = () => {
     </FeatureContainer>
   );
 };
+
+export default Profile;

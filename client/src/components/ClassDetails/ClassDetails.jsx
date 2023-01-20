@@ -5,7 +5,7 @@ import AddEvent from '../subcomponents/AddEvent/AddEvent';
 import { UploadClassFiles } from '../subcomponents/UploadClassFiles/UploadClassFiles';
 import { ViewClassFiles } from '../subcomponents/ViewClassFiles/ViewClassFiles';
 
-export const ClassDetails = () => {
+const ClassDetails = () => {
   const { id } = useParams();
   const groupId = useSelector((state) => state.workgroups.currentWorkgroup)?._id;
   const classFiles = useSelector((state) => {
@@ -26,3 +26,5 @@ export const ClassDetails = () => {
     </Box>
   );
 };
+
+export default ClassDetails;

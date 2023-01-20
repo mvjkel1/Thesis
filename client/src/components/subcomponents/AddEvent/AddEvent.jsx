@@ -1,14 +1,7 @@
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  Alert,
-  Box,
-  Collapse,
-  Grid,
-  IconButton,
-  TextField,
-} from '@mui/material';
+import { Alert, Collapse, Grid, IconButton, TextField } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,12 +16,11 @@ import {
   EventNameInput,
   HeaderText,
   HeaderWrapper,
-  LinkTextfield,
   SubmitButton,
   EventDescriptionInput
 } from './AddEvent.styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
-import { useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import 'moment-timezone';
 
@@ -40,7 +32,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -127,7 +119,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
         <HeaderWrapper>
           <HeaderText>{t('addEvent.addevent')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
-            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
           </IconButton>
         </HeaderWrapper>
         <Collapse in={open}>
@@ -152,100 +144,100 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
           </Collapse>
           <FormContainer component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             <Grid container spacing={1} rows={12}>
-            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-              <EventNameInput
-                sx={{ flex: 2 }}
-                margin="normal"
-                required
-                fullWidth
-                name="name"
-                id="name"
-                placeholder={t('addEvent.name')}
-                inputRef={nameRef}
-                {...nameProps}
-                error={!!errors.name}
-                helperText={errors?.name?.message}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <Controller
-                  control={control}
-                  defaultValue={moment()}
-                  name="startDate"
-                  render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                    <DateTimePicker
-                      {...field}
-                      inputRef={startDateRef}
-                      label={t('addEvent.date-from')}
-                      renderInput={(inputProps) => (
-                        <TextField
-                          {...inputProps}
-                          onBlur={onBlur}
-                          fullWidth
-                          name={name}
-                          error={!!errors.startDate}
-                          helperText={errors.startDate?.message}
-                        />
-                      )}
-                    />
-                  )}
+              <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                <EventNameInput
+                  sx={{ flex: 2 }}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="name"
+                  id="name"
+                  placeholder={t('addEvent.name')}
+                  inputRef={nameRef}
+                  {...nameProps}
+                  error={!!errors.name}
+                  helperText={errors?.name?.message}
                 />
-              </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <Controller
-                  control={control}
-                  defaultValue={moment().add(1, 'hour')}
-                  name="endDate"
-                  render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
-                    <DateTimePicker
-                      {...field}
-                      inputRef={endDateRef}
-                      label={t('addEvent.date-to')}
-                      renderInput={(inputProps) => (
-                        <TextField
-                          {...inputProps}
-                          onBlur={onBlur}
-                          fullWidth
-                          name={name}
-                          error={!!fieldState.error}
-                          helperText={errors.endDate?.message}
-                        />
-                      )}
-                    />
-                  )}
-                />
-              </LocalizationProvider>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <Controller
+                    control={control}
+                    defaultValue={moment()}
+                    name="startDate"
+                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                      <DateTimePicker
+                        {...field}
+                        inputRef={startDateRef}
+                        label={t('addEvent.date-from')}
+                        renderInput={(inputProps) => (
+                          <TextField
+                            {...inputProps}
+                            onBlur={onBlur}
+                            fullWidth
+                            name={name}
+                            error={!!errors.startDate}
+                            helperText={errors.startDate?.message}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
-            <Grid item xs={12}>
-            <EventDescriptionInput
-              margin="normal"
-              required
-              multiline
-              rows={3}
-              fullWidth
-              name="name"
-              id="name"
-              placeholder={t('addEvent.description')}
-              inputRef={descriptionRef}
-              {...descriptionProps}
-              error={!!errors.description}
-              helperText={errors?.description?.message}
-            />
-            </Grid>
-            <Grid item xs={12} display="flex" justifyContent="flex-end">
-            <SubmitButton
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={isLoading}
-              disableElevation
-            >
-              {t('addEvent.submit')}
-            </SubmitButton>
-            </Grid>
+              <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <Controller
+                    control={control}
+                    defaultValue={moment().add(1, 'hour')}
+                    name="endDate"
+                    render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+                      <DateTimePicker
+                        {...field}
+                        inputRef={endDateRef}
+                        label={t('addEvent.date-to')}
+                        renderInput={(inputProps) => (
+                          <TextField
+                            {...inputProps}
+                            onBlur={onBlur}
+                            fullWidth
+                            name={name}
+                            error={!!fieldState.error}
+                            helperText={errors.endDate?.message}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12}>
+                <EventDescriptionInput
+                  margin="normal"
+                  required
+                  multiline
+                  rows={3}
+                  fullWidth
+                  name="name"
+                  id="name"
+                  placeholder={t('addEvent.description')}
+                  inputRef={descriptionRef}
+                  {...descriptionProps}
+                  error={!!errors.description}
+                  helperText={errors?.description?.message}
+                />
+              </Grid>
+              <Grid item xs={12} display="flex" justifyContent="flex-end">
+                <SubmitButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isLoading}
+                  disableElevation
+                >
+                  {t('addEvent.submit')}
+                </SubmitButton>
+              </Grid>
             </Grid>
           </FormContainer>
         </Collapse>

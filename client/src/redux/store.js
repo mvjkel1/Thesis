@@ -27,5 +27,6 @@ const rootReducer = (state, action) => {
 
 export default configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger).concat(messagesMiddleware)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logger).concat(messagesMiddleware)
 });

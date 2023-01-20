@@ -9,12 +9,11 @@ import './i18n';
 import { Loader } from './loader';
 
 ReactDOM.render(
-  <Suspense fallback={<Loader/>}>
+  <Suspense fallback={<Loader />}>
     <Provider store={store}>
       <App />
     </Provider>
-  </Suspense>
-  ,
+  </Suspense>,
   document.getElementById('root')
 );
 
