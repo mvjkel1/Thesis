@@ -13,7 +13,7 @@ export const addGroup = (name, token) => {
     )
     .then(
       (response) => {
-        console.log(response.data)
+        console.log(response.data);
         return Promise.resolve(response.data);
       },
       (error) => {

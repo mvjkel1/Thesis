@@ -34,30 +34,43 @@ export function StatusSnackbar() {
 
 export function MessageSnackbar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const conversationsSelector = state => state.messages.conversations;
+  const navigate = useNavigate();
+  const conversationsSelector = (state) => state.messages.conversations;
   const notificationsSelector = createSelector(conversationsSelector, (conversations) => {
-    return Array.isArray(conversations) ? conversations.map(conv => conv.notification):[]
-  })
-  const notifications = useSelector(notificationsSelector)
+    return Array.isArray(conversations) ? conversations.map((conv) => conv.notification) : [];
+  });
+  const notifications = useSelector(notificationsSelector);
   const handleClose = (notification) => {
-    dispatch(clearNotification(notification))
-  }
+    dispatch(clearNotification(notification));
+  };
 
   return (
     <Box>
-    {Array.isArray(notifications) ? notifications.map(notification => (
-      <>
-      <Snackbar
-      open={notification?.text}
-      onClose={() => handleClose(notification)}
-      autoHideDuration={60000}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-    >
-      <Alert severity="info" action={<Button size="small" onClick={() => navigate(`/chat/${notification.conversationId}`)}>OPEN</Button>}>You've got an new unread message.</Alert>
-    </Snackbar>
-    </>
-    )) : ""}
+      {Array.isArray(notifications)
+        ? notifications.map((notification) => (
+            <Snackbar
+              key={notification?.text || Math.random()}
+              open={notification?.text}
+              onClose={() => handleClose(notification)}
+              autoHideDuration={60000}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+              <Alert
+                severity="info"
+                action={
+                  <Button
+                    size="small"
+                    onClick={() => navigate(`/chat/${notification.conversationId}`)}
+                  >
+                    OPEN
+                  </Button>
+                }
+              >
+                You've got an new unread message.
+              </Alert>
+            </Snackbar>
+          ))
+        : ''}
     </Box>
-  )
+  );
 }

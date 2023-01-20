@@ -22,7 +22,9 @@
         "passwordtooshort": "Hasło jest za krótkie",
         "passwordtoolong": "Hasło jest za długie",
         "passwordrequired": "Hasło jest wymagane",
-        "passwordsdonotmatch": "Hasła nie są identyczne"
+        "passwordsdonotmatch": "Hasła nie są identyczne",
+        "passwordrecovery": "Przywracanie hasła",
+        "demo": "Wypróbuj (demo)"
     },
     "WelcomeScreen": {
         "images": "Obrazki",
@@ -38,6 +40,7 @@
         "chat": "Czat",
         "files": "Pliki",
         "classes": "Podgrupy",
+        "moodboard": "Moodboard",
         "myclasses": "Moje podgrupy",
         "currentworkgroup": "Aktualna grupa",
         "manageworkgroups": "Zarządzaj grupami",
@@ -72,7 +75,8 @@
         "descriptiontooshort": "Opis jest za krótki",
         "descriptiontoolong": "Opis jest za długi",
         "description": "Opis wydarzenia",
-        "date": "Data",
+        "date-from": "Start",
+        "date-to": "Koniec",
         "submit": "Dodaj",
         "success": "Wydarzenie dodane pomyślnie."
     },
@@ -116,9 +120,14 @@
         "shared": "Udostępnione",
         "files": "pliki"
     },
+    "uploadFiles": {
+        "uploadfile": "Prześlij nowy plik",
+        "dropzonetext": "Przeciągnij plik lub kliknij, aby dodać"
+
+    },
     "groupsimin": "Grupy, do których należysz",
     "description": {
-      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-      "part2": "Switch language between english and german using buttons above."
+      "header": "Student co-working platform",
+      "subheader": "share, schedule and draw together"
     }
   }

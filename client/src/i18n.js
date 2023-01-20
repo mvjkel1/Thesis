@@ -17,11 +17,11 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: false,
-    supported: ["en", "pl"],
-    load: "languageOnly",
+    supported: ['en', 'pl'],
+    load: 'languageOnly',
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    },
+      escapeValue: false // not needed for react as it escapes by default
+    }
   });
 
 export default i18n;

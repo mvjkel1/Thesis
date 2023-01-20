@@ -34,7 +34,7 @@ export const PAGE_OPTIONS = {
   [CHAT]: null,
   [FILES]: null,
   [MANAGE_GROUPS]: { new: true },
-  [MOODBOARD]: null,
+  [MOODBOARD]: null
 };
 
 export const usePageStatus = (page) => {

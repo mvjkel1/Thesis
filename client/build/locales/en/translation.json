@@ -22,7 +22,9 @@
         "passwordtooshort": "Password is too short",
         "passwordtoolong": "Password is too long",
         "passwordrequired": "Password is required",
-        "passwordsdonotmatch": "Your passwords do not match"
+        "passwordsdonotmatch": "Your passwords do not match",
+        "passwordrecovery": "Password recovery",
+        "demo": "Try me (demo)"
     },
     "WelcomeScreen": {
         "images": "Images",
@@ -38,6 +40,7 @@
         "chat": "Chat",
         "files": "Files",
         "classes": "Classes",
+        "moodboard": "Moodboard",
         "myclasses": "My classes",
         "currentworkgroup": "Current workgroup",
         "manageworkgroups": "Manage groups",
@@ -60,7 +63,7 @@
     "sharedfiles": "Shared files",
     "uploadnewfile": "Upload new file",
     "addEvent": {
-        "addevent": "dodaj wydarzenie",
+        "addevent": "Create new event",
         "name": "Name",
         "namerequired": "Name is required",
         "nametooshort": "Name is too short",
@@ -72,7 +75,8 @@
         "descriptiontooshort": "Description is too short",
         "descriptiontoolong": "Description is too long",
         "description": "Description",
-        "date": "Date",
+        "date-from": "Start",
+        "date-to": "End",
         "submit": "Submit",
         "success": "Event added successfully."
     },
@@ -116,9 +120,13 @@
         "shared": "Shared",
         "files": "files"
     },
+    "uploadFiles": {
+        "uploadfile": "Upload new file",
+        "dropzonetext": "Drag files or click to browse"
+    },
     "groupsimin": "Grupy, do których należysz",
     "description": {
-      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-      "part2": "Switch language between english and german using buttons above."
-    }
+        "header": "Student co-working platform",
+        "subheader": "share, schedule and draw together"
+      }
   }

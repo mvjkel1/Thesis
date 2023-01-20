@@ -1,8 +1,15 @@
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, Button, Collapse, IconButton, InputAdornment, Typography } from '@mui/material';
-import * as React from 'react';
+import {
+  Alert,
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  InputAdornment,
+  Typography
+} from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +33,7 @@ export default function AddGroup({ openByDefault, ...props }) {
   const [url, setUrl] = useState('');
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const {
@@ -73,12 +80,12 @@ export default function AddGroup({ openByDefault, ...props }) {
   };
 
   return (
-    <React.Fragment>
+    <Box>
       <FeatureContainer>
         <HeaderWrapper>
           <HeaderText>{t('addGroup.createnewgroup')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
-            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
           </IconButton>
         </HeaderWrapper>
         <Collapse in={open}>
@@ -136,13 +143,15 @@ export default function AddGroup({ openByDefault, ...props }) {
               disabled
               endAdornment={
                 <InputAdornment position="end">
-                  <Button onClick={() => navigator.clipboard.writeText(url)}>{t('addGroup.copy')}</Button>
+                  <Button onClick={() => navigator.clipboard.writeText(url)}>
+                    {t('addGroup.copy')}
+                  </Button>
                 </InputAdornment>
               }
             />
           </Collapse>
         </Collapse>
       </FeatureContainer>
-    </React.Fragment>
+    </Box>
   );
 }

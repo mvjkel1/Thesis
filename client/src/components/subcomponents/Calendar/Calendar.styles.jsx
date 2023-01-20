@@ -1,4 +1,4 @@
-import { Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
+import { MonthView, Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 import { Box, Card, styled, Typography } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
@@ -89,10 +89,6 @@ export const StyledWeekViewDayScaleRow = styled(WeekView.DayScaleRow)(({ theme }
   backgroundColor: theme.palette.neutral.light // horizontal axis
 }));
 
-export const StyledWeekViewDayScaleEmptyCell = styled(WeekView.DayScaleEmptyCell)(({ theme }) => ({
-  backgroundColor: theme.palette.neutral.light // empty call,
-}));
-
 export const StyledTimeScaleLayout = styled(WeekView.TimeScaleLayout)(({ theme }) => ({
   backgroundColor: theme.palette.neutral.light // vertical axis
 }));
@@ -103,11 +99,30 @@ export const StyledLayout = styled(WeekView.Layout)(({ theme }) => ({
   '.MuiTableCell-root,.MainLayout-ordinaryLeftPanelBorder,.MainLayout-ordinaryHeaderBorder,.MainLayout-brightHeaderBorder':
     {
       borderColor: theme.palette.border.light,
-      borderRightColor: `${theme.palette.border.light}!important`,
+      borderRightColor: `${theme.palette.border.light}!important`
     },
   '.Appointment-clickableAppointment': {
     filter: theme.mode == 'dark' ? 'brightness(85%)' : '',
     color: 'white !important'
   },
+  '.MainLayout-dayScaleEmptyCell': {
+    backgroundColor: theme.palette.neutral.light
+  }
+}));
 
+export const StyledMonthViewLayout = styled(MonthView.Layout)(({ theme }) => ({
+  // master style, override css here
+  borderRadius: theme.spacing(3),
+  '.MuiTableCell-root,.MainLayout-ordinaryLeftPanelBorder,.MainLayout-ordinaryHeaderBorder,.MainLayout-brightHeaderBorder':
+    {
+      borderColor: theme.palette.border.light,
+      borderRightColor: `${theme.palette.border.light}!important`
+    },
+  '.Appointment-clickableAppointment': {
+    filter: theme.mode == 'dark' ? 'brightness(85%)' : '',
+    color: 'white !important'
+  },
+  '.MainLayout-background': {
+    backgroundColor: theme.palette.neutral.light
+  }
 }));

@@ -58,7 +58,7 @@ export const darkPalette = {
     },
     background: {
       light: '#222222',
-      main: 'black', // white bg
+      main: 'black',
       dark: 'rgba(244,246,248,255)' //neutral off-white bg
     },
     text: {

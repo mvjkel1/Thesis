@@ -1,11 +1,10 @@
 import { Box, MenuItem, Select, styled, Switch, Typography } from '@mui/material';
-import { Button } from '@mui/material';
 
 export const LogoWrapper = styled(Box)(({ theme }) => ({
   height: 67,
   display: 'flex',
   alignItems: 'center',
-  justifyContent: "center",
+  justifyContent: 'center',
   paddingLeft: theme.spacing(2.5)
 }));
 

@@ -20,7 +20,6 @@ export const getEvents = (groupId, token) => (dispatch) => {
         type: 'GET_EVENTS_SUCCESS',
         payload: data.map(mapAppointmentData)
       });
-      console.log(data.map(mapAppointmentData));
       return Promise.resolve();
     },
     (error) => {

@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,12 +11,12 @@ import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../../redux/actions/auth';
 import { registerAction } from '../../../../redux/actions/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Collapse, LinearProgress } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useOutletContext } from 'react-router-dom';
-import { useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   FormBox,
   FormContainer,
@@ -27,7 +25,6 @@ import {
   SubmitButton
 } from './SignForm.styles';
 import { joinGroup } from '../../../../redux/actions/workgroups';
-import { useEffect } from 'react';
 
 export default function SignForm({ ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +33,7 @@ export default function SignForm({ ...props }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const error = useSelector((state) => state.auth.error);
   const {
     register,
@@ -142,7 +139,7 @@ export default function SignForm({ ...props }) {
           <Avatar sx={{ m: 1 }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ fontWeight: 500 }}>
             {signUpMode ? t('auth.signup') : t('auth.signin')}
           </Typography>
           <Typography>{error}</Typography>
@@ -175,7 +172,6 @@ export default function SignForm({ ...props }) {
               label={t('auth.email')}
               name="email"
               autoComplete="email"
-              autoFocus
               inputRef={emailRef}
               {...emailProps}
               error={!!errors.email}
@@ -231,13 +227,22 @@ export default function SignForm({ ...props }) {
             </SecondaryButton>
             <Grid container>
               <Grid item xs>
-                <Link variant="body2" onClick={() => navigate('/auth/recovery')}>
-                  {t('auth.forgotpassword')}
+                <Link to="/auth/recovery">
+                  <Typography variant="body2">{t('auth.forgotpassword')}</Typography>
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" onClick={() => navigate('/')}>
-                  {'Our terms of service (TOS)'}
+                <Link to="">
+                  <Typography
+                    variant="body2"
+                    onClick={() =>
+                      signIn({ email: 'demouser@example.com', password: 'demo12345' }).then(() =>
+                        navigate('/')
+                      )
+                    }
+                  >
+                    {t('auth.demo')}
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>

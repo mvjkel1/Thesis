@@ -27,7 +27,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
   const [error, setError] = useState();
   const user = useSelector((state) => state.auth.user);
   const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -83,7 +83,7 @@ export const EditGroupData = ({ openByDefault, ...props }) => {
       <HeaderWrapper>
         <HeaderText>{t('editGroupData.editgroupdata')}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
-          {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+          {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
         </IconButton>
       </HeaderWrapper>
       <Collapse in={open}>

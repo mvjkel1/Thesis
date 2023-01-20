@@ -1,70 +1,21 @@
-body {
-  overscroll-behavior-y: none;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-#side {
-  padding: 0;
-  overflow: hidden;
-}
-
-#sidetitle {
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-right: auto;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  font-size: 15px;
-  overflow: hidden;
-}
-
-#sidetext {
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-bottom: 5px;
-  margin-right: auto;
-  font-size: 15px;
-  overflow: hidden;
-}
-
-.react-tag-input {
-  min-height: 55px !important;
-  border-width: 2px !important;
-  border-radius: 5px !important;
-}
-
-input {
-  border-radius: 20px;
-  padding: 15px;
-  border-color: white !important;
-  border: solid;
-  background-color: #2f2f2f;
-  margin: 5px;
-
-  border-width: 2px;
-}
-
+/* Fix for iOS safari navbar & chrome -wekit-fill-available bug...  */
 body {
   height: 100vh;
+  overscroll-behavior-y: none;
+}
+@supports (-webkit-touch-callout: none) {
+  body {
+    height: -webkit-fill-available;
+  }
 }
 
 #root {
   height: 100%;
 }
 
-.carousel .thumb img {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.carousel .slide img {
-  max-height: 60vh;
-  width: auto;
-  overflow: hidden;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 .paperplane {
@@ -96,31 +47,43 @@ body {
   height: 48px;
   border-radius: 50%;
   position: relative;
-  animation: rotate 1s linear infinite
+  animation: rotate 1s linear infinite;
 }
-.loader::before , .loader::after {
-  content: "";
+.loader::before,
+.loader::after {
+  content: '';
   box-sizing: border-box;
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid #FFF;
-  animation: prixClipFix 2s linear infinite ;
+  border: 5px solid #fff;
+  animation: prixClipFix 2s linear infinite;
 }
-.loader::after{
-  transform: rotate3d(90, 90, 0, 180deg );
-  border-color: #FF3D00;
+.loader::after {
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #ff3d00;
 }
 
 @keyframes rotate {
-  0%   {transform: rotate(0deg)}
-  100%   {transform: rotate(360deg)}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes prixClipFix {
-    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-    75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
 }
 
 @media only screen and (max-width: 900px) {
@@ -129,5 +92,12 @@ body {
   }
 }
 
-
-
+.mobile-splash-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
+  align-items: flex-start;
+  overflow-x: hidden;
+}

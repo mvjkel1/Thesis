@@ -31,7 +31,7 @@ export const getWorkgroups = (token) => (dispatch) => {
     .then((res) => {
       //const groupId = store.getState().workgroups.currentWorkgroup._id;
       const group = store.getState().workgroups.currentWorkgroup;
-      if(group?._id){
+      if (group?._id) {
         dispatch(getClasses(group._id, token));
         dispatch(getEvents(group._id, token));
       }

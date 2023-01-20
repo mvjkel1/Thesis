@@ -1,10 +1,10 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 const Main = () => {
   return (
-    <Stack direction="column" spacing={4} alignItems="center">
-      <Box sx={{ width: '100%', minHeight: '100vh' }}>
+    <Stack direction="column" spacing={4} alignItems="center" sx={{ minHeight: '100vh' }}>
+      <Box sx={{ width: '100%' }}>
         <Outlet />
       </Box>
     </Stack>

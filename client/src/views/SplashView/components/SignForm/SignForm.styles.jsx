@@ -7,7 +7,7 @@ export const FormBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   backgroundColor: theme.palette.background.light,
   overflow: 'hidden',
-  borderRadius: '0.5rem'
+  borderRadius: '1rem'
 }));
 
 export const FormContainer = styled(Box)(({ theme }) => ({

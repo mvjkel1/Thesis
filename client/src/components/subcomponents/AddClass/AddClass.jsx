@@ -27,7 +27,7 @@ export default function AddClass({ openByDefault, ...props }) {
   const [open, setOpen] = useState(openByDefault || false);
   const token = useSelector((state) => state.auth.user.token);
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -78,7 +78,7 @@ export default function AddClass({ openByDefault, ...props }) {
         <HeaderWrapper>
           <HeaderText>{t('addClass.createnewclass')}</HeaderText>
           <IconButton onClick={() => setOpen(!open)}>
-            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+            {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
           </IconButton>
         </HeaderWrapper>
         <Collapse in={open}>

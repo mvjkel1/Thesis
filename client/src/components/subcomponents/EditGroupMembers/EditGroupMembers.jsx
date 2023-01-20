@@ -16,7 +16,7 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
   const [open, setOpen] = useState(openByDefault || false);
   const group = useSelector((state) => state.workgroups.data)?.find((group) => group._id == id);
   const user = useSelector((state) => state.auth.user);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
@@ -65,13 +65,13 @@ export const EditGroupMembers = ({ openByDefault, ...props }) => {
       <HeaderWrapper>
         <HeaderText>{t('editGroupMembers.editgroupmembers')}</HeaderText>
         <IconButton onClick={() => setOpen(!open)}>
-          {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon/>}
+          {open ? <ExpandLessRoundedIcon /> : <ArrowDropDownCircleIcon />}
         </IconButton>
       </HeaderWrapper>
       <Collapse in={open}>
         <Box sx={{ height: 300 }}>
           <DataGrid
-            sx={{borderRadius: 4, marginTop: 1}}
+            sx={{ borderRadius: 4, marginTop: 1 }}
             getRowId={(row) => row._id}
             rows={group?.members || []}
             columns={columns}
