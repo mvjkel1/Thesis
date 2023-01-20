@@ -19,7 +19,7 @@ function throttle(callback, delay) {
   };
 }
 
-export const Moodboard = () => {
+const Moodboard = () => {
   const [open, setOpen] = useState(true);
   const drawing = useRef(false);
   const board = useRef({ color: 'black' });
@@ -215,3 +215,5 @@ export const Moodboard = () => {
     </FeatureContainer>
   );
 };
+
+export default Moodboard;
