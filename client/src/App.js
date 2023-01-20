@@ -20,7 +20,7 @@ const GroupManager = React.lazy(() => import('./components/GroupManager/GroupMan
 const GroupAdmin = React.lazy(() => import('./components/GroupAdmin/GroupAdmin'));
 const ClassDetails = React.lazy(() => import('./components/ClassDetails/ClassDetails'));
 const GroupFiles = React.lazy(() => import('./components/GroupFiles/GroupFiles'));
-const { Profile } = React.lazy(() => import('./components/Profile/Profile'));
+const Profile = React.lazy(() => import('./components/Profile/Profile'));
 
 function RequireAuth({ children, redirectTo }) {
   const user = useSelector((state) => state.auth.user);
@@ -67,7 +67,7 @@ function App() {
             <Route path="/class/:id" element={<SuspenseWrapper component={<ClassDetails />} />} />
             <Route path="/group-files" element={<SuspenseWrapper component={<GroupFiles />} />} />
             <Route path="/profile/:id" element={<SuspenseWrapper component={<Profile />} />} />
-            <Route path="/profile" element={<SuspenseWrapper component={<WelcomeScreen />} />} />
+            <Route path="/profile" element={<SuspenseWrapper component={<Profile />} />} />
           </Route>
         </Routes>
         <StatusSnackbar />
