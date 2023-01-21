@@ -132,7 +132,7 @@ const GroupPicker = ({ workgroups, currentWorkgroup, handleWorkgroupChange }) =>
   );
 };
 
-export const Sidebar = () => {
+export const Sidebar = ({passive, ...props}) => {
   const workgroups = useSelector((state) => state.workgroups.data);
   const classes = useSelector((state) => state.classes.data);
   const currentWorkgroup = useSelector((state) => state.workgroups.currentWorkgroup);
@@ -140,6 +140,7 @@ export const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const token = useSelector(state => state.auth.user.token);
   const { t } = useTranslation();
 
   const handleWorkgroupChange = (workgroupId) => {
@@ -156,8 +157,9 @@ export const Sidebar = () => {
   };
 
   useEffect(() => {
+    if(passive) return;
     if (user.token) dispatch(getWorkgroups(user.token));
-  }, [user]);
+  }, [token]);
 
   return (
     <Box
