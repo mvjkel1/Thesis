@@ -61,7 +61,6 @@ export default function AddClass({ openByDefault, ...props }) {
     addClass(data.name, token)
       .then(() => {
         showAlert('success');
-        setUrl('https://blabla.com/invite/322-bfdda-sgaw');
         dispatch(getWorkgroups(token));
         reset();
       })
@@ -124,23 +123,6 @@ export default function AddClass({ openByDefault, ...props }) {
               {t('addClass.submit')}
             </SubmitButton>
           </FormContainer>
-          <Collapse in={url}>
-            <Typography mt={2} mb={1}>
-              Invite share link
-            </Typography>
-            <LinkTextfield
-              fullWidth
-              id="outlined-adornment-password"
-              InputLabelProps={{ shrink: false }}
-              value={url || 'Submit the form to get your invitation link.'}
-              disabled
-              endAdornment={
-                <InputAdornment position="end">
-                  <Button onClick={() => navigator.clipboard.writeText(url)}>Copy</Button>
-                </InputAdornment>
-              }
-            />
-          </Collapse>
         </Collapse>
       </FeatureContainer>
     </React.Fragment>

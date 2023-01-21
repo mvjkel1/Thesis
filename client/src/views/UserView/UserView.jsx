@@ -21,7 +21,7 @@ const UserView = () => {
         }}
         hideBackdrop
       >
-        <Sidebar />
+        <Sidebar passive />
       </SwipeableDrawer>
       <Box bgcolor="background.main">
         <Grid container spacing={0}>

@@ -11,7 +11,6 @@ import RecoveryForm from './views/SplashView/components/RecoveryForm/RecoveryFor
 import { getDesignTokens } from './styling/theme';
 import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
 import { StatusSnackbar, MessageSnackbar } from './views/UserView/Snackbar/Snackbar';
-import { MobileTest } from './components/MobileTest/MobileTest';
 const ChatBox = React.lazy(() => import('./components/subcomponents/ChatBox/ChatBox'));
 const Chat = React.lazy(() => import('./components/Chat/Chat'));
 const Moodboard = React.lazy(() => import('./components/Moodboard/Moodboard'));
@@ -39,7 +38,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<MobileTest />} />
           <Route path="/auth" element={<SplashView />}>
             <Route path="/auth" element={<SignForm />} />
             <Route path="/auth/recovery/" element={<RecoveryForm />} />
