@@ -173,7 +173,7 @@ export default function RecoveryForm() {
 
             {!isTokenSent && (
               <SubmitButton type="submit" fullWidth variant="contained">
-                Submit
+                {t('auth.submit')}
               </SubmitButton>
             )}
             <SecondaryButton

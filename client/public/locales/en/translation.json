@@ -24,7 +24,8 @@
         "passwordrequired": "Password is required",
         "passwordsdonotmatch": "Your passwords do not match",
         "passwordrecovery": "Password recovery",
-        "demo": "Try me (demo)"
+        "demo": "Try me (demo)",
+        "submit": "Submit"
     },
     "WelcomeScreen": {
         "images": "Images",
@@ -32,7 +33,8 @@
         "videos": "Videos",
         "others": "Others",
         "events": "Events",
-        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or create your own."
+        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or ",
+        "creategroup": "create your own"
     },
     "Sidebar": {
         "menu": "Main menu",

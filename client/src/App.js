@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './styling/App.css';
+import { useSelector } from 'react-redux';
+import { getDesignTokens } from './styling/theme';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Loader } from './loader';
+import { ViewLoader } from './styling/loader';
+import { StatusSnackbar, MessageSnackbar } from './views/UserView/Snackbar/Snackbar';
 import UserView from './views/UserView/UserView';
 import SplashView from './views/SplashView/SplashView';
-import { useSelector } from 'react-redux';
 import SignForm from './views/SplashView/components/SignForm/SignForm';
 import RecoveryForm from './views/SplashView/components/RecoveryForm/RecoveryForm';
-import { getDesignTokens } from './styling/theme';
 import InvitationForm from './views/SplashView/components/InvitationDialog/InvitationDialog';
-import { StatusSnackbar, MessageSnackbar } from './views/UserView/Snackbar/Snackbar';
 const ChatBox = React.lazy(() => import('./components/subcomponents/ChatBox/ChatBox'));
 const Chat = React.lazy(() => import('./components/Chat/Chat'));
 const Moodboard = React.lazy(() => import('./components/Moodboard/Moodboard'));
@@ -27,7 +27,7 @@ function RequireAuth({ children, redirectTo }) {
 }
 
 function SuspenseWrapper({ component }) {
-  return <React.Suspense fallback={<Loader />}>{component}</React.Suspense>;
+  return <React.Suspense fallback={<ViewLoader />}>{component}</React.Suspense>;
 }
 
 function App() {

@@ -14,7 +14,7 @@ import configureStore from 'redux-mock-store';
 import AddClass from './AddClass';
 import { getDesignTokens, lightPalette } from '../../../styling/theme';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Loader } from '../../../loader';
+import { Loader } from '../../../styling/loader';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../../i18n';
 import '@testing-library/jest-dom';

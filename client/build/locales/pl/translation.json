@@ -32,7 +32,8 @@
         "videos": "Filmy",
         "others": "Inne",
         "events": "Wydarzenia",
-        "noevents": "Nie należysz jeszcze do żadnej grupy. Uzyj linku zaproszeniowego aby dołączyć, lub stwórz własną grupę."
+        "noevents": "Nie należysz jeszcze do żadnej grupy. Uzyj linku zaproszeniowego aby dołączyć, lub ",
+        "creategroup": "stwórz własną grupę."
     },
     "Sidebar": {
         "menu": "Menu główne",
