@@ -29,9 +29,10 @@ const Moodboard = () => {
   };
 
   const drawLine = (x0, y0, x1, y1, color, canvas, context, emit) => {
+    const userOffset = emit ? offset.current : {top: 0, left: 0};
     context.beginPath();
-    context.moveTo(x0 - offset.current.left, y0 - offset.current.top);
-    context.lineTo(x1 - offset.current.left, y1 - offset.current.top);
+    context.moveTo(x0 - userOffset.left, y0 - userOffset.top);
+    context.lineTo(x1 - userOffset.left, y1 - userOffset.top);
     context.strokeStyle = color;
     context.lineWidth = 2;
     context.stroke();
@@ -44,10 +45,10 @@ const Moodboard = () => {
     var h = canvas.height;
 
     socketRef.current.emit('drawing', {
-      x0: x0 / w,
-      y0: y0 / h,
-      x1: x1 / w,
-      y1: y1 / h,
+      x0: (x0 - offset.current.left) / w,
+      y0: (y0 - offset.current.top) / h,
+      x1: (x1 - offset.current.left) / w,
+      y1: (y1 - offset.current.top) / h,
       color: color
     });
   };
@@ -147,7 +148,7 @@ const Moodboard = () => {
         canvas.width = containerRef.current.getBoundingClientRect().width - 32;
         canvas.height = 450;
         drawPrevious(board.current.state, canvas, context);
-      }, 350);
+      }, 500);
     }
 
     return () => socketRef.current.disconnect();

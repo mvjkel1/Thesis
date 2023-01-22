@@ -32,7 +32,8 @@
         "videos": "Videos",
         "others": "Others",
         "events": "Events",
-        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or create your own."
+        "noevents": "It seems that you do not belong to a group yet. Use invitation link to an join existing one or ",
+        "creategroup": "create your own."
     },
     "Sidebar": {
         "menu": "Main menu",

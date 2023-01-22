@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import './i18n';
-import { Loader } from './loader';
+import { Loader } from './styling/loader';
 
 ReactDOM.render(
   <Suspense fallback={<Loader />}>

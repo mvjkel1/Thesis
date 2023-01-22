@@ -110,7 +110,7 @@ const WelcomeScreen = (props) => {
                 <Stack />
               </Chart>
             ) : (
-              <Typography>{t('WelcomeScreen.noevents')}</Typography>
+              <Typography>{t('WelcomeScreen.noevents')}<Link style={{textDecoration: "none"}} to="/manage-groups">{t('WelcomeScreen.creategroup')}</Link></Typography>
             )}
           </FileCard>
         </EventBarContainer>
