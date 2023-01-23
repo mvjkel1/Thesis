@@ -7,5 +7,8 @@
         "install-client": "cd client && npm install --force && npm run build && cd ..",
         "install-server": "cd server && npm install && cd .. ",
         "heroku-postbuild": "npm run install-client && npm run install-server"
+    },
+    "dependencies": {
+        "nodemon": "^2.0.20"
     }
 }
