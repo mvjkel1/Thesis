@@ -145,10 +145,11 @@ const Moodboard = () => {
 
     if (canvas) {
       setTimeout(() => {
-        offset.current = canvas.getBoundingClientRect();
         canvas.width = containerRef.current.getBoundingClientRect().width - 32;
+        offset.current = canvas.getBoundingClientRect();
         canvas.height = 450;
-      }, 750);
+        drawPrevious(board.current.state, canvas, context)
+      }, 1000);
     }
     return () => socketRef.current.disconnect();
   }, [workgroup]);
