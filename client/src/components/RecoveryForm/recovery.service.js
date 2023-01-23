@@ -1,5 +1,5 @@
 import axios from 'axios';
-import configData from '../../../../config.json';
+import configData from '../../config.json';
 const API_URL = `${configData.SERVER_URL}api/v1/users/`;
 
 export const requestResetToken = (data) => {

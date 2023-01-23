@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../../redux/actions/auth';
-import { registerAction } from '../../../../redux/actions/auth';
+import { login } from '../../redux/actions/auth';
+import { registerAction } from '../../redux/actions/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Collapse, LinearProgress } from '@mui/material';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ import {
   SecondaryButton,
   SubmitButton
 } from './SignForm.styles';
-import { joinGroup } from '../../../../redux/actions/workgroups';
+import { joinGroup } from '../../redux/actions/workgroups';
 
 export default function SignForm({ ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -227,12 +227,12 @@ export default function SignForm({ ...props }) {
             </SecondaryButton>
             <Grid container>
               <Grid item xs>
-                <Link to="/auth/recovery">
+                <Link style={{textDecoration: "none"}} to="/auth/recovery">
                   <Typography variant="body2">{t('auth.forgotpassword')}</Typography>
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="">
+                <Link style={{textDecoration: "none"}} to="">
                   <Typography
                     variant="body2"
                     onClick={() =>

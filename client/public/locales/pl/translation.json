@@ -49,7 +49,8 @@
         "newbadge": "Nowość",
         "storage": "Przestrzeń dyskowa",
         "used": "zajęte",
-        "free": "wolne"
+        "free": "wolne",
+        "addClass": "Dodaj podgrupę"
     },
     "Rightbar": {
         "users": "Użytkownicy",
@@ -131,5 +132,10 @@
     "description": {
       "header": "Student co-working platform",
       "subheader": "share, schedule and draw together"
+    },
+    "MobileSplash": {
+        "hello": "Cześć!",
+        "desc": "Zacznij współpracę w swojej społeczności studenckiej.",
+        "submit": "Rozpocznij"
     }
   }

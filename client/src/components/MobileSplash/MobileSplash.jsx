@@ -2,11 +2,15 @@ import anime from 'animejs';
 import { Box, Typography } from '@mui/material';
 import { useRef } from 'react';
 import { useEffect } from 'react';
-import { SubmitButton } from './MobileTest.styles';
+import { SubmitButton } from './MobileSplash.styles';
+import { useTranslation } from 'react-i18next';
 
-export const MobileTest = () => {
+
+const MobileSplash = () => {
   const animation = useRef({});
   const path = useRef(null);
+  const { t } = useTranslation();
+
   useEffect(() => {
     animation.current.logo = anime({
       targets: '.logo-container',
@@ -51,10 +55,10 @@ export const MobileTest = () => {
           id="header-main"
           sx={{ fontSize: '10.2vw', fontWeight: 500, WebkitFontSmoothing: 'auto', width: '50vw' }}
         >
-          Hello!
+          {t('MobileSplash.hello')}
         </Typography>
         <Typography id="header-secondary" sx={{ fontSize: '5.2vw', fontWeight: 500 }}>
-          Start co-working in your student community.
+          {t('MobileSplash.desc')}
         </Typography>
         <SubmitButton
           disableElevation
@@ -66,7 +70,7 @@ export const MobileTest = () => {
           }}
           variant="contained"
         >
-          Begin
+          {t('MobileSplash.submit')}
         </SubmitButton>
       </Box>
       <Box className="paper-plane" sx={{ position: 'absolute', bottom: '65vw' }}>
@@ -104,3 +108,5 @@ export const MobileTest = () => {
     </Box>
   );
 };
+export default MobileSplash;
+

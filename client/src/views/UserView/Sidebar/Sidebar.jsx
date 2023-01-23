@@ -39,6 +39,7 @@ import { switchDrawer } from '../../../redux/actions/theme';
 import UserToolbar from '../../../components/subcomponents/UserToolbar/UserToolbar';
 
 const CollapsingList = ({ name, subpages, workgroup, isAdmin, handleItemClick }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(!open);
@@ -70,7 +71,7 @@ const CollapsingList = ({ name, subpages, workgroup, isAdmin, handleItemClick })
               <ListItemIcon>
                 <AddIcon color="icon" />
               </ListItemIcon>
-              <ListItemText primary={<Typography color="text.primary">Add class</Typography>} />
+              <ListItemText primary={<Typography color="text.primary">{t('Sidebar.addClass')}</Typography>} />
             </SideBarSubItem>
           )}
           {subpages?.map((subpage) => (

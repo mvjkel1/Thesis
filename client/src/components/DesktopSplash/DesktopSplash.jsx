@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import anime from 'animejs';
 import { useEffect } from 'react';
 
-const Description = () => {
+const DesktopSplash = () => {
   const { t } = useTranslation();
   const path = useRef(null);
   const animation = useRef(null);
@@ -67,4 +67,4 @@ const Description = () => {
   );
 };
 
-export default Description;
+export default DesktopSplash;

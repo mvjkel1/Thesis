@@ -1,9 +1,9 @@
 import Grid from '@mui/material/Grid';
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
-import Description from './components/Description/Description';
+import DesktopSplash from '../../../components/DesktopSplash/DesktopSplash';
 
-const Auth2 = () => {
+const Container = () => {
   return (
     <React.Fragment>
       <Grid
@@ -34,7 +34,7 @@ const Auth2 = () => {
           }}
           bgcolor="background.dark"
         >
-          <Description />
+          <DesktopSplash />
         </Grid>
 
         <Grid
@@ -60,4 +60,4 @@ const Auth2 = () => {
   );
 };
 
-export default Auth2;
+export default Container;
