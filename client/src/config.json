@@ -1,5 +1,5 @@
-{ 
-    "SERVER_URL": "/",
-    "CHAT_SOCKET_SERVER_URL": "/",
-    "MOODBOARD_SOCKET_SERVER_URL": "/moodboard"
+{
+    "SERVER_URL": "http://localhost:3001/",
+    "CHAT_SOCKET_SERVER_URL": "ws://localhost:3001/",
+    "MOODBOARD_SOCKET_SERVER_URL": "ws://localhost:3001/moodboard"
 }
