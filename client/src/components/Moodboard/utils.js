@@ -16,6 +16,26 @@ export function throttle(callback, delay) {
     };
   }
 
+export function stopTouchScrolling(canvas){
+    // Prevent scrolling when touching the canvas
+    document.body.addEventListener("touchstart", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    document.body.addEventListener("touchend", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    document.body.addEventListener("touchmove", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    }
+
 export function adjustMobileScrolling(){
   const rootElement = document.getElementById("root");
   if(isTouchDevice())

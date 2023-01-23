@@ -7,11 +7,12 @@ import { io } from 'socket.io-client';
 import configData from '../../config.json';
 import { FeatureContainer, HeaderText, HeaderWrapper, StyledBadge } from './Moodboard.styles';
 import { useSelector } from 'react-redux';
-import { adjustMobileScrolling, throttle } from './utils';
+import { stopTouchScrolling, throttle } from './utils';
 
 const Moodboard = () => {
   const [open, setOpen] = useState(true);
   const [online, setOnline] = useState([]);
+  const [prev, setPrev] = useState(null);
   const drawing = useRef(false);
   const board = useRef({ color: 'black' });
   const canvasRef = useRef(null);
@@ -78,6 +79,7 @@ const Moodboard = () => {
     socketRef.current = io(configData.MOODBOARD_SOCKET_SERVER_URL, {auth: {workgroup: workgroup, user: {name: user.name}}});
     socketRef.current.on('previousDrawings', (data) => {
       board.current.state = data;
+      setPrev(data);
     });
     socketRef.current.on('drawing', (data) => onDrawing(data, canvas, context));
     socketRef.current.on('clear', () => {
@@ -133,43 +135,29 @@ const Moodboard = () => {
     canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
 
     // Touch support for mobile devices
-    canvas.addEventListener('touchstart', (e) => {
-      if(e.target == canvas)
-      e.preventDefault();
-      onMouseDown(e)
-    }
-      , {passive: false});
-    canvas.addEventListener('touchend', (e) => {
-      if(e.target == canvas)
-      e.preventDefault();
-      onMouseUp(e)
-    }, {passive: false});
-    canvas.addEventListener('touchcancel', (e) => {
-      if(e.target == canvas)
-      e.preventDefault();
-      onMouseUp(e)
-    }, {passive: false});
-    canvas.addEventListener('touchmove', (e) => {
-      if(e.target == canvas)
-      e.preventDefault();
-      throttle(() => onMouseMove(e), 10)
-    }, {passive: false});
+    canvas.addEventListener('touchstart', onMouseDown, false);
+    canvas.addEventListener('touchend', onMouseUp, false);
+    canvas.addEventListener('touchcancel', onMouseUp, false);
+    canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
     window.addEventListener('resize', onResize, false);
-
-    adjustMobileScrolling();
+    stopTouchScrolling(canvas);
 
     if (canvas) {
       setTimeout(() => {
         offset.current = canvas.getBoundingClientRect();
         canvas.width = containerRef.current.getBoundingClientRect().width - 32;
         canvas.height = 450;
-        drawPrevious(board.current.state, canvas, context);
-      }, 500);
+      }, 750);
     }
-
     return () => socketRef.current.disconnect();
   }, [workgroup]);
+
+  useEffect(() => {
+    if(prev)
+      drawPrevious(prev, canvasRef.current, canvasRef.current.getContext('2d'));
+  }, [prev])
+
 
   return (
     <FeatureContainer>

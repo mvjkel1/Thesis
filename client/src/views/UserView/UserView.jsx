@@ -67,10 +67,22 @@ const UserView = () => {
             md={6.25}
             lg={6.25}
             xl={6.25}
+            pl={{
+              xs: 0.25,
+              sm: 0.25,
+              md: 2,
+              lg: 2,
+              xl: 2
+            }}
+            pr={{
+              xs: 0.25,
+              sm: 0.25,
+              md: 2,
+              lg: 2,
+              xl: 2
+            }}
             sx={{
               borderColor: theme.palette.border.main,
-              paddingLeft: 2,
-              paddingRight: 2,
               zIndex: 10,
               display: 'flex',
               flexDirection: 'column'
