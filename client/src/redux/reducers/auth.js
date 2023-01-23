@@ -11,7 +11,6 @@ import {
 
 const initialState = {
   user: null || JSON.parse(localStorage.getItem('user')),
-
   error: null
 };
 

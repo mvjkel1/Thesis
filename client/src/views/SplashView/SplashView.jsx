@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { MobileTest } from '../../components/MobileTest/MobileTest';
-import AuthContainer from './AuthContainer';
+import MobileSplash from '../../components/MobileSplash/MobileSplash';
+import Container from './Container/Container';
 
 const SplashView = () => {
   return (
@@ -36,7 +36,7 @@ const SplashView = () => {
             xl: 'none'
           }}
         >
-          <MobileTest />
+          <MobileSplash />
         </Grid>
         <Grid
           item
@@ -92,7 +92,7 @@ const SplashView = () => {
             xl: 'flex-start'
           }}
         >
-          <AuthContainer />
+          <Container />
         </Grid>
         <Grid
           item

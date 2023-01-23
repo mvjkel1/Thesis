@@ -7,7 +7,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { SubmitButton } from './InvitationDialog.styles';
 import { useEffect } from 'react';
-import { joinGroup } from '../../../../redux/actions/workgroups';
+import { joinGroup } from '../../redux/actions/workgroups';
 
 const FADE_INTERVAL_MS = 1750;
 const WORD_CHANGE_INTERVAL_MS = FADE_INTERVAL_MS * 2;

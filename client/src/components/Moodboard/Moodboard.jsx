@@ -133,10 +133,27 @@ const Moodboard = () => {
     canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
 
     // Touch support for mobile devices
-    canvas.addEventListener('touchstart', onMouseDown, false);
-    canvas.addEventListener('touchend', onMouseUp, false);
-    canvas.addEventListener('touchcancel', onMouseUp, false);
-    canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
+    canvas.addEventListener('touchstart', (e) => {
+      if(e.target == canvas)
+      e.preventDefault();
+      onMouseDown(e)
+    }
+      , {passive: false});
+    canvas.addEventListener('touchend', (e) => {
+      if(e.target == canvas)
+      e.preventDefault();
+      onMouseUp(e)
+    }, {passive: false});
+    canvas.addEventListener('touchcancel', (e) => {
+      if(e.target == canvas)
+      e.preventDefault();
+      onMouseUp(e)
+    }, {passive: false});
+    canvas.addEventListener('touchmove', (e) => {
+      if(e.target == canvas)
+      e.preventDefault();
+      throttle(() => onMouseMove(e), 10)
+    }, {passive: false});
 
     window.addEventListener('resize', onResize, false);
 

@@ -49,7 +49,8 @@
         "newbadge": "New",
         "storage": "Storage",
         "used": "used",
-        "free": "free"
+        "free": "free",
+        "addClass": "Add class"
     },
     "Rightbar": {
         "users": "Workgroup users",
@@ -130,5 +131,10 @@
     "description": {
         "header": "Student co-working platform",
         "subheader": "share, schedule and draw together"
-      }
+      },
+    "MobileSplash": {
+        "hello": "Hello!",
+        "desc": "Start co-working in your student community.",
+        "submit": "Begin"
+    }
   }
