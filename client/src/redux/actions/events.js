@@ -7,6 +7,7 @@ const mapAppointmentData = (appointment) => ({
   id: appointment._id,
   startDate: moment(appointment.startDate).format(),
   endDate: moment(appointment.endDate).format(),
+  description: appointment.description,
   title: appointment.title,
   class: appointment.class,
   group: appointment.group,

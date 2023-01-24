@@ -16,6 +16,9 @@ const calendarEventSchema = new mongoose.Schema({
   endDate: {
     type: Number,
   },
+  description: {
+    type: String
+  },
   group: {
     type: mongoose.Schema.ObjectId,
     ref: 'Group'

@@ -18,14 +18,13 @@ exports.createEvent = catchAsync(async (req, res, next) => {
     return next(new AppError('Class does not exist..', StatusCodes.UNAUTHORIZED));
   }
   const dateobj = new Date(req.body.startDate);
-  console.log(parseInt(req.body.startDate));
-  console.log(parseInt(req.body.endDate));
 
   const newEvent = await CalendarEvent.create({
     title: req.body.title,
     createdBy: user.id,
     startDate: parseInt(req.body.startDate),
     endDate: parseInt(req.body.endDate),
+    description: req.body.description,
     group: user.group,
     class: class_.id
   });

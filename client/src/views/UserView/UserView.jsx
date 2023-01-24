@@ -68,15 +68,15 @@ const UserView = () => {
             lg={6.25}
             xl={6.25}
             pl={{
-              xs: 0.25,
-              sm: 0.25,
+              xs: 1.5,
+              sm: 1.5,
               md: 2,
               lg: 2,
               xl: 2
             }}
             pr={{
-              xs: 0.25,
-              sm: 0.25,
+              xs: 1.5,
+              sm: 1.5,
               md: 2,
               lg: 2,
               xl: 2
