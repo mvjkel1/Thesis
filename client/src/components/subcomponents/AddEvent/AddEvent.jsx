@@ -96,6 +96,7 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
       data.name,
       moment(data.startDate).format('x'),
       moment(data.endDate).format('x'),
+      data.description,
       groupId,
       classId,
       token
@@ -218,8 +219,8 @@ export default function AddEvent({ openByDefault, classId, groupId, ...props }) 
                   multiline
                   rows={3}
                   fullWidth
-                  name="name"
-                  id="name"
+                  name="description"
+                  id="description"
                   placeholder={t('addEvent.description')}
                   inputRef={descriptionRef}
                   {...descriptionProps}

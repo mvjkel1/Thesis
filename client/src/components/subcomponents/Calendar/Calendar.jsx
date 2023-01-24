@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
+import DescriptionIcon from '@mui/icons-material/Description';
 import moment from 'moment';
 import {
   StyledLayout,
@@ -25,21 +26,29 @@ import { useState } from 'react';
 const Content = ({ children, appointmentData, ...restProps }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
     <Grid container alignItems="center">
-      <Grid item xs={2} sx={{ justifyContent: 'center' }}>
+      <Grid item mt={1} xs={2} sx={{ justifyContent: 'center' }}>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <PersonIcon />
         </Box>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item mt={1} xs={10}>
         <span>{appointmentData.createdBy.name}</span>
       </Grid>
-      <Grid item xs={2} sx={{ justifyContent: 'center' }}>
+      <Grid item mt={2} xs={2} sx={{ justifyContent: 'center' }}>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <SchoolIcon />
         </Box>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item mt={2} xs={10}>
         <span>{appointmentData.class?.name}</span>
+      </Grid>
+      <Grid item mt={2} xs={2} sx={{ justifyContent: 'center'}}>
+        <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+          <DescriptionIcon />
+        </Box>
+      </Grid>
+      <Grid item mt={2} xs={10}>
+        <span>{appointmentData?.description}</span>
       </Grid>
     </Grid>
   </AppointmentTooltip.Content>

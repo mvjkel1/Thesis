@@ -3,8 +3,6 @@ import { Box, Card, styled, Typography } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
-  marginLeft: theme.spacing(2),
-  marginRight: theme.spacing(2),
   display: 'flex',
   flexDirection: 'column'
 }));

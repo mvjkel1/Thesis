@@ -49,7 +49,7 @@ const MobileSplash = () => {
         <img src="/assets/logo.svg" width="54" height="54" />
         <Typography sx={{ fontSize: 20, fontWeight: 500 }}>StudentShare</Typography>
       </Box>
-      <Box className="description-container" sx={{ marginTop: 'auto', position: 'relative' }}>
+      <Box className="description-container" sx={{ marginTop: 'auto', position: 'relative', width: "80vw" }}>
         <Typography
           mt={12}
           id="header-main"
