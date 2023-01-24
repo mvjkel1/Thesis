@@ -53,8 +53,8 @@ exports.signup = catchAsync(async (req, res, next) => {
   try {
     await sendEmail({
       email: req.body.email,
-      subject: 'Witam',
-      message: 'Witam'
+      subject: 'Witamy - zespół studentshare :)',
+      message: 'Zapraszamy do korzystania z aplikacji - https://studentshare.pl/.'
     });
   } catch (err) {
     return next(
@@ -148,7 +148,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 3) Send it to user's email
   const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}}`;
 
-  const message = `Boguś zapomniał hasła? Niesamowite - ${resetURL}`;
+  const message = `Zapomniałeś hasła? Oto link umożliwiający ustawienie nowego - ${resetURL}`;
 
   try {
     await sendEmail({
