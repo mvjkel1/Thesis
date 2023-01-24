@@ -12,8 +12,7 @@ const { ObjectId } = require('mongoose').Types;
 exports.createGroup = catchAsync(async (req, res, next) => {
   if (!req.body.founder) req.body.founder = req.user.id;
   const founder = await User.findById(req.body.founder);
-  if (founder.group)
-    return next(new AppError('You already belong to a group.', StatusCodes.UNAUTHORIZED));
+  if (founder.group) return next(new AppError('Należysz już do grupy.', StatusCodes.UNAUTHORIZED));
   if (founder.role != 'admin') founder.role = 'group-representative';
   const newGroup = await Group.create(req.body);
   const groupToken = newGroup.createInviteToken();
@@ -36,7 +35,7 @@ exports.inviteToGroup = catchAsync(async (req, res, next) => {
   const groupToken = group.createInviteToken();
   await group.save({ validateBeforeSave: false });
   const groupURL = `${req.protocol}://${req.get('host')}/api/v1/groups/${groupToken}}`;
-  console.log(groupToken)
+  console.log(groupToken);
 
   const message = `${user.name} zaprasza do grupy ${group.name} - ${groupURL}`;
 
@@ -49,7 +48,7 @@ exports.inviteToGroup = catchAsync(async (req, res, next) => {
       status: 'success',
       message: 'Token sent to email.',
       initiatedBy: user.name,
-      groupName: group.name,
+      groupName: group.name
     });
   } catch (err) {
     group.inviteToken = undefined;
