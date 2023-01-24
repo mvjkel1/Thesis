@@ -23,7 +23,6 @@ export const FeatureContainer = styled(Box)(({ theme }) => ({
 export const LinkTextfield = styled(OutlinedInput)(({ theme }) => ({
   borderRadius: theme.spacing(2),
   '.MuiInputBase-inputAdornedEnd': {
-    backgroundColor: 'lightgreen',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0
   },
