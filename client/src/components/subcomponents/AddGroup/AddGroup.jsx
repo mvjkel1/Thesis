@@ -68,7 +68,7 @@ export default function AddGroup({ openByDefault, ...props }) {
     addGroup(data.name, token)
       .then((res) => {
         showAlert('success');
-        setUrl('https://localhost:3000/invite/' + res.data.group.invitationToken);
+        setUrl(`studentshare.pl/invite/${res.data.group.invitationToken}`);
         dispatch(getWorkgroups(token));
         reset();
       })

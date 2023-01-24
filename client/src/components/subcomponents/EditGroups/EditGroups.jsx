@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LinkIcon from '@mui/icons-material/Link';
 import {
   Avatar,
   Collapse,
@@ -59,6 +60,14 @@ const GroupList = ({ groups, ...state }) => {
                   <SettingsIcon />
                 </IconButton>
               )}
+                <IconButton
+                  sx={{ marginRight: 0.1 }}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => navigator.clipboard.writeText(`studentshare.pl/invite/${group.invitationToken}`)}
+                >
+                  <LinkIcon />
+                </IconButton>
               {group?.founder?._id == user._id && (
                 <IconButton
                   sx={{ marginRight: 0.1 }}

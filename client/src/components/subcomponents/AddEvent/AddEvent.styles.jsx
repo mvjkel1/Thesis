@@ -20,19 +20,6 @@ export const FeatureContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2)
 }));
 
-export const LinkTextfield = styled(OutlinedInput)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  '.MuiInputBase-inputAdornedEnd': {
-    backgroundColor: 'lightgreen',
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0
-  },
-  '.MuiInputAdornment-positionEnd': {
-    alignSelf: 'stretch',
-    maxHeight: '100%',
-    height: 'inherit'
-  }
-}));
 
 export const EventNameInput = styled(OutlinedInput)(({ theme }) => ({
   borderRadius: theme.spacing(2),
