@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import Calendar from '../subcomponents/Calendar/Calendar';
 import ImageIcon from '@mui/icons-material/Image';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -63,6 +63,11 @@ const WelcomeScreen = (props) => {
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
+
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, []);
+
 
   return (
     <MainContainer>

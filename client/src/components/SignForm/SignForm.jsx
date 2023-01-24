@@ -123,7 +123,6 @@ export default function SignForm({ ...props }) {
     action(data)
       .then((data) => executeBeforeRedirect(invitationToken, data.token))
       .then(() => navigate('/'))
-      .then(() => window.scrollTo(0,0))
       .finally(() => setIsLoading(false));
   };
 
