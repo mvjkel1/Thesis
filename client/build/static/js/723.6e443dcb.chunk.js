@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkforum_sample=self.webpackChunkforum_sample||[]).push([[723],{6723:function(r,t,e){e.r(t),e.d(t,{Chat:function(){return f}});e(2791);var u=e(228),n=e(4565),s=e(7332),o=e(184),f=function(){return(0,o.jsxs)(u.Z,{mt:2,children:[(0,o.jsx)(n.Z,{fontSize:20,fontWeight:500,ml:.5,color:"text.primary",children:"Chat with your group's users"}),(0,o.jsx)(s.Q,{})]})};t.default=f}}]);
-//# sourceMappingURL=723.6e443dcb.chunk.js.map
